@@ -1,14 +1,14 @@
 html {
-  @include font-size(5, mobile, true, true);
+  @include font-size-att(5, mobile, true, true);
   @if ( get-font-size(5, desktop) != get-font-size(5, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(5, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(5, desktop, true, true, true);
+    }
   }
 }
 
 body {
-  color: color(typography, 2);
+  color: get-color(typography, 2);
   font-size: 1rem;
 }
 
@@ -17,67 +17,67 @@ button,
 input,
 select,
 textarea {
-  @include font-family(base);
+  @include font-family-att(base);
 }
 
 a {
-  @include anchor-aspect(main);
+  @include anchor-aspect-att(main);
 }
 
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   clear: both;
-  color: color(typography, 1);
+  color: get-color(typography, 1);
   @if ( get-font-family(heading) != get-font-family(base) ) {
-    @include font-family(heading);
+    @include font-family-att(heading);
   }
-  @include font-weight(medium);
+  @include font-weight-att(medium);
 
   &.web-app {
-    @include font-family(base);
+    @include font-family-att(base);
   }
 }
 
 h1,
 .h1 {
-  @include font-size(1, mobile, true, true, true);
+  @include font-size-att(1, mobile, true, true, true);
   @if ( get-font-size(1, desktop) != get-font-size(1, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(1, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(1, desktop, true, true, true);
+    }
   }
 
   &.web-app {
-    @include font-weight(bold);
+    @include font-weight-att(bold);
   }
 }
 
 h2,
 .h2 {
-  @include font-size(2, mobile, true, true, true);
+  @include font-size-att(2, mobile, true, true, true);
   @if ( get-font-size(2, desktop) != get-font-size(2, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(2, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(2, desktop, true, true, true);
+    }
   }
 
   &.web-app {
-    @include font-weight(bold);
+    @include font-weight-att(bold);
   }
 }
 
 h3,
 .h3,
 blockquote {
-  @include font-size(3, mobile, true, true, true);
+  @include font-size-att(3, mobile, true, true, true);
   @if ( get-font-size(3, desktop) != get-font-size(3, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(3, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(3, desktop, true, true, true);
+    }
   }
 
   &.web-app {
-    @include font-weight(semibold);
+    @include font-weight-att(semibold);
   }
 }
 
@@ -87,44 +87,44 @@ h6,
 .h4,
 .h5,
 .h6 {
-  @include font-size(4, mobile, true, true, true);
+  @include font-size-att(4, mobile, true, true, true);
   @if ( get-font-size(4, desktop) != get-font-size(4, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(4, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(4, desktop, true, true, true);
+    }
   }
 
   &.web-app {
-    @include font-weight(medium);
+    @include font-weight-att(medium);
   }
 }
 
-//@include media( '<=medium' ) { FIXME: put bs breakpoints
-//
-//  .h1-mobile {
-//    @include font-size(1, mobile, true, true, true);
-//  }
-//
-//  .h2-mobile {
-//    @include font-size(2, mobile, true, true, true);
-//  }
-//
-//  .h3-mobile {
-//    @include font-size(3, mobile, true, true, true);
-//  }
-//
-//  .h4-mobile,
-//  .h5-mobile,
-//  .h6-mobile {
-//    @include font-size(4, mobile, true, true, true);
-//  }
-//}
+@include media-breakpoint-down(md) {
+
+  .h1-mobile {
+    @include font-size-att(1, mobile, true, true, true);
+  }
+
+  .h2-mobile {
+    @include font-size-att(2, mobile, true, true, true);
+  }
+
+  .h3-mobile {
+    @include font-size-att(3, mobile, true, true, true);
+  }
+
+  .h4-mobile,
+  .h5-mobile,
+  .h6-mobile {
+    @include font-size-att(4, mobile, true, true, true);
+  }
+}
 
 .text-light {
-  color: color(typography, 2i);
+  color: get-color(typography, 2i);
 
   a {
-    color: color(typography, 2i);
+    color: get-color(typography, 2i);
   }
 }
 
@@ -132,25 +132,25 @@ h6,
 
   h1, h2, h3, h4, h5, h6,
   .h1, .h2, .h3, .h4, .h5, .h6 {
-    color: color(typography, 1i) !important;
+    color: get-color(typography, 1i) !important;
   }
 }
 
 .text-sm {
-  @include font-size(6, mobile, true, true, true);
+  @include font-size-att(6, mobile, true, true, true);
   @if ( get-font-size(6, desktop) != get-font-size(6, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(6, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(6, desktop, true, true, true);
+    }
   }
 }
 
 .text-xs {
-  @include font-size(7, mobile, true, true, true);
+  @include font-size-att(7, mobile, true, true, true);
   @if ( get-font-size(7, desktop) != get-font-size(7, mobile) ) {
-    //@include media( '>medium' ) { FIXME: put bs breakpoints
-    //  @include font-size(7, desktop, true, true, true);
-    //}
+    @include media-breakpoint-up(md) {
+      @include font-size-att(7, desktop, true, true, true);
+    }
   }
 }
 
@@ -182,7 +182,7 @@ dfn, cite, em, i {
 }
 
 blockquote {
-  color: color(typography, 3);
+  color: get-color(typography, 3);
   font-style: italic;
   margin-top: 24px;
   margin-bottom: 24px;
@@ -202,10 +202,10 @@ blockquote {
 }
 
 address {
-  color: color(typography, 2);
+  color: get-color(typography, 2);
   border-width: 1px 0;
   border-style: solid;
-  border-color: color(bg, 3);
+  border-color: get-color(bg, 3);
   padding: 24px 0;
   margin: 0 0 24px;
 }
@@ -223,15 +223,15 @@ pre .h3,
 pre .h4,
 pre .h5,
 pre .h6  {
-  @include font-family(pre);
+  @include font-family-att(pre);
 }
 
 pre, code, kbd, tt, var {
-  background: color(bg, 2);
+  background: get-color(bg, 2);
 }
 
 pre {
-  @include font-size(7, mobile, true, true);
+  @include font-size-att(7, mobile, true, true);
   max-width: 100%;
   overflow: auto;
   padding: 24px;
@@ -240,8 +240,8 @@ pre {
 }
 
 code, kbd, tt, var {
-  @include font-family(code);
-  @include font-size(7, mobile, true);
+  @include font-family-att(code);
+  @include font-size-att(7, mobile, true);
   padding: 2px 4px;
 }
 
@@ -254,12 +254,12 @@ mark, ins {
 }
 
 small {
-  @include font-size(6, mobile, true, true, true);
+  @include font-size-att(6, mobile, true, true, true);
 }
 
 b,
 strong {
-  @include font-weight(bold);
+  @include font-weight-att(bold);
 }
 
 button,
@@ -267,5 +267,5 @@ input,
 select,
 textarea,
 label {
-  @include font-size(5, mobile, true, true);
+  @include font-size-att(5, mobile, true, true);
 }

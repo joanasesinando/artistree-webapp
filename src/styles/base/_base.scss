@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  background: color(bg, 1); /* Fallback for when there is no custom background color defined. */
+  background: get-color(bg, 1); /* Fallback for when there is no custom background color defined. */
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 
@@ -21,7 +21,7 @@ body {
 
 hr {
   border: 0;
-  @include divider();
+  @include divider-att();
   margin-top: 24px;
   margin-bottom: 24px;
 }
@@ -51,7 +51,7 @@ dl {
 }
 
 dt {
-  @include font-weight(bold);
+  @include font-weight-att(bold);
 }
 
 dd {
@@ -70,7 +70,7 @@ figure {
 }
 
 figcaption {
-  @include font-size(7, mobile, true, true);
+  @include font-size-att(7, mobile, true, true);
   padding: 8px 0;
 }
 
@@ -86,7 +86,7 @@ table {
 }
 
 tr {
-  border-bottom: 1px solid color(bg, 3);
+  border-bottom: 1px solid get-color(bg, 3);
 }
 
 th {
@@ -108,12 +108,12 @@ td {
 
 ::-webkit-scrollbar {
   width: 8px;
-  background-color: color(bg, 2);
+  background-color: get-color(bg, 2);
 }
 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
-  background-color: color(bg, 2);
+  background-color: get-color(bg, 2);
   border-radius: 8px;
 }
 
@@ -122,14 +122,14 @@ td {
   background-image: -webkit-gradient(linear,
     40% 0%,
     85% 84%,
-    from(color(typography, 3)),
-    to(color(typography, 2)));
+    from(get-color(typography, 3)),
+    to(get-color(typography, 2)));
 
   &:hover {
     background-image: -webkit-gradient(linear,
       40% 0%,
       85% 84%,
-      from(darken(color(typography, 3), 5)),
-      to(darken(color(typography, 2), 5)));
+      from(darken(get-color(typography, 3), 5)),
+      to(darken(get-color(typography, 2), 5)));
   }
 }

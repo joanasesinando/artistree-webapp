@@ -1,9 +1,9 @@
 // --------------------------------------------------------------------------------------
 // Font-size + Line-height + Kerning ----------------------------------------------------
-// Usage example: @include font-size(1, mobile)
+// Usage example: @include font-size-att(1, mobile)
 // Add more true/false args to control what to output: font-size, line-height, kerning
 // --------------------------------------------------------------------------------------
-@mixin font-size($size, $elem, $font-size: true, $line-height: false, $kerning: false, $adjust-font-size: 0) {
+@mixin font-size-att($size, $elem, $font-size: true, $line-height: false, $kerning: false, $adjust-font-size: 0) {
   @if not map-has-key(map-get($font__scale, $elem), $size) {
     @warn "'#{$size}' key does not exist in array!";
   }
@@ -20,26 +20,26 @@
 
 // -----------------------------------------------
 // Font Family -----------------------------------
-// Usage example: @include font-family(base)
+// Usage example: @include font-family-att(base)
 // -----------------------------------------------
-@mixin font-family($elem) {
+@mixin font-family-att($elem) {
   font-family: unquote(get-font-family($elem));
 }
 
 // -----------------------------------------------
 // Font Weight -----------------------------------
-// Usage example: @include font-weight(regular)
+// Usage example: @include font-weight-att(regular)
 // -----------------------------------------------
-@mixin font-weight($elem) {
+@mixin font-weight-att($elem) {
   font-weight: get-font-weight($elem);
 }
 
 // -----------------------------------------------
 // Anchor aspect ---------------------------------
-// Usage example: @include anchor-aspect(main)
+// Usage example: @include anchor-aspect-att(main)
 // Options: main, header, footer
 // -----------------------------------------------
-@mixin anchor-aspect($type: 'main') {
+@mixin anchor-aspect-att($type: 'main') {
   @if ($type == 'main') { // Base
     color: inherit;
     text-decoration: underline;
@@ -50,21 +50,21 @@
       text-decoration: none;
     }
   } @else if ($type == 'header') {
-    color: color(typography, 2);
+    color: get-color(typography, 2);
     text-transform: uppercase;
     text-decoration: none;
 
     &:hover,
     &:active {
-      color: color(typography, 1);
+      color: get-color(typography, 1);
     }
   } @else if ($type == 'footer') {
-    color: color(typography, 2i);
+    color: get-color(typography, 2i);
     text-decoration: none;
 
     &:hover,
     &:active {
-      color: color(typography, 1i);
+      color: get-color(typography, 1i);
       text-decoration: underline;
     }
   }
@@ -72,14 +72,14 @@
 
 // -----------------------------------------------
 // Shadow ----------------------------------------
-// Usage example: @include shadow
+// Usage example: @include shadow-att
 // -----------------------------------------------
-@mixin shadow {
-  box-shadow: 0 16px 48px color(bg, 3);
+@mixin shadow-att {
+  box-shadow: 0 16px 48px get-color(bg, 3);
 
   /* Edge fallback */
   @supports(-ms-ime-align:auto) {
-    box-shadow: 0 16px 48px rgba(color(bg, 3), .12);
+    box-shadow: 0 16px 48px rgba(get-color(bg, 3), .12);
   }
 }
 
@@ -90,16 +90,16 @@
 @mixin divider-mix {
   display: block;
   height: 1px;
-  background: color(bg, 3);
-  background: linear-gradient(to right, rgba(color(bg, 3), .1) 0, rgba(color(bg, 3), .6) 50%, rgba(color(bg, 3), .1) 100%);
+  background: get-color(bg, 3);
+  background: linear-gradient(to right, rgba(get-color(bg, 3), .1) 0, rgba(get-color(bg, 3), .6) 50%, rgba(get-color(bg, 3), .1) 100%);
 }
 
 // -----------------------------------------------
 // Divider ---------------------------------------
-// Usage example: @include divider(before)
+// Usage example: @include divider-att(before)
 // Options: before, after, 'no-arg'
 // -----------------------------------------------
-@mixin divider($type: false) {
+@mixin divider-att($type: false) {
   @if ( $type == 'before' ) {
     position: relative;
 

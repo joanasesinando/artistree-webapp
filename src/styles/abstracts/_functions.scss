@@ -1,6 +1,6 @@
 // --------------------------------------------------------------------
 // Retrieve Font Size -------------------------------------------------
-// Used in _mixins.scss [@mixin font-size] ----------------------------
+// Used in _mixins.scss [@mixin font-size-att] ------------------------
 // --------------------------------------------------------------------
 @function get-font-size($size, $elem) {
   @return nth(map-get(map-get($font__scale, $elem), $size), 1);
@@ -8,7 +8,7 @@
 
 // --------------------------------------------------------------------
 // Retrieve Line Height -----------------------------------------------
-// Used in _mixins.scss [@mixin font-size] ----------------------------
+// Used in _mixins.scss [@mixin font-size-att] ------------------------
 // --------------------------------------------------------------------
 @function get-line-height($size, $elem) {
   @return nth(map-get(map-get($font__scale, $elem), $size), 2);
@@ -16,7 +16,7 @@
 
 // --------------------------------------------------------------------
 // Retrieve Kerning ---------------------------------------------------
-// Used in _mixins.scss [@mixin font-size] ----------------------------
+// Used in _mixins.scss [@mixin font-size-att] ------------------------
 // --------------------------------------------------------------------
 @function get-kerning($size, $elem) {
   @return nth(map-get(map-get($font__scale, $elem), $size), 3);
@@ -24,7 +24,7 @@
 
 // --------------------------------------------------------------------
 // Retrieve Font Family -----------------------------------------------
-// Used in _mixins.scss [@mixin font-family] --------------------------
+// Used in _mixins.scss [@mixin font-family-att] ----------------------
 // --------------------------------------------------------------------
 @function get-font-family($elem) {
   @return map-get($font__family, $elem);
@@ -32,7 +32,7 @@
 
 // --------------------------------------------------------------------
 // Retrieve Font Weight -----------------------------------------------
-// Used in _mixins.scss [@mixin font-weight] --------------------------
+// Used in _mixins.scss [@mixin font-weight-att] ----------------------
 // --------------------------------------------------------------------
 @function get-font-weight($elem) {
   @return map-get($font__weight, $elem);
@@ -40,7 +40,7 @@
 
 // --------------------------------------------------------------------
 // Retrieve Padding of Content Area Elements --------------------------
-// Used in _mixins.scss [@mixin font-size] ----------------------------
+// Used in _mixins.scss [@mixin font-size-att] ------------------------
 // --------------------------------------------------------------------
 @function get-content-padding($elem) {
   @return map-get($content__padding, $elem);
@@ -48,8 +48,8 @@
 
 // --------------------------------------------------------------------
 // Retrieve Colors ----------------------------------------------------
-// Usage: color(typography, 1) ----------------------------------------------
+// Usage: get-color(typography, 1) ------------------------------------
 // --------------------------------------------------------------------
-@function color($elem, $variant) {
+@function get-color($elem, $variant) {
   @return map-get(map-get($color, $elem), $variant);
 }
