@@ -1,0 +1,27 @@
+.btn {
+  padding: .8rem 1.5rem;
+  text-decoration: none;
+  outline: none;
+  @include font-weight-att(semibold);
+}
+
+.btn-sm {
+  font-size: .75rem;
+}
+
+.btn-primary {
+  background: linear-gradient(82.01deg, get-color(additional, 3) 13.82%, get-color(additional, 1) 82.57%);
+  border-radius: .3rem;
+  border: none;
+
+  &:hover, &:focus {
+    @include shadow-att;
+  }
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary.dropdown-toggle:focus {
+  @include shadow-att;
+}
+

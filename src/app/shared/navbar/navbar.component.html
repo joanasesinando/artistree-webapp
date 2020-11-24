@@ -1,0 +1,64 @@
+<header class="site-header" id="header">
+
+  <div class="container">
+
+    <!-- Desktop -->
+    <div class="site-header-wrapper desktop">
+
+      <div class="brand header-brand" (click)="closeMenu()">
+        <a href="#">
+          <img src="assets/imgs/logo.svg" alt="logo">
+        </a>
+      </div>
+
+      <div class="site-header-inner">
+        <div class="navigation">
+          <a href="#">Discover</a>
+          <a href="#">Community</a>
+          <a href="#">Academy</a>
+          <a href="#">Sign in</a>
+        </div>
+
+        <div class="cta ml-4">
+          <a class="btn btn-primary btn-sm" href="#">Join</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mobile -->
+    <div class="site-header-wrapper mobile">
+
+      <div class="header-mobile">
+        <div class="brand header-brand" (click)="closeMenu()">
+          <a href="#">
+            <img src="assets/imgs/logo.svg" alt="logo">
+          </a>
+        </div>
+
+        <button class="hamburger hamburger--slider" type="button" id="toggler" aria-label="mobile menu"
+                (click)="toggleMenu()">
+				  <span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				  </span>
+        </button>
+      </div>
+
+      <div class="toggle-menu" id="toggle-menu" (click)="closeMenu()">
+        <div class="navigation">
+          <a href="#">Discover</a>
+          <a href="#">Community</a>
+          <a href="#">Academy</a>
+          <a href="#">Sign in</a>
+        </div>
+
+        <div class="cta">
+          <a class="btn btn-primary btn-block btn-sm" href="#">Join</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div> <!-- /.container -->
+
+</header>

@@ -1,0 +1,130 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+.site-header {
+  position: relative;
+  padding: 24px 0;
+  height: 64px;
+  width: 100%;
+  z-index: 500;
+
+  .container {
+    max-width: none;
+  }
+
+  .site-header-wrapper.desktop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &.sticky {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    @include shadow-att;
+  }
+}
+
+.site-header-inner {
+  position: relative; /* To display all elements above the background color */
+  display: flex;
+  align-items: center;
+}
+
+.navigation a {
+  @include font-size-att(7, desktop);
+  @include font-weight-att(semibold);
+  color: get-color(typography, 2);
+  text-decoration: none;
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Mobile */
+.site-header-wrapper.mobile {
+  display: none;
+
+  .header-mobile {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .toggle-menu {
+    display: none;
+
+    .navigation {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.5rem;
+
+      a {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+    }
+  }
+
+  .hamburger {
+    padding: 0;
+    &:focus {
+      outline: none;
+    }
+
+    .hamburger-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 5px;
+
+      .hamburger-inner,
+      .hamburger-inner::before,
+      .hamburger-inner::after {
+        width: 25px;
+        height: 2.5px;
+      }
+
+      .hamburger-inner::before {
+        top: 8px;
+      }
+
+      .hamburger-inner::after {
+        top: 16px;
+      }
+    }
+
+    &.is-active {
+      .hamburger-inner::after {
+        top: 20px;
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+
+  .site-header {
+    .site-header-wrapper {
+      &.desktop {
+        display: none;
+      }
+
+      &.mobile {
+        display: block;
+      }
+    }
+  }
+
+}
+
+.btn {
+  padding: .5rem 1.5rem;
+}

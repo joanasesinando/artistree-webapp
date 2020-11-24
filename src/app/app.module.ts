@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 
+import {SharedModule} from './shared/shared.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,9 +16,10 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
     /*** Add individual firebase modules here ***/
     /*** See link: https://github.com/angular/angularfire/blob/master/docs/install-and-setup.md ***/
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
