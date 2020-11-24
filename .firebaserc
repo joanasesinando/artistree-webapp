@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "artistree-78c6a": {
+      "hosting": {
+        "artistree-webapp": [
+          "artistree-78c6a"
+        ]
+      }
+    }
+  }
+}
