@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
