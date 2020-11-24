@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "artistree-webapp"
+  "defaultProject": "artistree-webapp",
+  "cli": {
+    "analytics": "d7c8e592-fb5c-4f93-af1d-4bcb3b9b5cbb"
+  }
 }
