@@ -7,5 +7,8 @@
         ]
       }
     }
+  },
+  "projects": {
+    "artistree": "artistree-78c6a"
   }
 }

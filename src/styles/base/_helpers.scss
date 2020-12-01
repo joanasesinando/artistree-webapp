@@ -28,12 +28,27 @@
   padding: 0;
 }
 
+.link {
+  &:hover, &:focus {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.text-grey {
+  color: get-color(typography, 2);
+}
+
 .text-primary {
-  color: get-color(primary, 1);
+  color: get-color(additional, 3) !important;
 }
 
 .text-secondary {
   color: get-color(secondary, 1);
+}
+
+.semibold {
+  @include font-weight-att(semibold);
 }
 
 .has-top-divider {

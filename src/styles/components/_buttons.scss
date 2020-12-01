@@ -1,17 +1,33 @@
 .btn {
-  padding: .8rem 1.5rem;
+  padding: .5rem 1rem;
   text-decoration: none;
   outline: none;
   @include font-weight-att(semibold);
+  @include font-size-att(10, desktop);
 }
 
-.btn-primary {
+.btn-primary-home {
+  color: white;
   background: linear-gradient(82.01deg, get-color(additional, 3) 13.82%, get-color(additional, 1) 82.57%);
   border-radius: .3rem;
   border: none;
 
   &:hover, &:focus {
     @include shadow-att;
+    color: white;
+  }
+}
+
+.btn-primary-1 {
+  padding: .7rem 1rem;
+  color: white;
+  background-color: get-color(additional, 3);
+  border-radius: 9.47556px;
+  border: none;
+
+  &:hover, &:focus {
+    color: white;
+    background-color: darken(get-color(additional, 3), 7);
   }
 }
 

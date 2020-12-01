@@ -81,6 +81,17 @@ blockquote {
   }
 }
 
+h4, .h4 {
+  @include font-size-att(4, mobile, true, true, true);
+  @include font-weight-att(bold);
+  @include font-family-att(base);
+  @if ( get-font-size(4, desktop) != get-font-size(4, mobile) ) {
+    @include media-breakpoint-up(md) {
+      @include font-size-att(4, desktop, true, true, true);
+    }
+  }
+}
+
 h4,
 h5,
 h6,
@@ -175,6 +186,10 @@ h4, h5, h6,
 p {
   margin-top: 0;
   margin-bottom: 24px;
+}
+
+span {
+  font-size: .8rem;
 }
 
 dfn, cite, em, i {
