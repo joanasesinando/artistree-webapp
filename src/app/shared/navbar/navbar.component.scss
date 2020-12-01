@@ -35,7 +35,7 @@
 }
 
 .navigation a {
-  @include font-size-att(7, desktop);
+  @include font-size-att(9, desktop);
   @include font-weight-att(semibold);
   color: get-color(typography, 2);
   text-decoration: none;
@@ -105,6 +105,9 @@
 }
 
 @include media-breakpoint-down(md) {
+  .navigation a {
+    @include font-size-att(9, mobile);
+  }
 
   .site-header {
     .site-header-wrapper {

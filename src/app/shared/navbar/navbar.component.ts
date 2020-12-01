@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   openMenu(): void {
     this.toggler.classList.add('is-active');
-    this.header.setAttribute('style', 'height: 287px; background-color: white; box-shadow: 0 16px 48px #e3e7eb; position: fixed');
+    this.header.setAttribute('style', 'height: 291px; background-color: white; box-shadow: 0 16px 48px #e3e7eb; position: fixed');
     this.menu.style.display = 'block';
     document.body.setAttribute('style', 'overflow: hidden');
   }
