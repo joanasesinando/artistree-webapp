@@ -1,0 +1,19 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+img {
+  position: absolute;
+  bottom: -50px;
+  width: 4.5rem;
+  left: -110px;
+
+  @include media-breakpoint-down(md) {
+    width: 3rem;
+    left: -50px;
+    bottom: -40px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
