@@ -51,9 +51,9 @@ $font__family: (
 );
 
 $font__sizes: (
-  alpha:   ( 2.625rem, 3.25rem, -0.00625rem ), // font-size, line-height, kerning (use '0' if don't want to output any kerning)
-  beta:    ( 2.25rem, 2.875rem, -0.0125rem ),
-  gamma:   ( 1.875rem, 2.5rem, -0.00625rem),
+  alpha:   ( 2.1rem, 2.6rem, -0.00625rem ), // font-size, line-height, kerning (use '0' if don't want to output any kerning)
+  beta:    ( 1.875rem, 2.5rem, -0.0125rem ),
+  gamma:   ( 1.675rem, 2.25rem, -0.00625rem),
   delta:   ( 1.25rem, 1.875rem, -0.00625rem ),
   epsilon: ( 1.125rem, 1.6875rem, -0.00625rem ),
   zeta:    ( 1rem, 1.5rem, -0.00625rem ),
@@ -63,7 +63,7 @@ $font__sizes: (
 );
 
 $font__scale: (
-  desktop: (                           // i.e. $breakpoint__m + $breakpoint__l (600 - 1024)
+  desktop: (
     1: map-get($font__sizes, alpha),   // H1
     2: map-get($font__sizes, beta),    // H2
     3: map-get($font__sizes, gamma),   // H3
@@ -71,11 +71,11 @@ $font__scale: (
     5: map-get($font__sizes, delta),   // Body
     6: map-get($font__sizes, epsilon), // Text small (e.g. features description)
     7: map-get($font__sizes, zeta),    // Text smaller (e.g. pricing table's lists)
-    8: map-get($font__sizes, eta),     // Footer area
+    8: map-get($font__sizes, eta),     //
     9: map-get($font__sizes, theta),   // Header links, buttons
-    10: map-get($font__sizes, iota)    // Text super small
+    10: map-get($font__sizes, iota)    // Text super small (e.g. footer © 2020, Artistree)
   ),
-  mobile: (                            // i.e. $breakpoint__xs + $breakpoint__s (up to 600)
+  mobile: (
     1: map-get($font__sizes, beta),    // H1
     2: map-get($font__sizes, gamma),   // H2
     3: map-get($font__sizes, delta),   // H3
@@ -83,18 +83,18 @@ $font__scale: (
     5: map-get($font__sizes, epsilon), // Body
     6: map-get($font__sizes, epsilon), // Text small (e.g. features description)
     7: map-get($font__sizes, zeta),    // Text smaller (e.g. pricing table's lists)
-    8: map-get($font__sizes, eta),     // Footer area
-    9: map-get($font__sizes, eta),      // Header links, buttons
-    10: map-get($font__sizes, theta)    // Text super small
+    8: map-get($font__sizes, eta),     //
+    9: map-get($font__sizes, eta),     // Header links, buttons
+    10: map-get($font__sizes, theta)   // Text super small (e.g. footer © 2020, Artistree)
   )
 );
 
 $font__weight: (
-  light: 300,   // font__weight(light)
+  light: 300,     // font__weight(light)
   regular: 400, 	// font__weight(regular)
-  medium: 500,	// font__weight(medium)
+  medium: 500,	  // font__weight(medium)
   semibold: 600,	// font__weight(semi-bold)
-  bold: 700		// font__weight(bold)
+  bold: 700		    // font__weight(bold)
 );
 
 // --------------------------------------------
