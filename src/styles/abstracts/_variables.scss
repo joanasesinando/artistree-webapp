@@ -15,6 +15,9 @@ $color: (
     2: #f6f8fa,
     3: #e3e7eb
   ),
+  border: (
+    1: #EFF0F6
+  ),
   primary: (
     1: #4992f0,
     2: #75abf3,
@@ -55,11 +58,12 @@ $font__sizes: (
   epsilon: ( 1.125rem, 1.6875rem, -0.00625rem ),
   zeta:    ( 1rem, 1.5rem, -0.00625rem ),
   eta:     ( 0.875rem, 1.25rem, 0px ),
-  theta:   ( 0.8125rem, 1.125rem, 0px )
+  theta:   ( 0.8125rem, 1.125rem, 0px ),
+  iota:    ( 0.75rem, 1rem, 0px )
 );
 
 $font__scale: (
-  desktop: (                             // i.e. $breakpoint__m + $breakpoint__l (600 - 1024)
+  desktop: (                           // i.e. $breakpoint__m + $breakpoint__l (600 - 1024)
     1: map-get($font__sizes, alpha),   // H1
     2: map-get($font__sizes, beta),    // H2
     3: map-get($font__sizes, gamma),   // H3
@@ -68,9 +72,10 @@ $font__scale: (
     6: map-get($font__sizes, epsilon), // Text small (e.g. features description)
     7: map-get($font__sizes, zeta),    // Text smaller (e.g. pricing table's lists)
     8: map-get($font__sizes, eta),     // Footer area
-    9: map-get($font__sizes, theta)    // Header links, buttons
+    9: map-get($font__sizes, theta),   // Header links, buttons
+    10: map-get($font__sizes, iota)    // Text super small
   ),
-  mobile: (                              // i.e. $breakpoint__xs + $breakpoint__s (up to 600)
+  mobile: (                            // i.e. $breakpoint__xs + $breakpoint__s (up to 600)
     1: map-get($font__sizes, beta),    // H1
     2: map-get($font__sizes, gamma),   // H2
     3: map-get($font__sizes, delta),   // H3
@@ -79,7 +84,8 @@ $font__scale: (
     6: map-get($font__sizes, epsilon), // Text small (e.g. features description)
     7: map-get($font__sizes, zeta),    // Text smaller (e.g. pricing table's lists)
     8: map-get($font__sizes, eta),     // Footer area
-    9: map-get($font__sizes, eta)    // Header links, buttons
+    9: map-get($font__sizes, eta),      // Header links, buttons
+    10: map-get($font__sizes, theta)    // Text super small
   )
 );
 
