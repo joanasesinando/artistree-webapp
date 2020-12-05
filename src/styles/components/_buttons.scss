@@ -2,13 +2,17 @@
   padding: .5rem 1rem;
   text-decoration: none;
   outline: none;
+  letter-spacing: 0.666667px;
   @include font-weight-att(semibold);
   @include font-size-att(10, desktop);
 }
 
+/*--------------------------------------------------------------
+# Primary homepage: not logged-in
+--------------------------------------------------------------*/
 .btn-primary-home {
   color: white;
-  background: linear-gradient(82.01deg, get-color(additional, 3) 13.82%, get-color(additional, 1) 82.57%);
+  background: linear-gradient(82.01deg, get-color(primary, 3) 13.82%, get-color(primary, 1) 82.57%);
   border-radius: .3rem;
   border: none;
 
@@ -18,22 +22,118 @@
   }
 }
 
-.btn-primary-1 {
-  padding: .7rem 1rem;
-  color: white;
-  background-color: get-color(additional, 3);
-  border-radius: 9.47556px;
-  border: none;
-
-  &:hover, &:focus {
-    color: white;
-    background-color: darken(get-color(additional, 3), 7);
-  }
-}
-
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.show>.btn-primary.dropdown-toggle:focus {
+.btn-primary-home:not(:disabled):not(.disabled).active:focus,
+.btn-primary-home:not(:disabled):not(.disabled):active:focus,
+.show>.btn-primary-home.dropdown-toggle:focus {
   @include shadow-att;
 }
 
+/*--------------------------------------------------------------
+# Primary main
+--------------------------------------------------------------*/
+.btn-primary {
+  padding: .7rem 1rem;
+  color: white;
+  background-color: get-color(primary, 3);
+  border-radius: 9.47556px;
+  border: none;
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: darken(get-color(primary, 3), 7);
+    box-shadow: none;
+  }
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+  color: white;
+  background-color: darken(get-color(primary, 3), 7);
+}
+
+/*--------------------------------------------------------------
+# Secondary
+--------------------------------------------------------------*/
+.btn-seconday {
+  padding: .7rem 1rem;
+  color: white;
+  background-color: get-color(secondary, 1);
+  border-radius: 9.47556px;
+  border: none;
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: get-color(secondary, 3);
+    box-shadow: none;
+  }
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show>.btn-primary.dropdown-toggle {
+  color: white;
+  background-color: get-color(secondary, 3);
+}
+
+/*--------------------------------------------------------------
+# Facebook
+--------------------------------------------------------------*/
+.btn-fb {
+  padding: .9rem 1rem;
+  color: white;
+  background-color: #4267B2;
+  border-radius: 9.47556px;
+  border: none;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.666667px;
+
+  i {
+    font-size: 1rem;
+  }
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: darken(#4267B2, 7);
+    box-shadow: none;
+  }
+}
+
+.btn-fb:not(:disabled):not(.disabled).active,
+.btn-fb:not(:disabled):not(.disabled):active,
+.show>.btn-fb.dropdown-toggle {
+  color: white;
+  background-color: darken(#4267B2, 7);
+}
+
+/*--------------------------------------------------------------
+# Google
+--------------------------------------------------------------*/
+.btn-google {
+  padding: .9rem 1rem;
+  color: #7A7D85;
+  background-color: white;
+  border-radius: 9.47556px;
+  border: 1.5px solid #E5E5E8;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.666667px;
+
+  img {
+    height: 1rem;
+  }
+
+  &:hover, &:focus, &:active {
+    color: #7A7D85;
+    background-color: #f6f6f8;
+    box-shadow: none;
+  }
+}
+
+.btn-google:not(:disabled):not(.disabled).active,
+.btn-google:not(:disabled):not(.disabled):active,
+.show>.btn-google.dropdown-toggle {
+  color: #7A7D85;
+  background-color: #f6f6f8;
+}

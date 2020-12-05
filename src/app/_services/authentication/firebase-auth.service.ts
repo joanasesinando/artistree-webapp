@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
 import firebase from 'firebase';
@@ -13,6 +12,7 @@ export class FirebaseAuthService {
   constructor(private firebaseAuth: AngularFireAuth) {
     this.user = firebaseAuth.authState;
   }
+
   signup(email: string, password: string): void {
     this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
@@ -23,7 +23,6 @@ export class FirebaseAuthService {
         console.log('Erro:', err.message);
       });
   }
-
 
   login(email: string, password: string): void {
     this.firebaseAuth

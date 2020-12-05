@@ -284,3 +284,7 @@ textarea,
 label {
   @include font-size-att(5, mobile, true, true);
 }
+
+.small {
+  font-size: 70% !important;
+}

@@ -35,20 +35,44 @@
   }
 }
 
-.text-grey {
-  color: get-color(typography, 2);
-}
-
 .text-primary {
-  color: get-color(additional, 3) !important;
+  color: get-color(primary, 3) !important;
 }
 
 .text-secondary {
-  color: get-color(secondary, 1);
+  color: get-color(secondary, 1) !important;
+}
+
+.text-additional {
+  color: get-color(additional, 1) !important;
+}
+
+.text-danger {
+  color: get-color(danger, 1) !important;
+}
+
+.text-grey {
+  color: get-color(typography, 2) !important;
+}
+
+.light {
+  @include font-weight-att(light);
+}
+
+.regular {
+  @include font-weight-att(regular);
+}
+
+.medium {
+  @include font-weight-att(medium);
 }
 
 .semibold {
   @include font-weight-att(semibold);
+}
+
+.bold {
+  @include font-weight-att(bold);
 }
 
 .has-top-divider {

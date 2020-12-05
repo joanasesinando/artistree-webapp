@@ -1,3 +1,12 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+@include media-breakpoint-up(sm) {
+  .modal-dialog {
+    max-width: 427px;
+  }
+}
+
 .modal-content {
   border: none;
   background-color: white;
@@ -8,7 +17,7 @@
 .modal-header,
 .modal-body,
 .modal-footer {
-  padding: 1rem 2rem;
+  padding: 1rem 2.5rem;
   border: none;
   position: relative;
 }
@@ -17,6 +26,11 @@
   padding-bottom: .1rem;
   padding-top: .1rem;
   border-top: 1.5px solid get-color(border, 1);
+  justify-content: center;
+
+  span {
+    font-size: .7rem;
+  }
 }
 
 .modal-title {
