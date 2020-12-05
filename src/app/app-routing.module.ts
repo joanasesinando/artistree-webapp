@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./homepage/homepage.module').then(mod => mod.HomepageModule)
   },
   {
+    path: 'discover/artists',
+    loadChildren: () => import('./logged-in/discover-artists/discover-artists.module').then(mod => mod.DiscoverArtistsModule)
+  },
+  {
     path: '404',
     loadChildren: () => import('./page-not-found/page-not-found.module').then(mod => mod.PageNotFoundModule)
   },
