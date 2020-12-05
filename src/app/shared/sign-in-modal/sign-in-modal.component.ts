@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 
 import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-in-modal',
@@ -14,7 +15,7 @@ export class SignInModalComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   @ViewChild('form', { static: false }) form: NgForm;
 
@@ -27,6 +28,9 @@ export class SignInModalComponent implements OnInit {
     if (!this.form.form.valid) {
       return;
     }
+
+    this.closeModal('signinModal');
+    this.router.navigate(['/feed']);
   }
 
   join(): void {
