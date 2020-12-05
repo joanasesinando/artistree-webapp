@@ -1,0 +1,31 @@
+$card-height: 10rem;
+
+.main {
+  height: $card-height;
+  margin: 1rem;
+}
+
+.cover-div {
+  width: 100%;
+  object-fit: cover;
+}
+
+.avatar-div {
+  height: 5rem;
+  width: 5rem;
+}
+
+.avatar-img {
+  height: 5rem;
+}
+
+.pics-div {
+  height: 100%;
+  width: 100%;
+}
+
+.pics-img {
+  height: calc(#{$card-height}/2);
+}
+
+

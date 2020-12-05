@@ -1,0 +1,32 @@
+<div class="d-flex main rounded bg-danger"> <!-- card -->
+  <div class="w-50 d-flex flex-row justify-content-around">
+    <div class="d-flex flex-column align-items-center justify-content-center">
+      <div class="avatar-div">
+        <img class="rounded-circle cover-div avatar-img" src="{{artist.avatarSrc}}" alt="{{artist.name}}-avatar">
+      </div>
+      <p>{{artist.name}}</p>
+      <p>{{artist.job}}</p>
+    </div>
+  </div>
+  <div class="w-50 d-flex flex-row">
+    <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+      <div class="pics-div">
+        <img class="cover-div pics-img" src="{{artist.imagesSrc[0]}}" alt="pic1">
+      </div>
+      <div class="pics">
+        <img class="cover-div pics-img" src="{{artist.imagesSrc[1]}}" alt="pic2">
+      </div>
+
+    </div>
+    <div class="w-100 d-flex flex-column align-items-center justify-content-center">
+      <div class="pics cover-image">
+        <img class="cover-div pics-img" src="{{artist.imagesSrc[2]}}" alt="pic3">
+      </div>
+      <div class="pics cover-image">
+        <img class="cover-div pics-img" src="{{artist.imagesSrc[3]}}" alt="pic4">
+      </div>
+
+    </div>
+  </div>
+
+</div>
