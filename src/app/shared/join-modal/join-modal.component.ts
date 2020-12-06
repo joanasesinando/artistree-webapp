@@ -128,7 +128,7 @@ export class JoinModalComponent implements OnInit {
 
   finishJoining(): void {
     this.closeModal('joinModal-step4');
-    this.router.navigate(['/app']);
+    this.router.navigate(['/feed']);
 
     for (const checkbox of this.checkboxes1) {
       if (checkbox.checked) {
