@@ -8,7 +8,7 @@ import {IArtist} from '../discover-artists.component';
 })
 export class ArtistCardComponent implements OnInit {
 
-  @Input() artist: IArtist
+  @Input() artist: IArtist;
 
   constructor() { }
 

@@ -8,6 +8,9 @@ import { GoTopComponent } from './go-top/go-top.component';
 import { JoinModalComponent } from './join-modal/join-modal.component';
 import { SignInModalComponent } from './sign-in-modal/sign-in-modal.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import {RouterModule} from '@angular/router';
+import { BannerComponent } from './banner/banner.component';
+import { FilterComponent } from './filter/filter.component';
 
 
 @NgModule({
@@ -17,17 +20,22 @@ import { NavbarComponent } from './navbar/navbar.component';
     GoTopComponent,
     JoinModalComponent,
     SignInModalComponent,
-    NavbarComponent
+    NavbarComponent,
+    BannerComponent,
+    FilterComponent
   ],
   exports: [
     FooterComponent,
     NavbarHomepageComponent,
     GoTopComponent,
-    NavbarComponent
+    NavbarComponent,
+    BannerComponent,
+    FilterComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ]
 })
 export class SharedModule { }

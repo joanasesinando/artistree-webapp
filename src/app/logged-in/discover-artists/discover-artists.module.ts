@@ -4,13 +4,17 @@ import { CommonModule } from '@angular/common';
 import { DiscoverArtistsRoutingModule } from './discover-artists-routing.module';
 import { DiscoverArtistsComponent } from './discover-artists/discover-artists.component';
 import { ArtistCardComponent } from './discover-artists/artist-card/artist-card.component';
+import {SharedModule} from '../../shared/shared.module';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [DiscoverArtistsComponent, ArtistCardComponent],
   imports: [
     CommonModule,
-    DiscoverArtistsRoutingModule
+    DiscoverArtistsRoutingModule,
+    SharedModule,
+    FormsModule
   ]
 })
 export class DiscoverArtistsModule { }

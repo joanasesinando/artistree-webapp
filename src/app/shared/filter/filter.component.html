@@ -1,0 +1,17 @@
+<div class="filter dropdown position-relative">
+
+  <button class="btn btn-filter dropdown-toggle d-flex align-items-center" type="button"
+          data-toggle="dropdown" (click)="changeArrowDirection()">
+    {{name}}
+    <div [ngClass]="{ 'd-none': !arrowDown }"><i class="arrow-down" data-eva="chevron-down"></i></div>
+    <div [ngClass]="{ 'd-none': arrowDown }"><i class="arrow-up" data-eva="chevron-up"></i></div>
+  </button>
+
+  <div class="dropdown-menu">
+    <a *ngFor="let item of items" class="dropdown-item d-flex align-items-center justify-content-between px-3" href="#">
+      <span class="text-dark">{{item.name}}</span>
+      <span class="text-grey">({{item.total}})</span>
+    </a>
+  </div>
+
+</div>

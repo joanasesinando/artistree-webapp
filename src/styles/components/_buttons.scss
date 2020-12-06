@@ -77,6 +77,29 @@
 }
 
 /*--------------------------------------------------------------
+# Filter
+--------------------------------------------------------------*/
+.btn-filter {
+  padding-right: .8rem;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 10.66px;
+  color: get-color(typography, 1);
+  @include font-weight-att(regular);
+
+  svg {
+    fill: get-color(typography, 1);
+  }
+
+  &.focus, &:focus {
+    box-shadow: none;
+  }
+
+  &::after {
+    content: none;
+  }
+}
+
+/*--------------------------------------------------------------
 # Facebook
 --------------------------------------------------------------*/
 .btn-fb {

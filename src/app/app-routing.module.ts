@@ -3,16 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'discover/artists',
+    loadChildren: () => import('./logged-in/discover-artists/discover-artists.module').then(mod => mod.DiscoverArtistsModule)
+  },
+  {
     path: 'feed',
     loadChildren: () => import('./logged-in/logged-in.module').then(mod => mod.LoggedInModule)
   },
   {
     path: '',
     loadChildren: () => import('./homepage/homepage.module').then(mod => mod.HomepageModule)
-  },
-  {
-    path: 'discover/artists',
-    loadChildren: () => import('./logged-in/discover-artists/discover-artists.module').then(mod => mod.DiscoverArtistsModule)
   },
   {
     path: '404',

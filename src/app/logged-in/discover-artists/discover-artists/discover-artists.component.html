@@ -1,5 +1,45 @@
-<div class="w-100 d-flex align-items-center flex-wrap">
-  <div *ngFor="let artist of artists" class="col-lg-3 col-md-6 col-sm-12">
-    <app-artist-card  [artist]="artist"></app-artist-card>
+<section class="container-fluid py-4" id="discover-artists-section">
+
+  <!-- Banner -->
+  <app-banner
+    [imgUrl]="'assets/imgs/banners/discover-artists.png'"
+    [title]="'Discover new talents'"
+    [description]="'Find artists that you like and identify with.'"
+  ></app-banner>
+
+  <!-- Search -->
+
+  <div class="search form-label-group my-3">
+    <input
+      type="search"
+      id="searchInputDiscoverArtists"
+      class="form-control"
+      name="searchInputDiscoverArtists"
+      placeholder="Search artist"
+      [(ngModel)]="search"
+      #inputSearch="ngModel"
+      (search)="doSearch()">
+    <i class="icon" data-eva="search"></i>
+    <label for="searchInputDiscoverArtists">Search artist</label>
   </div>
-</div>
+
+  <!-- Filters -->
+  <div class="filters mb-4">
+    <app-filter
+    [name]="'Category'"
+    [items]="filterItems">
+    </app-filter>
+  </div>
+
+  <!-- Artists -->
+  <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(totalFound)}} Artists found</span>
+  <div class="w-100 d-flex align-items-center flex-wrap">
+    <div *ngFor="let artist of artists" class="col-lg-3 col-md-6 col-sm-12">
+      <app-artist-card  [artist]="artist"></app-artist-card>
+    </div>
+  </div>
+
+  <!-- Load more -->
+  <p class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
+
+</section>

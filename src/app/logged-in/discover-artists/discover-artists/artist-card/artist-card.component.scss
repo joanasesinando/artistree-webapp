@@ -1,22 +1,35 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
 $card-height: 10rem;
+$avatar-height: 5rem;
 
 .main {
   height: $card-height;
-  margin: 1rem;
+  box-shadow: 0 4.74764px 9.49528px rgba(17, 17, 17, 0.04);
+
+  &.rounded, {
+    border-radius: 18.9906px !important;
+  }
+
+  .rounded-top-right {
+    border-top-right-radius: 18.9906px;
+  }
+
+  .rounded-bottom-right {
+    border-bottom-right-radius: 18.9906px;
+  }
 }
 
 .cover-div {
   width: 100%;
+  height: $avatar-height;
   object-fit: cover;
 }
 
 .avatar-div {
-  height: 5rem;
-  width: 5rem;
-}
-
-.avatar-img {
-  height: 5rem;
+  height: $avatar-height;
+  width: $avatar-height;
 }
 
 .pics-div {
@@ -26,6 +39,16 @@ $card-height: 10rem;
 
 .pics-img {
   height: calc(#{$card-height}/2);
+}
+
+.left-section {
+  .name {
+    font-size: .85rem;
+  }
+
+  .job {
+    font-size: .7rem;
+  }
 }
 
 

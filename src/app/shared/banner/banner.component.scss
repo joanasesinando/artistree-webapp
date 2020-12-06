@@ -1,0 +1,40 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$banner-height: 9rem;
+
+.banner {
+  height: $banner-height;
+
+  &.rounded {
+    border-radius: 6px !important;
+  }
+
+  img {
+    width: 100%;
+    height: $banner-height;
+    object-fit: cover;
+  }
+
+  .text {
+    position: absolute;
+    top: 1.3rem;
+    left: 1.3rem;
+
+    .title {
+      letter-spacing: 1px;
+      font-size: 1.3rem;
+
+      @include media-breakpoint-down(md) {
+        font-size: 95%;
+      }
+    }
+
+    .description {
+      font-size: .9rem;
+      @include media-breakpoint-down(md) {
+        font-size: 80%;
+      }
+    }
+  }
+}
