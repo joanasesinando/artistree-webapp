@@ -69,6 +69,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   artistsList: IArtist[] = [ // TODO: ir buscar todos os artists
     {
+      uid: '1',
       name: 'Ned Tomlinson',
       job: 'Magician',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
@@ -80,7 +81,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -91,7 +92,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -102,7 +103,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -113,7 +114,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -124,7 +125,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -135,7 +136,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -146,7 +147,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -157,7 +158,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -168,7 +169,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -179,7 +180,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
@@ -190,7 +191,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      name: 'Bernardo Marques',
+      uid: '2', name: 'Bernardo Marques',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [

@@ -81,4 +81,9 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     this.firebaseAuthService.logout();
   }
 
+  goToProfile(): void {
+    console.log(this.firebaseAuthService.currentUser.uid);
+    this.router.navigate(['/profile/', this.firebaseAuthService.currentUser.uid]);
+  }
+
 }

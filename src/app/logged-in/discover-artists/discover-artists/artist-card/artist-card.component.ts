@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {IArtist} from '../discover-artists.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-artist-card',
@@ -10,9 +11,13 @@ export class ArtistCardComponent implements OnInit {
 
   @Input() artist: IArtist;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToProfile(): void {
+    this.router.navigate(['/profile', this.artist.uid]);
   }
 
 }

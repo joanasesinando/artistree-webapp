@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'profile/:uid',
+    loadChildren: () => import('./logged-in/profile/profile.module').then(mod => mod.ProfileModule)
+  },
+  {
     path: 'search/:query',
     loadChildren: () => import('./logged-in/search/search.module').then(mod => mod.SearchModule)
   },

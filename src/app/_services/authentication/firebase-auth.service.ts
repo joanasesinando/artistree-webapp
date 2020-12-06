@@ -25,7 +25,7 @@ export class FirebaseAuthService {
       that.currentUser = user;
       that.isUserLoggedIn = !!that.currentUser;
 
-      if (that.isUserLoggedIn) {
+      if (that.isUserLoggedIn && this.router.url === '/') {
         this.router.navigate(['/feed']);
       }
     });
