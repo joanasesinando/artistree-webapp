@@ -21,6 +21,24 @@ export class AppComponent {
     this.auth.logout();
   }
 
+  createArtist(username: string, name: string, surname: string): void{
+    this.auth.createArtist(username, name, surname, ['Dance', 'Music', 'Magic']);
+  }
+  createCourse( _title: string, _price: number, _description: string): void{
+    this.auth.createCourse( _title, _price, _description);
+  }
+  createBooking( _title: string,  _description: string, _price: number, _duration: number): void{
+    this.auth.createBooking( _title,  _description, _price, _duration);
+  }
+
+  enrollInCourse( _title: string): void{
+    this.auth.enrollInCourse(_title);
+  }
+
+  enrollInBooking( _title: string): void{
+    this.auth.enrollInBooking(_title);
+  }
+
   createRegular(username: string, name: string, surname: string): void{
     this.auth.createRegular(username, name, surname, ['Dance', 'Music', 'Magic']);
   }

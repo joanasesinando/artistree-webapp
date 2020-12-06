@@ -50,4 +50,5 @@ export class User{
   set areas(value: string[]) {
     this._areas = value;
   }
+
 }
