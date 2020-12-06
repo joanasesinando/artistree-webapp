@@ -1,33 +1,88 @@
-<header class="site-header" id="header">
+<header class="site-header border-bottom" id="header">
 
-  <div class="container">
+  <div class="container d-flex align-items-center">
 
     <!-- Desktop -->
-    <div class="site-header-wrapper desktop">
+    <div class="site-header-wrapper desktop w-100">
 
-      <div class="brand header-brand" (click)="closeMenu()">
-        <a href="#">
-          <img src="assets/imgs/logo.svg" alt="logo">
-        </a>
-      </div>
+      <div class="site-header-left d-flex align-items-center">
+
+        <!-- Logo -->
+        <div class="brand header-brand mr-3" (click)="closeMenu()">
+          <a href="#">
+            <img src="assets/imgs/logo.svg" alt="logo">
+          </a>
+        </div>
+
+        <!-- Search -->
+        <div class="search form-label-group">
+          <input
+            type="search"
+            id="searchInput"
+            class="form-control"
+            name="searchInput"
+            placeholder="Search"
+            [(ngModel)]="search"
+            #inputSearch="ngModel"
+            (search)="doSearch()">
+          <i class="icon" data-eva="search"></i>
+          <label for="searchInput">Search</label>
+        </div>
+
+      </div> <!-- ./site-header-left -->
 
       <div class="site-header-inner">
-        <div class="navigation">
-          <a href="#">Discover</a>
+
+        <!-- Navigation -->
+        <div class="navigation d-flex align-items-center mr-3">
+          <div>
+            <a href="#" data-toggle="dropdown">Discover</a>
+            <div class="dropdown-menu shadow-sm">
+              <a class="dropdown-item px-3" href="#">
+                <p class="text-grey medium mb-1">Artists</p>
+                <p class="text-light-grey regular mb-0">Discover talented artists and<br> support their art</p>
+              </a>
+              <a class="dropdown-item px-3 mt-2" href="#">
+                <p class="text-grey medium mb-1">Gigs</p>
+                <p class="text-light-grey regular mb-0">Browse our marketplace and<br> book gigs</p>
+              </a>
+            </div>
+          </div>
           <a href="#">Community</a>
           <a href="#">Academy</a>
-          <a href="#" data-toggle="modal" data-target="#signinModal">Sign in</a>
         </div>
 
-        <div class="cta ml-4">
-          <a class="btn btn-primary-home btn-sm" data-toggle="modal" data-target="#joinModal-step1">Join</a>
-        </div>
-      </div>
+        <!-- Actions -->
+        <div class="actions d-flex align-items-center border-left pl-3">
+          <i *ngIf="!hasMessages()" class="icon mr-3" data-eva="email-outline"></i>
+          <div *ngIf="hasMessages()" class="ball"><i class="icon mr-3" data-eva="email"></i></div>
 
-    </div>
+          <i *ngIf="!hasNotifications()" class="icon" data-eva="bell-outline"></i>
+          <div *ngIf="hasNotifications()" class="ball"><i class="icon" data-eva="bell"></i></div>
+        </div>
+
+        <!-- Avatar -->
+        <div class="av position-relative">
+          <div class="avatar ml-3" data-toggle="dropdown">
+            <img class="rounded-circle" src="{{user.photoUrl}}" alt="profile picture">
+          </div>
+
+          <div class="dropdown-menu shadow-sm">
+            <a class="dropdown-item px-3" href="#">Profile</a>
+            <a class="dropdown-item px-3 mt-2" href="#">Become an Artist</a>
+            <a class="dropdown-item px-3 mt-2" href="#">Become an Artist</a>
+            <a class="dropdown-item px-3 mt-2 pt-2 border-top" href="#">Settings</a>
+            <a class="dropdown-item px-3 mt-2" href="#">Help & Support</a>
+            <a class="dropdown-item px-3 mt-2 pt-2 border-top" href="#">Logout</a>
+          </div>
+        </div>
+
+      </div> <!-- ./site-header-inner -->
+
+    </div> <!-- ./site-header-wrapper -->
 
     <!-- Mobile -->
-    <div class="site-header-wrapper mobile">
+    <div class="site-header-wrapper mobile w-100" id="mobile">
 
       <div class="header-mobile">
         <div class="brand header-brand" (click)="closeMenu()">
@@ -45,15 +100,29 @@
       </div>
 
       <div class="toggle-menu" id="toggle-menu" (click)="closeMenu()">
-        <div class="navigation">
+        <div class="d-flex justify-content-center align-items-center w-100 mt-3">
+          <div class="avatar mr-2">
+            <img class="rounded-circle" src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80" alt="profile picture">
+          </div>
+          <span class="text-primary semibold">John Doe</span>
+        </div>
+
+        <div class="navigation mt-3">
           <a href="#">Discover</a>
           <a href="#">Community</a>
           <a href="#">Academy</a>
-          <a href="#" data-toggle="modal" data-target="#signinModal">Sign in</a>
         </div>
 
-        <div class="cta">
-          <a class="btn btn-primary-home btn-block btn-sm" data-toggle="modal" data-target="#joinModal-step1">Join</a>
+        <div class="actions d-flex align-items-center mt-2 border-top py-2">
+          <div class="w-50 d-flex justify-content-center border-right">
+            <i *ngIf="!hasMessages()" class="icon mr-2" data-eva="email-outline"></i>
+            <div *ngIf="hasMessages()" class="ball"><i class="icon mr-2" data-eva="email"></i></div>
+          </div>
+
+          <div class="w-50 d-flex justify-content-center">
+            <i *ngIf="!hasNotifications()" class="icon" data-eva="bell-outline"></i>
+            <div *ngIf="hasNotifications()" class="ball"><i class="icon" data-eva="bell"></i></div>
+          </div>
         </div>
       </div>
 

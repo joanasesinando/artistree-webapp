@@ -55,6 +55,14 @@
   color: get-color(typography, 2) !important;
 }
 
+.text-light-grey {
+  color: get-color(typography, 3) !important;
+}
+
+.text-dark {
+  color: get-color(typography, 1) !important;
+}
+
 .light {
   @include font-weight-att(light);
 }

@@ -3,6 +3,15 @@
   border: 2px solid get-color(primary, 3)
 }
 
+.search .form-control:focus {
+  background-color: get-color(border, 1);
+  border: none;
+}
+
+.search.form-label-group input:not(:placeholder-shown) ~ label {
+  font-size: .5rem;
+}
+
 .form-label-group {
   position: relative;
 
@@ -24,9 +33,23 @@
   color: #919EB7;
 }
 
+.search.form-label-group input {
+  min-height: unset;
+}
+
 .form-label-group>input,
 .form-label-group>label {
   padding: .55rem 2.5rem;
+}
+
+.search.form-label-group>input,
+.search.form-label-group>label {
+  padding: .2rem 2rem;
+}
+
+.search.form-label-group .icon {
+  width: 1rem;
+  margin-left: .55rem;
 }
 
 .form-label-group>label {
