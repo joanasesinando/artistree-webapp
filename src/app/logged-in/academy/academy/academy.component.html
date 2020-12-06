@@ -48,7 +48,8 @@
 
   <div class="d-flex align-items-center justify-content-between">
     <!-- Total -->
-    <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(totalFound)}} Courses found</span>
+    <span *ngIf="courses.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Courses found</span>
+    <span *ngIf="courses.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Course found</span>
 
     <!-- Sort -->
     <app-sort-by [items]="sortItems"></app-sort-by>
@@ -62,6 +63,6 @@
   </div>
 
   <!-- Load more -->
-  <p class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
+  <p *ngIf="courses.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
 
 </section>

@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import * as eva from 'eva-icons';
+import {IArtist} from '../../discover-artists/discover-artists/discover-artists.component';
 const categories = require('src/assets/data/categories.json').categories;
 
 export interface ICourse {
@@ -20,8 +21,6 @@ export class AcademyComponent implements OnInit, AfterViewInit {
 
   search;
   @ViewChild('form', { static: false }) form: NgForm;
-
-  totalFound = 53856; // TODO
 
   filterItemsCategories: {name: string, total: number}[] = [];
   filterItemsDuration: {name: string, total: number}[] = [
@@ -64,7 +63,7 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   ];
   sortItems: string[] = ['Popularity', 'Best selling', 'Newest'];
 
-  courses: ICourse[] = [ // TODO
+  coursesList: ICourse[] = [ // TODO: ir buscar todos os cursos
     {
       name: 'Lorem ipsum dolor',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
@@ -207,11 +206,14 @@ export class AcademyComponent implements OnInit, AfterViewInit {
     }
   ];
 
+  courses: ICourse[] = [];
+
   constructor() {
     this.initializeFilterByCategory();
   }
 
   ngOnInit(): void {
+    this.filterCourses(); // TODO: meter na função de load de cursos (no fim)
   }
 
   ngAfterViewInit(): void {
@@ -219,7 +221,7 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   }
 
   initializeFilterByCategory(): void {
-    this.filterItemsCategories.push({ name: 'All Categories', total: this.totalFound});
+    this.filterItemsCategories.push({ name: 'All Categories', total: this.courses.length});
     for (const category of categories) {
       // TODO: get total for a specific category
       const total = 12;
@@ -236,7 +238,21 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   }
 
   doSearch(): void {
-    console.log(this.search);
+    this.filterCourses();
+  }
+
+  isQueryTrue(course: ICourse): boolean {
+    return !this.search || !!course.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
+      !!course.description.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()));
+  }
+
+  filterCourses(): void {
+    this.courses = [];
+    for (const course of this.coursesList) {
+      if (this.isQueryTrue(course)) {
+        this.courses.push(course);
+      }
+    }
   }
 
 }

@@ -246,8 +246,6 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
 
   artists: IArtist[] = [];
 
-  totalFound = 1231; // TODO
-
   filterItems: {name: string, total: number}[] = [];
   sortItems: string[] = ['Popularity', 'Best matching', 'Newest'];
 
@@ -268,7 +266,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   }
 
   initializeFilterByCategory(): void {
-    this.filterItems.push({ name: 'All Categories', total: this.totalFound});
+    this.filterItems.push({ name: 'All Categories', total: this.artists.length});
     for (const category of categories) {
       // TODO: get total for a specific category
       const total = 12;
@@ -281,19 +279,17 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   }
 
   doSearch(): void {
-    console.log('searching');
     this.filterArtists();
   }
 
   isQueryTrue(artist: IArtist): boolean {
-    return !this.search || !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.search)) ||
-      !!artist.job.toLowerCase().split(' ').find(a => a.includes(this.search));
+    return !this.search || !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
+      !!artist.job.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()));
   }
 
   filterArtists(): void {
     this.artists = [];
     for (const artist of this.artistsList) {
-      console.log(this.isQueryTrue(artist));
       if (this.isQueryTrue(artist)) {
         this.artists.push(artist);
       }

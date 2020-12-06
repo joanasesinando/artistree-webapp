@@ -16,17 +16,14 @@ export class SearchComponent implements OnInit, AfterViewInit {
   query: string;
 
   artistInfo = {
-    totalFound: 1231, // TODO
     sortItems: ['Popularity', 'Best matching', 'Newest']
   };
 
   gigsInfo = {
-    totalFound: 22574, // TODO
     sortItems: ['Popularity', 'Best selling', 'Newest']
   };
 
   coursesInfo = {
-    totalFound: 533, // TODO
     sortItems: ['Popularity', 'Best selling', 'Newest']
   };
 
@@ -69,9 +66,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
       total: 12
     },
   ];
-  totalFound = this.artistInfo.totalFound + this.gigsInfo.totalFound + this.coursesInfo.totalFound;
 
-  artists: IArtist[] = [ // TODO: ir buscar 20 artists
+  artistsList: IArtist[] = [ // TODO: ir buscar todos os artists
     {
       name: 'Ned Tomlinson',
       job: 'Magician',
@@ -206,9 +202,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  gigs: IGig[] = [ // TODO: ir buscar 20 gigs
+  gigsList: IGig[] = [ // TODO: ir buscar todos os gigs
     {
-      name: 'Lorem ipsum dolor',
+      name: 'Ned gig',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
       imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
@@ -281,7 +277,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     }
   ];
 
-  courses: ICourse[] = [ // TODO
+  coursesList: ICourse[] = [ // TODO: ir buscar todos os courses
     {
       name: 'Lorem ipsum dolor',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
@@ -367,6 +363,10 @@ export class SearchComponent implements OnInit, AfterViewInit {
       imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
     }
   ];
+
+  artists: IArtist[] = [];
+  gigs: IGig[] = [];
+  courses: ICourse[] = [];
 
   constructor(private router: ActivatedRoute) {
     this.initializeFilterByCategory();
@@ -375,6 +375,9 @@ export class SearchComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       this.query = params.query;
+      this.filterArtists(); // TODO: meter na função de load (no fim)
+      this.filterGigs(); // TODO: meter na função de load (no fim)
+      this.filterCourses(); // TODO: meter na função de load (no fim)
     });
   }
 
@@ -383,7 +386,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   initializeFilterByCategory(): void {
-    this.filterItemsCategory.push({ name: 'All Categories', total: this.totalFound});
+    this.filterItemsCategory.push({ name: 'All Categories', total: this.artists.length + this.gigs.length + this.courses.length});
     for (const category of categories) {
       // TODO: get total for a specific category
       const total = 1200;
@@ -405,6 +408,48 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   loadMoreCourses(): void {
     // TODO: load more courses
+  }
+
+  isQueryTrueArtist(artist: IArtist): boolean {
+    return !this.query || !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.query.toLowerCase())) ||
+      !!artist.job.toLowerCase().split(' ').find(a => a.includes(this.query.toLowerCase()));
+  }
+
+  isQueryTrueGigs(gig: IGig): boolean {
+    return !this.query || !!gig.name.toLowerCase().split(' ').find(a => a.includes(this.query.toLowerCase())) ||
+      !!gig.description.toLowerCase().split(' ').find(a => a.includes(this.query.toLowerCase()));
+  }
+
+  isQueryTrueCourses(course: ICourse): boolean {
+    return !this.query || !!course.name.toLowerCase().split(' ').find(a => a.includes(this.query.toLowerCase())) ||
+      !!course.description.toLowerCase().split(' ').find(a => a.includes(this.query.toLowerCase()));
+  }
+
+  filterArtists(): void {
+    this.artists = [];
+    for (const artist of this.artistsList) {
+      if (this.isQueryTrueArtist(artist)) {
+        this.artists.push(artist);
+      }
+    }
+  }
+
+  filterGigs(): void {
+    this.gigs = [];
+    for (const gig of this.gigsList) {
+      if (this.isQueryTrueGigs(gig)) {
+        this.gigs.push(gig);
+      }
+    }
+  }
+
+  filterCourses(): void {
+    this.courses = [];
+    for (const course of this.coursesList) {
+      if (this.isQueryTrueCourses(course)) {
+        this.courses.push(course);
+      }
+    }
   }
 
 }

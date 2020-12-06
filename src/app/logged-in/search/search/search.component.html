@@ -49,7 +49,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
-      <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artistInfo.totalFound)}} Artists found</span>
+      <span *ngIf="artists.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artists.length)}} Artists found</span>
+      <span *ngIf="artists.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artists.length)}} Artist found</span>
 
       <!-- Sort -->
       <app-sort-by [items]="artistInfo.sortItems"></app-sort-by>
@@ -62,7 +63,7 @@
     </div>
 
     <!-- Load more -->
-    <p class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
+    <p *ngIf="artists.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
 
   </div> <!-- ./artists -->
 
@@ -71,7 +72,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
-      <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigsInfo.totalFound)}} Gigs found</span>
+      <span *ngIf="gigs.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigs.length)}} Gigs found</span>
+      <span *ngIf="gigs.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigs.length)}} Gig found</span>
 
       <!-- Sort -->
       <app-sort-by [items]="gigsInfo.sortItems"></app-sort-by>
@@ -84,7 +86,7 @@
     </div>
 
     <!-- Load more -->
-    <p class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
+    <p *ngIf="gigs.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
 
   </div> <!-- ./gigs -->
 
@@ -93,7 +95,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
-      <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesInfo.totalFound)}} Courses found</span>
+      <span *ngIf="courses.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Courses found</span>
+      <span *ngIf="courses.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Course found</span>
 
       <!-- Sort -->
       <app-sort-by [items]="coursesInfo.sortItems"></app-sort-by>
@@ -106,7 +109,7 @@
     </div>
 
     <!-- Load more -->
-    <p class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
+    <p *ngIf="courses.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
 
   </div> <!-- ./courses -->
 
