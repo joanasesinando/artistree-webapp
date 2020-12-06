@@ -23,6 +23,7 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   totalFound = 23564094; // TODO
 
   filterItemsCategories: {name: string, total: number}[] = [];
+  sortItems: string[] = ['Popularity', 'Best selling', 'Newest'];
 
   gigs: IGig[] = [ // TODO: ir buscar 20 gigs
     {

@@ -1,0 +1,31 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+.sort-by {
+
+  .dropdown-menu {
+    top: 5px !important;
+
+    a {
+      text-decoration: none;
+      font-size: .75rem;
+
+      &:hover, &:focus {
+        background-color: white;
+        @include font-weight-att(semibold);
+        color: get-color(primary, 3) !important;
+      }
+    }
+
+  }
+
+  .dropdown-toggle {
+    cursor: pointer;
+    user-select: none;
+
+    &::after {
+      content: none;
+    }
+  }
+
+}

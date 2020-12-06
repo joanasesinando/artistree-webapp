@@ -247,6 +247,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   totalFound = 1231; // TODO
 
   filterItems: {name: string, total: number}[] = [];
+  sortItems: string[] = ['Popularity', 'Best matching', 'Newest'];
 
   constructor() {
     this.initializeFilterByCategory();
