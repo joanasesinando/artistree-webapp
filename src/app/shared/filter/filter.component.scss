@@ -9,6 +9,11 @@
     overflow-y: scroll;
     top: 5px !important;
 
+    &.budget {
+      height: auto;
+      overflow: unset;
+    }
+
     a {
       text-decoration: none;
 

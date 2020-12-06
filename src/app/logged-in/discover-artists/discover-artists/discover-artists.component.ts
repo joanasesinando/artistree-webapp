@@ -19,7 +19,6 @@ export interface IArtist {
 export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
 
   search;
-
   @ViewChild('form', { static: false }) form: NgForm;
 
   artists: IArtist[] = [ // TODO: ir buscar 20 artists

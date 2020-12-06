@@ -1,4 +1,4 @@
-<div class="filter dropdown position-relative">
+<div *ngIf="type === 'list'" class="filter dropdown position-relative" [ngClass]="{'mr-2': marginRight}">
 
   <button class="btn btn-filter dropdown-toggle d-flex align-items-center" type="button"
           data-toggle="dropdown" (click)="changeArrowDirection()">
@@ -10,8 +10,63 @@
   <div class="dropdown-menu">
     <a *ngFor="let item of items" class="dropdown-item d-flex align-items-center justify-content-between px-3" href="#">
       <span class="text-dark">{{item.name}}</span>
-      <span class="text-grey">({{item.total}})</span>
+      <span class="text-grey">({{formatNumberWithCommas(item.total)}})</span>
     </a>
+  </div>
+
+</div>
+
+<div *ngIf="type === 'budget'" class="filter dropdown position-relative" [ngClass]="{'mr-2': marginRight}">
+
+  <button class="btn btn-filter dropdown-toggle d-flex align-items-center" type="button"
+          data-toggle="dropdown" (click)="changeArrowDirection()">
+    {{name}}
+    <div [ngClass]="{ 'd-none': !arrowDown }"><i class="arrow-down" data-eva="chevron-down"></i></div>
+    <div [ngClass]="{ 'd-none': arrowDown }"><i class="arrow-up" data-eva="chevron-up"></i></div>
+  </button>
+
+  <div class="dropdown-menu budget">
+    <div class="dropdown-item px-3">
+
+      <form #form="ngForm" (submit)="submitBudget()">
+
+        <!-- Min -->
+        <div class="budget-min form-label-group">
+          <input
+            type="number"
+            id="minInputBudget"
+            class="form-control"
+            name="minInputBudget"
+            placeholder="Min."
+            [(ngModel)]="min"
+            #inputMin="ngModel"
+            pattern="[0-9]+"
+            [ngClass]="{ 'is-invalid': form.submitted && inputMin.invalid }"
+            autofocus>
+          <label for="minInputBudget">Min.</label>
+        </div>
+
+        <!-- Max -->
+        <div class="budget-max form-label-group mt-2">
+          <input
+            type="number"
+            id="maxInputBudget"
+            class="form-control"
+            name="maxInputBudget"
+            placeholder="Max."
+            [(ngModel)]="max"
+            #inputMax="ngModel"
+            pattern="[0-9]+"
+            [ngClass]="{ 'is-invalid': form.submitted && inputMax.invalid }"
+            autofocus>
+          <label for="maxInputBudget">Max.</label>
+        </div>
+
+        <button class="btn btn-primary btn-sm btn-block mt-2" type="submit">Apply</button>
+
+      </form>
+
+    </div>
   </div>
 
 </div>

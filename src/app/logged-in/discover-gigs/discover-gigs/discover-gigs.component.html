@@ -1,0 +1,53 @@
+<section class="container-fluid py-4" id="discover-gigs-section">
+
+  <!-- Banner -->
+  <app-banner
+    [imgUrl]="'assets/imgs/banners/discover-gigs.png'"
+    [title]="'Marketplace'"
+    [description]="'Find the perfect gig for your needs.'"
+    [textColor]="'grey'"
+  ></app-banner>
+
+  <!-- Search -->
+
+  <div class="search form-label-group my-3">
+    <input
+      type="search"
+      id="searchInputDiscoverArtists"
+      class="form-control"
+      name="searchInputDiscoverArtists"
+      placeholder="Search gig"
+      [(ngModel)]="search"
+      #inputSearch="ngModel"
+      (search)="doSearch()">
+    <i class="icon" data-eva="search"></i>
+    <label for="searchInputDiscoverArtists">Search gig</label>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters d-flex align-items-center mb-4">
+    <app-filter
+      [name]="'Category'"
+      [items]="filterItemsCategories"
+      [marginRight]="true"
+      [type]="'list'">
+    </app-filter>
+
+    <app-filter
+      [name]="'Budget'"
+      [type]="'budget'">
+    </app-filter>
+  </div>
+
+  <!-- Gigs -->
+  <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(totalFound)}} Gigs found</span>
+  <div class="w-100 d-flex align-items-center flex-wrap mt-2">
+    <div *ngFor="let gig of gigs" class="col-lg-3 col-md-6 col-sm-12">
+      <app-gig-card  [gig]="gig"></app-gig-card>
+    </div>
+  </div>
+
+  <!-- Load more -->
+  <p class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
+
+</section>

@@ -3,8 +3,10 @@
   <img class="rounded" src="{{imgUrl}}" alt="banner">
 
   <div class="text">
-    <p class="title text-white bold mb-2">{{title}}</p>
-    <p class="description text-white regular">{{description}}</p>
+    <p class="title bold mb-2"
+       [ngClass]="{ 'text-white': textColor === 'white', 'text-grey': textColor === 'grey' }">{{title}}</p>
+    <p class="description regular"
+       [ngClass]="{ 'text-white': textColor === 'white', 'text-grey': textColor === 'grey' }">{{description}}</p>
   </div>
 
 </div>

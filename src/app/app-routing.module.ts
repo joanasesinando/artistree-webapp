@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'discover/gigs',
+    loadChildren: () => import('./logged-in/discover-gigs/discover-gigs.module').then(mod => mod.DiscoverGigsModule)
+  },
+  {
     path: 'discover/artists',
     loadChildren: () => import('./logged-in/discover-artists/discover-artists.module').then(mod => mod.DiscoverArtistsModule)
   },

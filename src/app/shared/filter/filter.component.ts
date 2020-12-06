@@ -9,8 +9,13 @@ export class FilterComponent implements OnInit {
 
   @Input() name: string;
   @Input() items: {name: string, total: number}[];
+  @Input() marginRight?: boolean;
+  @Input() type: string;
 
   arrowDown = true;
+
+  min: number;
+  max: number;
 
   constructor() { }
 
@@ -19,6 +24,15 @@ export class FilterComponent implements OnInit {
 
   changeArrowDirection(): void {
     this.arrowDown = !this.arrowDown;
+  }
+
+  formatNumberWithCommas(n: number): string {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  submitBudget(): void {
+    console.log(this.min);
+    console.log(this.max);
   }
 
 }

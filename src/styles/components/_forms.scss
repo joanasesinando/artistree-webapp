@@ -157,3 +157,10 @@
     border: none;
   }
 }
+
+.budget-min.form-label-group > input,
+.budget-min.form-label-group > label,
+.budget-max.form-label-group > input,
+.budget-max.form-label-group > label{
+  padding: .55rem 1rem;
+}
