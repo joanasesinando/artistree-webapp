@@ -12,6 +12,7 @@ import {RouterModule} from '@angular/router';
 import { BannerComponent } from './banner/banner.component';
 import { FilterComponent } from './filter/filter.component';
 import { SortByComponent } from './sort-by/sort-by.component';
+import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SortByComponent } from './sort-by/sort-by.component';
     NavbarComponent,
     BannerComponent,
     FilterComponent,
-    SortByComponent
+    SortByComponent,
+    SubNavbarComponent
   ],
   exports: [
     FooterComponent,
@@ -33,7 +35,8 @@ import { SortByComponent } from './sort-by/sort-by.component';
     NavbarComponent,
     BannerComponent,
     FilterComponent,
-    SortByComponent
+    SortByComponent,
+    SubNavbarComponent
   ],
   imports: [
     CommonModule,

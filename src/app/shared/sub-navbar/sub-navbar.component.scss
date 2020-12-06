@@ -1,0 +1,13 @@
+.sub-navbar {
+  border-bottom: 2px solid #EFF0F6 !important;
+  overflow-x: scroll;
+
+  a {
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover, &:focus {
+      text-decoration: underline;
+    }
+  }
+}

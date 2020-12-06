@@ -134,3 +134,7 @@ td {
       to(darken(get-color(typography, 2), 5)));
   }
 }
+
+.sub-navbar::-webkit-scrollbar {
+  height: 0;
+}
