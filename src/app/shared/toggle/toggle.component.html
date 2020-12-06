@@ -1,4 +1,5 @@
 <div class="custom-control custom-switch" [ngClass]="{'mr-3': marginRight}">
-  <input type="checkbox" checked class="custom-control-input" id="{{id}}">
+  <input type="checkbox" class="custom-control-input" id="{{id}}"
+         [(ngModel)]="checked" (ngModelChange)="onToggleChanged()">
   <label class="custom-control-label" for="{{id}}">{{label}}</label>
 </div>

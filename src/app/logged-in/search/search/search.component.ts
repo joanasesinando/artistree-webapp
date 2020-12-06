@@ -368,6 +368,12 @@ export class SearchComponent implements OnInit, AfterViewInit {
   gigs: IGig[] = [];
   courses: ICourse[] = [];
 
+  toggles = {
+    artists: true,
+    gigs: true,
+    courses: true
+  };
+
   constructor(private router: ActivatedRoute) {
     this.initializeFilterByCategory();
   }
@@ -450,6 +456,10 @@ export class SearchComponent implements OnInit, AfterViewInit {
         this.courses.push(course);
       }
     }
+  }
+
+  updatedToggles(checked, type: string): void {
+    this.toggles[type] = checked;
   }
 
 }

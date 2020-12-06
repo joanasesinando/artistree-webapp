@@ -7,18 +7,21 @@
     <app-toggle
       [label]="'Artists'"
       [id]="'switchArtistsSearch'"
-      [marginRight]="true">
+      [marginRight]="true"
+      (toggleChanged)="updatedToggles($event, 'artists')">
     </app-toggle>
 
     <app-toggle
       [label]="'Gigs'"
       [id]="'switchGigsSearch'"
-      [marginRight]="true">
+      [marginRight]="true"
+      (toggleChanged)="updatedToggles($event, 'gigs')">
     </app-toggle>
 
     <app-toggle
       [label]="'Courses'"
-      [id]="'switchCoursesSearch'">
+      [id]="'switchCoursesSearch'"
+      (toggleChanged)="updatedToggles($event, 'courses')">
     </app-toggle>
   </div>
 
@@ -45,7 +48,7 @@
   </div>
 
   <!-- Artists -->
-  <div class="artists">
+  <div *ngIf="toggles.artists" class="artists">
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
@@ -68,7 +71,7 @@
   </div> <!-- ./artists -->
 
   <!-- Gigs -->
-  <div class="gigs">
+  <div *ngIf="toggles.gigs" class="gigs">
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
@@ -91,7 +94,7 @@
   </div> <!-- ./gigs -->
 
   <!-- Courses -->
-  <div class="courses">
+  <div *ngIf="toggles.courses" class="courses">
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
