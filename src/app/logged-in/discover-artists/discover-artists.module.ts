@@ -10,6 +10,9 @@ import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [DiscoverArtistsComponent, ArtistCardComponent],
+  exports: [
+    ArtistCardComponent
+  ],
   imports: [
     CommonModule,
     DiscoverArtistsRoutingModule,

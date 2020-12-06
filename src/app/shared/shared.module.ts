@@ -13,6 +13,7 @@ import { BannerComponent } from './banner/banner.component';
 import { FilterComponent } from './filter/filter.component';
 import { SortByComponent } from './sort-by/sort-by.component';
 import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
+import { ToggleComponent } from './toggle/toggle.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
     BannerComponent,
     FilterComponent,
     SortByComponent,
-    SubNavbarComponent
+    SubNavbarComponent,
+    ToggleComponent
   ],
   exports: [
     FooterComponent,
@@ -36,7 +38,8 @@ import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
     BannerComponent,
     FilterComponent,
     SortByComponent,
-    SubNavbarComponent
+    SubNavbarComponent,
+    ToggleComponent
   ],
   imports: [
     CommonModule,

@@ -24,7 +24,7 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   totalFound = 53856; // TODO
 
   filterItemsCategories: {name: string, total: number}[] = [];
-  filterItemsDuration: {name: string, total: number}[] = [ // TODO
+  filterItemsDuration: {name: string, total: number}[] = [
     {
       name: 'A few hours',
       total: 12
@@ -226,10 +226,10 @@ export class AcademyComponent implements OnInit, AfterViewInit {
       this.filterItemsCategories.push({ name: category, total});
     }
   }
+
   formatNumberWithCommas(n: number): string {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-
 
   loadMoreArtists(): void {
     // TODO: load more 20 artists

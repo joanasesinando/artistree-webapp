@@ -1,0 +1,113 @@
+<section class="container-fluid py-4" id="search-section">
+
+  <h4>Results for '{{query}}'</h4>
+
+  <!-- Toggles -->
+  <div class="toggles d-flex align-items-center mt-3">
+    <app-toggle
+      [label]="'Artists'"
+      [id]="'switchArtistsSearch'"
+      [marginRight]="true">
+    </app-toggle>
+
+    <app-toggle
+      [label]="'Gigs'"
+      [id]="'switchGigsSearch'"
+      [marginRight]="true">
+    </app-toggle>
+
+    <app-toggle
+      [label]="'Courses'"
+      [id]="'switchCoursesSearch'">
+    </app-toggle>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters d-flex align-items-center mt-3 mb-4">
+    <app-filter
+      [name]="'Category'"
+      [items]="filterItemsCategory"
+      [marginRight]="true"
+      [type]="'list'">
+    </app-filter>
+
+    <app-filter
+      [name]="'Budget'"
+      [type]="'budget'"
+      [marginRight]="true">
+    </app-filter>
+
+    <app-filter
+      [name]="'Duration'"
+      [items]="filterItemsDuration"
+      [type]="'list'">
+    </app-filter>
+  </div>
+
+  <!-- Artists -->
+  <div class="artists">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- Total -->
+      <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artistInfo.totalFound)}} Artists found</span>
+
+      <!-- Sort -->
+      <app-sort-by [items]="artistInfo.sortItems"></app-sort-by>
+    </div>
+
+    <div class="w-100 d-flex align-items-center flex-wrap mt-3">
+      <div *ngFor="let artist of artists" class="col-lg-3 col-md-6 col-sm-12">
+        <app-artist-card  [artist]="artist"></app-artist-card>
+      </div>
+    </div>
+
+    <!-- Load more -->
+    <p class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
+
+  </div> <!-- ./artists -->
+
+  <!-- Gigs -->
+  <div class="gigs">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- Total -->
+      <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigsInfo.totalFound)}} Gigs found</span>
+
+      <!-- Sort -->
+      <app-sort-by [items]="gigsInfo.sortItems"></app-sort-by>
+    </div>
+
+    <div class="w-100 d-flex align-items-center flex-wrap mt-3">
+      <div *ngFor="let gig of gigs" class="col-lg-3 col-md-6 col-sm-12">
+        <app-gig-card  [gig]="gig"></app-gig-card>
+      </div>
+    </div>
+
+    <!-- Load more -->
+    <p class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
+
+  </div> <!-- ./gigs -->
+
+  <!-- Courses -->
+  <div class="courses">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <!-- Total -->
+      <span class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesInfo.totalFound)}} Courses found</span>
+
+      <!-- Sort -->
+      <app-sort-by [items]="coursesInfo.sortItems"></app-sort-by>
+    </div>
+
+    <div class="w-100 d-flex align-items-center flex-wrap mt-3">
+      <div *ngFor="let course of courses" class="col-lg-3 col-md-6 col-sm-12">
+        <app-course-card  [course]="course"></app-course-card>
+      </div>
+    </div>
+
+    <!-- Load more -->
+    <p class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
+
+  </div> <!-- ./courses -->
+
+</section>

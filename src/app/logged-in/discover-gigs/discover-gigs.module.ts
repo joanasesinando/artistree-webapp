@@ -10,6 +10,9 @@ import { GigCardComponent } from './discover-gigs/gig-card/gig-card.component';
 
 @NgModule({
   declarations: [DiscoverGigsComponent, GigCardComponent],
+  exports: [
+    GigCardComponent
+  ],
   imports: [
     CommonModule,
     DiscoverGigsRoutingModule,

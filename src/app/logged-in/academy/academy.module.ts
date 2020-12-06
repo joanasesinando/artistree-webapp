@@ -10,6 +10,9 @@ import { CourseCardComponent } from './academy/course-card/course-card.component
 
 @NgModule({
   declarations: [AcademyComponent, CourseCardComponent],
+  exports: [
+    CourseCardComponent
+  ],
   imports: [
     CommonModule,
     AcademyRoutingModule,

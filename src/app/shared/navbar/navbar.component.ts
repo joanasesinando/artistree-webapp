@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import * as eva from 'eva-icons';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('form', { static: false }) form: NgForm;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.toggler = document.getElementById('toggler');
@@ -62,8 +63,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   doSearch(): void {
-    console.log(this.search);
-    // TODO
+    this.router.navigate(['/search/' + this.search]);
   }
 
   hasMessages(): boolean {

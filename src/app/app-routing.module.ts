@@ -3,6 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'search/:query',
+    loadChildren: () => import('./logged-in/search/search.module').then(mod => mod.SearchModule)
+  },
+  {
     path: 'academy',
     loadChildren: () => import('./logged-in/academy/academy.module').then(mod => mod.AcademyModule)
   },
