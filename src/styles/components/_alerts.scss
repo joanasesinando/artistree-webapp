@@ -1,0 +1,117 @@
+.alerts {
+  position: fixed;
+  top: .5rem;
+  right: .5rem;
+  height: auto;
+  width: 25rem;
+  z-index: 1060;
+
+  @include media-breakpoint-down(xs) {
+    right: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.alert {
+  border-width: 1px;
+  border-radius: .25rem;
+  padding: 1rem;
+  width: 25rem;
+  box-shadow: 0 .5rem 1rem 0 rgba(44, 51, 73, 0.1);
+  margin-bottom: .5rem;
+}
+@media (max-width: 575.98px) {
+  .alert { width: 95%; }
+}
+
+.alert-icon-container {
+  background-color: white;
+  border-radius: 0.25rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.25rem;
+}
+
+.alert-title {
+  @include font-family-att(base);
+  font-size: 0.8375rem;
+  @include font-weight-att(semibold);
+  line-height: 1.5rem;
+  color: white;
+  margin-bottom: 0;
+}
+
+.alert-text {
+  @include font-family-att(base);
+  font-size: 0.75rem;
+  @include font-weight-att(regular);
+  line-height: 1.125rem;
+  color: white;
+  margin-bottom: 0;
+}
+
+.alert-success {
+  background-color: get-color(primary, 3);
+  border-color: get-color(primary, 3);
+}
+
+.alert-success:hover {
+  background-color: get-color(primary, 1);
+  border-color: get-color(primary, 1);
+  cursor: pointer;
+}
+
+.alert-success svg {
+  fill: get-color(primary, 3);
+}
+
+.alert-danger {
+  background-color: get-color(danger, 3);
+  border-color: get-color(danger, 3);
+}
+
+.alert-danger:hover {
+  background-color: get-color(danger, 1);
+  border-color: get-color(danger, 1);
+  cursor: pointer;
+}
+
+.alert-danger svg {
+  fill: get-color(danger, 3);
+}
+
+.alert-warning {
+  background-color: #ffaa00;
+  border-color: #ffaa00;
+}
+
+.alert-warning:hover {
+  background-color: lighten(#ffaa00, 10%);
+  border-color: lighten(#ffaa00, 10%);
+  cursor: pointer;
+}
+
+.alert-warning svg {
+  fill: #ffaa00;
+}
+
+.alert-info {
+  background-color: get-color(additional, 3);
+  border-color: get-color(additional, 3);
+}
+
+.alert-info:hover {
+  background-color: get-color(additional, 1);
+  border-color: get-color(additional, 1);
+  cursor: pointer;
+}
+
+.alert-info svg {
+  fill: get-color(additional, 3);
+}

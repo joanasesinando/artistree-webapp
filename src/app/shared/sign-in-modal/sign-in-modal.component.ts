@@ -5,6 +5,8 @@ import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
 import {Router} from '@angular/router';
 
+import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+
 @Component({
   selector: 'app-sign-in-modal',
   templateUrl: './sign-in-modal.component.html',
@@ -15,7 +17,7 @@ export class SignInModalComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: FirebaseAuthService) { }
 
   @ViewChild('form', { static: false }) form: NgForm;
 
@@ -30,7 +32,11 @@ export class SignInModalComponent implements OnInit {
     }
 
     this.closeModal('signinModal');
-    this.router.navigate(['/feed']);
+    this.auth.login(this.email, this.password).then(res => {
+      if (res) {
+        this.router.navigate(['/feed']);
+      }
+    });
   }
 
   join(): void {
@@ -53,5 +59,4 @@ export class SignInModalComponent implements OnInit {
     const modal = $('#' + modalID);
     modal.modal('show');
   }
-
 }

@@ -1,46 +1,62 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Observable} from 'rxjs';
-import firebase from 'firebase';
-import {AngularFireDatabase, AngularFireObject} from '@angular/fire/database';
+import firebase from 'firebase/app';
+import {AngularFireDatabase} from '@angular/fire/database';
 import {Regular} from '../../_domain/Regular';
+import {AlertService} from '../../_util/alert.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseAuthService {
+
   user: Observable<firebase.User>;
-  constructor(private firebaseAuth: AngularFireAuth, private db: AngularFireDatabase) {
+
+  constructor(private firebaseAuth: AngularFireAuth,
+              private db: AngularFireDatabase,
+              private alertService: AlertService) {
+
     this.user = firebaseAuth.authState;
   }
-  signup(email: string, password: string): void {
-    this.firebaseAuth
+
+  signup(email: string, password: string): Promise<boolean> {
+    return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
       .then(value => {
-        console.log('Registado com sucesso!', value);
+        this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
+        return true;
       })
       .catch(err => {
-        console.log('Erro:', err.message);
+        this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+        return false;
       });
   }
 
 
-  login(email: string, password: string): void {
-    this.firebaseAuth
+  login(email: string, password: string): Promise<boolean> {
+    return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
       .then(value => {
-        console.log('Login efetuado com sucesso');
+        this.alertService.showAlert('Welcome back!', 'You successfully logged in to Artistree.', 'success');
+        return true;
       })
       .catch(err => {
-        console.log('Erro:', err.message);
+        this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+        return false;
       });
   }
 
-  logout(): void {
-    this.firebaseAuth.signOut().then(value => {
-      console.log('Logout efetuado com sucesso');
-    });
+  logout(): Promise<boolean> {
+    return this.firebaseAuth.signOut().then(value => {
+      this.alertService.showAlert('Sad to see you go', 'You successfully logged out of Artistree.', 'success');
+      return true;
+    })
+      .catch(err => {
+        this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+        return false;
+      });
   }
 
   createRegular(handler: string, name: string, surname: string, areas: string[]): void {
@@ -57,8 +73,10 @@ export class FirebaseAuthService {
       email: firebase.auth().currentUser.email,
       interests: areas
     }).then(value => {
+      // TODO: alert
       console.log('Registado com sucesso!', value); });
   }
+
   writeArtistData(username: string, name: string, surname: string): void{
     firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
       handler: username,
@@ -66,6 +84,7 @@ export class FirebaseAuthService {
       Surname: surname,
       email: firebase.auth().currentUser.email
     }).then(value => {
+      // TODO: alert
       console.log('Registado com sucesso!', value); });
   }
 

@@ -19,4 +19,9 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     eva.replace();
   }
+
+  // FIXME: move
+  // createRegular(username: string, name: string, surname: string): void{
+  //   this.auth.createRegular(username, name, surname, ['Dance', 'Music', 'Magic']);
+  // }
 }

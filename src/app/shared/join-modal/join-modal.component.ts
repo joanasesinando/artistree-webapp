@@ -5,6 +5,7 @@ import * as $ from 'jquery';
 
 import 'node_modules/bootstrap/js/dist/modal';
 import {Router} from '@angular/router';
+import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
 
 @Component({
   selector: 'app-join-modal',
@@ -97,7 +98,7 @@ export class JoinModalComponent implements OnInit {
 
   type;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private auth: FirebaseAuthService) { }
 
   ngOnInit(): void {
   }
@@ -127,22 +128,35 @@ export class JoinModalComponent implements OnInit {
   }
 
   finishJoining(): void {
-    this.closeModal('joinModal-step4');
-    this.router.navigate(['/feed']);
+    const areas: string[] = [];
 
+    if (!this.form1.form.valid || !this.form2.form.valid || !this.form3.form.valid) {
+      return;
+    }
+
+    this.closeModal('joinModal-step4');
+    this.auth.signup(this.email, this.password).then(res => {
+      if (res) {
+        this.router.navigate(['/feed']);
+      }
+    });
+
+    // TODO: save areas
     for (const checkbox of this.checkboxes1) {
       if (checkbox.checked) {
+        areas.push(checkbox.label);
         checkbox.checked = false;
-        console.log(checkbox.label);
       }
     }
 
     for (const checkbox of this.checkboxes2) {
       if (checkbox.checked) {
+        areas.push(checkbox.label);
         checkbox.checked = false;
-        console.log(checkbox.label);
       }
     }
+
+    // Reset
     this.email = '';
     this.password = '';
   }
