@@ -1,0 +1,42 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+.main {
+  height: auto;
+  box-shadow: 0 4.74764px 9.49528px rgba(17, 17, 17, 0.04);
+
+  &.rounded, {
+    border-radius: 18.9906px !important;
+  }
+
+  .rounded-top-right {
+    border-top-right-radius: 18.9906px;
+  }
+
+  .rounded-top-left {
+    border-top-left-radius: 18.9906px;
+  }
+
+  .image {
+    height: 100%;
+    width: 100%;
+
+    img {
+      height: 8rem;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .title {
+    font-size: .9rem;
+  }
+
+  .description, .duration {
+    font-size: .75rem;
+  }
+
+  .price {
+    font-size: .9rem;
+  }
+}
