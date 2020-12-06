@@ -1,4 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
+import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {Router} from '@angular/router';
+import {AlertService} from '../../_util/alert.service';
 
 @Component({
   selector: 'app-navbar-homepage',
@@ -11,7 +14,9 @@ export class NavbarHomepageComponent implements OnInit {
   menu;
   header;
 
-  constructor() { }
+  constructor(private router: Router,
+              private firebaseAuthService: FirebaseAuthService,
+              private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.toggler = document.getElementById('toggler2');
@@ -39,6 +44,12 @@ export class NavbarHomepageComponent implements OnInit {
     this.header.removeAttribute('style');
     this.menu.style.display = 'none';
     document.body.removeAttribute('style');
+  }
+
+  goTo(): void {
+    if (!this.firebaseAuthService.isUserLoggedIn) {
+      this.alertService.showAlert('Hold on a minute', 'Sign in to Artistree to see this content.', 'warning');
+    }
   }
 
   @HostListener('window:scroll', [])

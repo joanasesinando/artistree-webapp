@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
   }

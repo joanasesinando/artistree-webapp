@@ -21,7 +21,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   search;
   @ViewChild('form', { static: false }) form: NgForm;
 
-  artists: IArtist[] = [ // TODO: ir buscar 20 artists
+  artistsList: IArtist[] = [ // TODO: ir buscar todos os artistas
     {
       name: 'Ned Tomlinson',
       job: 'Magician',
@@ -244,6 +244,8 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     }
   ];
 
+  artists: IArtist[] = [];
+
   totalFound = 1231; // TODO
 
   filterItems: {name: string, total: number}[] = [];
@@ -254,6 +256,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.filterArtists(); // TODO: meter na função de load de artistas (no fim)
   }
 
   ngAfterViewInit(): void {
@@ -278,7 +281,23 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   }
 
   doSearch(): void {
-    console.log(this.search);
+    console.log('searching');
+    this.filterArtists();
+  }
+
+  isQueryTrue(artist: IArtist): boolean {
+    return !this.search || !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.search)) ||
+      !!artist.job.toLowerCase().split(' ').find(a => a.includes(this.search));
+  }
+
+  filterArtists(): void {
+    this.artists = [];
+    for (const artist of this.artistsList) {
+      console.log(this.isQueryTrue(artist));
+      if (this.isQueryTrue(artist)) {
+        this.artists.push(artist);
+      }
+    }
   }
 
 }

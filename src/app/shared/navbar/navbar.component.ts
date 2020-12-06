@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 
 import * as eva from 'eva-icons';
 import {Router} from '@angular/router';
+import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   @ViewChild('form', { static: false }) form: NgForm;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService) { }
 
   ngOnInit(): void {
     this.toggler = document.getElementById('toggler');
@@ -74,6 +75,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   hasNotifications(): boolean {
     // TODO
     return true;
+  }
+
+  logout(): void {
+    this.firebaseAuthService.logout();
   }
 
 }

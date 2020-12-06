@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {Observable} from 'rxjs';
 import firebase from 'firebase/app';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {Regular} from '../../_domain/Regular';
 import {AlertService} from '../../_util/alert.service';
+import {Router} from '@angular/router';
 
 
 @Injectable({
@@ -12,13 +12,23 @@ import {AlertService} from '../../_util/alert.service';
 })
 export class FirebaseAuthService {
 
-  user: Observable<firebase.User>;
+  public currentUser: firebase.User = null;
+  public isUserLoggedIn = null;
 
   constructor(private firebaseAuth: AngularFireAuth,
               private db: AngularFireDatabase,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private router: Router) {
+    const that = this;
 
-    this.user = firebaseAuth.authState;
+    firebaseAuth.onAuthStateChanged(user => {
+      that.currentUser = user;
+      that.isUserLoggedIn = !!that.currentUser;
+
+      if (that.isUserLoggedIn) {
+        this.router.navigate(['/feed']);
+      }
+    });
   }
 
   signup(email: string, password: string): Promise<boolean> {
@@ -53,10 +63,10 @@ export class FirebaseAuthService {
       this.alertService.showAlert('Sad to see you go', 'You successfully logged out of Artistree.', 'success');
       return true;
     })
-      .catch(err => {
-        this.alertService.showAlert('Something went wrong...', err.message, 'danger');
-        return false;
-      });
+    .catch(err => {
+      this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+      return false;
+    });
   }
 
   createRegular(handler: string, name: string, surname: string, areas: string[]): void {
