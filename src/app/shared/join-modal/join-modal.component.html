@@ -180,7 +180,7 @@
               [ngClass]="{ 'is-invalid': form3.submitted && inputFirstName.invalid }"
               required autofocus>
 
-            <i class="icon" data-eva="text-outline"></i>
+            <i class="icon" data-eva="person-outline"></i>
             <label for="joinInputFirstName">First name</label>
           </div>
 
@@ -203,7 +203,7 @@
               [ngClass]="{ 'is-invalid': form3.submitted && inputLastName.invalid }"
               required autofocus>
 
-            <i class="icon" data-eva="text-outline"></i>
+            <i class="icon" data-eva="person-outline"></i>
             <label for="joinInputLastName">Last name</label>
           </div>
 
@@ -213,7 +213,7 @@
           </div>
 
           <!-- Handler -->
-          <div class="form-label-group">
+          <div class="form-label-group mb-2">
             <input
               type="text"
               id="joinInputHandler"
@@ -230,9 +230,19 @@
             <label for="joinInputHandler">Handler</label>
           </div>
 
-          <div *ngIf="form3.submitted && inputHandler.invalid" class="is-invalid">
-            <span *ngIf="inputHandler.errors.required" class="small text-danger">Handler is required</span>
-            <span *ngIf="inputHandler.errors.pattern" class="small text-danger">Handler must be in a valid format</span>
+          <!-- Avatar -->
+          <div class="form-label-group">
+            <input
+              type="text"
+              id="joinInputAvatar"
+              class="form-control"
+              name="joinInputAvatar"
+              placeholder="Profile picture URL"
+              [(ngModel)]="avatar"
+              autofocus>
+
+            <i class="icon" data-eva="image-outline"></i>
+            <label for="joinInputAvatar">Profile picture URL</label>
           </div>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Continue</button>

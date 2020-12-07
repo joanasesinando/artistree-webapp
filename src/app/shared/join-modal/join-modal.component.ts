@@ -20,6 +20,7 @@ export class JoinModalComponent implements OnInit {
   firstName: string;
   lastName: string;
   handler: string;
+  avatar = '';
 
   checkboxes1 = [
     {
@@ -178,7 +179,11 @@ export class JoinModalComponent implements OnInit {
       }
     }
 
-    this.auth.signup(this.email, this.password, this.firstName, this.lastName, this.handler, areas, this.type).then(res => {
+    if (this.avatar === '') {
+      this.avatar = 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png';
+    }
+
+    this.auth.signup(this.email, this.password, this.firstName, this.lastName, this.handler, this.avatar, areas, this.type).then(res => {
       if (res) {
         this.router.navigate(['/feed']);
       }
@@ -190,6 +195,7 @@ export class JoinModalComponent implements OnInit {
     this.firstName = '';
     this.lastName = '';
     this.handler = '';
+    this.avatar = '';
   }
 
   signIn(from: number): void {

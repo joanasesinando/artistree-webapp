@@ -4,6 +4,7 @@ import {NgForm} from '@angular/forms';
 import * as eva from 'eva-icons';
 import {Router} from '@angular/router';
 import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -20,13 +21,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   search;
 
   user = {
-    name: '',
-    photoUrl: ''
+    name: '<user name>',
+    photoUrl: 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png'
   };
 
   @ViewChild('form', { static: false }) form: NgForm;
 
-  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService) { }
+  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService) {
+    firebaseAuthService.auth.onAuthStateChanged(user => {
+      firebaseAuthService.getUserFullName(user.uid).then(name => this.user.name = name);
+      firebaseAuthService.getUserAvatar(user.uid).then(avatar => this.user.photoUrl = avatar);
+    });
+  }
 
   ngOnInit(): void {
     this.toggler = document.getElementById('toggler');

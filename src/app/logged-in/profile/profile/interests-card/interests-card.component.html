@@ -1,0 +1,9 @@
+<div class="interests rounded py-3 px-4 mt-4">
+
+  <h6 class="text-dark semibold mt-0 mb-2">Interests</h6>
+
+  <div class="w-100 d-flex align-items-center flex-wrap">
+    <app-pill *ngFor="let interest of interests; let last = last" [label]="interest" [marginRight]="!last"></app-pill>
+  </div>
+
+</div>

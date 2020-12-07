@@ -15,6 +15,7 @@ import {Booking} from '../../_domain/Booking';
 })
 export class FirebaseAuthService {
 
+  public auth: AngularFireAuth;
   public currentUser: firebase.User = null;
   public isUserLoggedIn = null;
 
@@ -23,6 +24,7 @@ export class FirebaseAuthService {
               private alertService: AlertService,
               private router: Router) {
     const that = this;
+    that.auth = firebaseAuth;
 
     firebaseAuth.onAuthStateChanged(user => {
       that.currentUser = user;
@@ -34,7 +36,7 @@ export class FirebaseAuthService {
     });
   }
 
-  signup(email: string, password: string, firstName: string, lastName: string, handler: string,
+  signup(email: string, password: string, firstName: string, lastName: string, handler: string, avatar: string,
          areas: string[], type: string): Promise<boolean> {
 
     return this.firebaseAuth
@@ -43,7 +45,7 @@ export class FirebaseAuthService {
 
         switch (type) {
           case 'artist':
-            return this.writeArtistData(handler, firstName, lastName, areas)
+            return this.writeArtistData(handler, firstName, lastName, avatar, areas)
               .then(() => {
                 this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
                 return true;
@@ -55,7 +57,7 @@ export class FirebaseAuthService {
 
           case 'user':
           default:
-            return this.writeRegularData(handler, firstName, lastName, areas)
+            return this.writeRegularData(handler, firstName, lastName, avatar, areas)
               .then(() => {
                 this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
                 return true;
@@ -150,22 +152,24 @@ export class FirebaseAuthService {
   /*** -------------------- Write ------------------ ***/
   /*** --------------------------------------------- ***/
 
-  writeRegularData(handler: string, firstname: string, lastName: string, areas: string[]): Promise<boolean> {
+  writeRegularData(handler: string, firstname: string, lastName: string, avatar: string, areas: string[]): Promise<boolean> {
     return this.setDatabaseData('users/Regulars/' + firebase.auth().currentUser.uid, {
       handler,
       name: firstname,
       surname: lastName,
       email: firebase.auth().currentUser.email,
+      avatar,
       areas
     });
   }
 
-  writeArtistData(handler: string, firstname: string, lastName: string, areas: string[]): Promise<boolean> {
+  writeArtistData(handler: string, firstname: string, lastName: string, avatar: string, areas: string[]): Promise<boolean> {
     return this.setDatabaseData('users/Artists/' + firebase.auth().currentUser.uid, {
       handler,
       name: firstname,
       surname: lastName,
       email: firebase.auth().currentUser.email,
+      avatar,
       areas
     });
   }
@@ -178,18 +182,19 @@ export class FirebaseAuthService {
     const handlers: string[] = [];
 
     return this.getDatabaseData('users').then(users => {
-
-      for (const key in users.Artists) {
-        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
-          const user = users.Artists[key];
-          handlers.push(user.handler);
+      if (users) {
+        for (const key in users.Artists) {
+          if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
+            const user = users.Artists[key];
+            handlers.push(user.handler);
+          }
         }
-      }
 
-      for (const key in users.Regulars) {
-        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
-          const user = users.Regulars[key];
-          handlers.push(user.handler);
+        for (const key in users.Regulars) {
+          if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
+            const user = users.Regulars[key];
+            handlers.push(user.handler);
+          }
         }
       }
 
@@ -201,18 +206,19 @@ export class FirebaseAuthService {
     const emails: string[] = [];
 
     return this.getDatabaseData('users').then(users => {
-
-      for (const key in users.Artists) {
-        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
-          const user = users.Artists[key];
-          emails.push(user.email);
+      if (users) {
+        for (const key in users.Artists) {
+          if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
+            const user = users.Artists[key];
+            emails.push(user.email);
+          }
         }
-      }
 
-      for (const key in users.Regulars) {
-        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
-          const user = users.Regulars[key];
-          emails.push(user.email);
+        for (const key in users.Regulars) {
+          if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
+            const user = users.Regulars[key];
+            emails.push(user.email);
+          }
         }
       }
 
@@ -220,8 +226,64 @@ export class FirebaseAuthService {
     });
   }
 
-  getUserFullName(uid: string): void {
+  getUserFullName(uid: string): Promise<string> {
+    return this.getDatabaseData('users').then(users => {
+      for (const key in users.Artists) {
+        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
+          const user = users.Artists[key];
+          if (key === uid) {
+            return user.name + ' ' + user.surname;
+          }
+        }
+      }
 
+      for (const key in users.Regulars) {
+        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
+          const user = users.Regulars[key];
+          if (key === uid) {
+            return user.name + ' ' + user.surname;
+          }
+        }
+      }
+      return '';
+    });
+  }
+
+  getUserAvatar(uid: string): Promise<string> {
+    return this.getDatabaseData('users').then(users => {
+      for (const key in users.Artists) {
+        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
+          const user = users.Artists[key];
+          if (key === uid) {
+            return user.avatar;
+          }
+        }
+      }
+
+      for (const key in users.Regulars) {
+        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
+          const user = users.Regulars[key];
+          if (key === uid) {
+            return user.avatar;
+          }
+        }
+      }
+      return '';
+    });
+  }
+
+  isArtist(uid: string): Promise<boolean> {
+    return this.getDatabaseData('users/Artists').then(artists => {
+      for (const key in artists) {
+        if (Object.prototype.hasOwnProperty.call(artists, key)) {
+          const user = artists[key];
+          if (key === uid) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
   }
 
   async getRegularByID(_Uid: string): Promise<Regular> {

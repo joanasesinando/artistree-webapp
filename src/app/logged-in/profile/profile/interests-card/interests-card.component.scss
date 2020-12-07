@@ -1,0 +1,17 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+h6 {
+  @include font-family-att(base);
+  font-size: 1rem;
+  @include font-weight-att(bold);
+}
+
+.interests {
+  height: auto;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+
+  &.rounded {
+    border-radius: 16.1663px !important;
+  }
+}
