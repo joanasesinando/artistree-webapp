@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {FirebaseService} from '../../_services/authentication/firebase.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../_util/alert.service';
 
@@ -15,7 +15,7 @@ export class NavbarHomepageComponent implements OnInit {
   header;
 
   constructor(private router: Router,
-              private firebaseAuthService: FirebaseAuthService,
+              private firebaseService: FirebaseService,
               private alertService: AlertService) { }
 
   ngOnInit(): void {
@@ -47,7 +47,7 @@ export class NavbarHomepageComponent implements OnInit {
   }
 
   goTo(): void {
-    if (!this.firebaseAuthService.isUserLoggedIn) {
+    if (!this.firebaseService.isUserLoggedIn) {
       this.alertService.showAlert('Hold on a minute', 'Sign in to Artistree to see this content.', 'warning');
     }
   }

@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import firebase from 'firebase/app';
-import {AngularFireDatabase} from '@angular/fire/database';
-import {Regular} from '../../_domain/Regular';
-import {AlertService} from '../../_util/alert.service';
 import {Router} from '@angular/router';
+
+import firebase from 'firebase/app';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFireDatabase} from '@angular/fire/database';
+
+import {AlertService} from '../../_util/alert.service';
+
+import {Regular} from '../../_domain/Regular';
 import {Artist} from '../../_domain/Artist';
 import {Course} from '../../_domain/Course';
 import {Booking} from '../../_domain/Booking';
@@ -13,7 +16,7 @@ import {Booking} from '../../_domain/Booking';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseAuthService {
+export class FirebaseService {
 
   public auth: AngularFireAuth;
   public currentUser: firebase.User = null;
@@ -36,8 +39,24 @@ export class FirebaseAuthService {
     });
   }
 
-  signup(email: string, password: string, firstName: string, lastName: string, handler: string, avatar: string,
-         areas: string[], type: string): Promise<boolean> {
+  /*** --------------------------------------------- ***/
+  /*** -------- General Database Functions --------- ***/
+  /*** --------------------------------------------- ***/
+
+  public setDatabaseData(path, data): Promise<void> {
+    return firebase.database().ref(path).update(data);
+  }
+
+  public getDatabaseData(path): Promise<any> {
+    return firebase.database().ref(path).once('value').then(snapshot => snapshot.val());
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** ------------ Joining Artistree -------------- ***/
+  /*** --------------------------------------------- ***/
+
+  signup(type: string, email: string, password: string, name: string, handler: string, avatar: string, interests: string[],
+         joiningTimestamp: number, artisticAreas?: string[], title?: string): Promise<void> {
 
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
@@ -45,31 +64,47 @@ export class FirebaseAuthService {
 
         switch (type) {
           case 'artist':
-            return this.writeArtistData(handler, firstName, lastName, avatar, areas)
-              .then(() => {
-                this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
-                return true;
-              })
-              .catch(err => {
-                this.alertService.showAlert('Something went wrong...', err.message, 'danger');
-                return false;
-              });
+            this.setDatabaseData('users/artists/' + firebase.auth().currentUser.uid, {
+              email,
+              name,
+              handler,
+              avatar,
+              interests,
+              artisticAreas,
+              title,
+              type,
+              joiningTimestamp
+            }).then(() => {
+              this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
 
-          case 'user':
+            }).catch(err => {
+              this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+            });
+            break;
+
+          case 'regular':
           default:
-            return this.writeRegularData(handler, firstName, lastName, avatar, areas)
-              .then(() => {
-                this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
-                return true;
-              })
-              .catch(err => {
-                this.alertService.showAlert('Something went wrong...', err.message, 'danger');
-                return false;
-              });
-        }
+            this.setDatabaseData('users/regular/' + firebase.auth().currentUser.uid, {
+              email,
+              name,
+              handler,
+              avatar,
+              interests,
+              type,
+              joiningTimestamp
+            }).then(() => {
+              this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
 
+            }).catch(err => {
+              this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+            });
+        }
       });
   }
+
+  /*** --------------------------------------------- ***/
+  /*** ------------------- Login ------------------- ***/
+  /*** --------------------------------------------- ***/
 
   login(email: string, password: string): Promise<boolean> {
     return this.firebaseAuth
@@ -84,6 +119,10 @@ export class FirebaseAuthService {
       });
   }
 
+  /*** --------------------------------------------- ***/
+  /*** ------------------ Logout ------------------- ***/
+  /*** --------------------------------------------- ***/
+
   logout(): Promise<boolean> {
     return this.firebaseAuth.signOut().then(() => {
       this.alertService.showAlert('Sad to see you go', 'You successfully logged out of Artistree.', 'success');
@@ -96,27 +135,13 @@ export class FirebaseAuthService {
   }
 
   /*** --------------------------------------------- ***/
-  /*** -------- General Database Functions --------- ***/
-  /*** --------------------------------------------- ***/
-
-  public getDatabaseData(path): Promise<any> {
-    return firebase.database().ref(path).once('value').then(snapshot => snapshot.val());
-  }
-
-  public setDatabaseData(path, data): Promise<boolean> {
-    return firebase.database().ref(path).update(data).then(() => true).catch(() => false);
-  }
-
-  /*** --------------------------------------------- ***/
   /*** ------------------- Exists ------------------ ***/
   /*** --------------------------------------------- ***/
 
   emailAlreadyExists(other: string): Promise<boolean> {
     return this.getAllEmails().then(emails => {
       for (const email of emails) {
-        if (email === other) {
-          return true;
-        }
+        if (email === other) return true;
       }
       return false;
     });
@@ -125,52 +150,9 @@ export class FirebaseAuthService {
   handlerAlreadyExists(other: string): Promise<boolean> {
     return this.getAllHandlers().then(handlers => {
       for (const handler of handlers) {
-        if (handler === other) {
-          return true;
-        }
+        if (handler === other) return true;
       }
       return false;
-    });
-  }
-
-  /*** --------------------------------------------- ***/
-  /*** ------------------- Create ------------------ ***/
-  /*** --------------------------------------------- ***/
-
-  createCourse( _title: string, _price: number, _description: string): void {
-    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
-      artist.createCourse(_title, _price, _description);
-    });
-  }
-  createBooking( _title: string, _description: string, _price: number, _duration: number): void {
-    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
-      artist.createBooking(_title,  _description, _price, _duration);
-    });
-  }
-
-  /*** --------------------------------------------- ***/
-  /*** -------------------- Write ------------------ ***/
-  /*** --------------------------------------------- ***/
-
-  writeRegularData(handler: string, firstname: string, lastName: string, avatar: string, areas: string[]): Promise<boolean> {
-    return this.setDatabaseData('users/Regulars/' + firebase.auth().currentUser.uid, {
-      handler,
-      name: firstname,
-      surname: lastName,
-      email: firebase.auth().currentUser.email,
-      avatar,
-      areas
-    });
-  }
-
-  writeArtistData(handler: string, firstname: string, lastName: string, avatar: string, areas: string[]): Promise<boolean> {
-    return this.setDatabaseData('users/Artists/' + firebase.auth().currentUser.uid, {
-      handler,
-      name: firstname,
-      surname: lastName,
-      email: firebase.auth().currentUser.email,
-      avatar,
-      areas
     });
   }
 
@@ -183,16 +165,16 @@ export class FirebaseAuthService {
 
     return this.getDatabaseData('users').then(users => {
       if (users) {
-        for (const key in users.Artists) {
-          if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
-            const user = users.Artists[key];
+        for (const key in users.artists) {
+          if (Object.prototype.hasOwnProperty.call(users.artists, key)) {
+            const user = users.artists[key];
             handlers.push(user.handler);
           }
         }
 
-        for (const key in users.Regulars) {
-          if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
-            const user = users.Regulars[key];
+        for (const key in users.regular) {
+          if (Object.prototype.hasOwnProperty.call(users.regular, key)) {
+            const user = users.regular[key];
             handlers.push(user.handler);
           }
         }
@@ -207,16 +189,16 @@ export class FirebaseAuthService {
 
     return this.getDatabaseData('users').then(users => {
       if (users) {
-        for (const key in users.Artists) {
-          if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
-            const user = users.Artists[key];
+        for (const key in users.artists) {
+          if (Object.prototype.hasOwnProperty.call(users.artists, key)) {
+            const user = users.artists[key];
             emails.push(user.email);
           }
         }
 
-        for (const key in users.Regulars) {
-          if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
-            const user = users.Regulars[key];
+        for (const key in users.regular) {
+          if (Object.prototype.hasOwnProperty.call(users.regular, key)) {
+            const user = users.regular[key];
             emails.push(user.email);
           }
         }
@@ -226,65 +208,23 @@ export class FirebaseAuthService {
     });
   }
 
-  getUserFullName(uid: string): Promise<string> {
-    return this.getDatabaseData('users').then(users => {
-      for (const key in users.Artists) {
-        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
-          const user = users.Artists[key];
-          if (key === uid) {
-            return user.name + ' ' + user.surname;
-          }
-        }
-      }
-
-      for (const key in users.Regulars) {
-        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
-          const user = users.Regulars[key];
-          if (key === uid) {
-            return user.name + ' ' + user.surname;
-          }
-        }
-      }
-      return '';
-    });
-  }
-
-  getUserAvatar(uid: string): Promise<string> {
-    return this.getDatabaseData('users').then(users => {
-      for (const key in users.Artists) {
-        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
-          const user = users.Artists[key];
-          if (key === uid) {
-            return user.avatar;
-          }
-        }
-      }
-
-      for (const key in users.Regulars) {
-        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
-          const user = users.Regulars[key];
-          if (key === uid) {
-            return user.avatar;
-          }
-        }
-      }
-      return '';
+  getUserInfo(uid: string): Promise<any> {
+    return this.getDatabaseData('users/artists/' + uid).then(user => user).catch(() => {
+      this.getDatabaseData('users/regular/' + uid).then(user => user).catch(() => {
+        console.log('User with ID ' + uid + ' does not exist');
+        return null;
+      });
     });
   }
 
   isArtist(uid: string): Promise<boolean> {
-    return this.getDatabaseData('users/Artists').then(artists => {
-      for (const key in artists) {
-        if (Object.prototype.hasOwnProperty.call(artists, key)) {
-          const user = artists[key];
-          if (key === uid) {
-            return true;
-          }
-        }
-      }
-      return false;
+    return this.getUserInfo(uid).then(user => {
+      return user.type === 'artist';
     });
   }
+
+
+
 
   async getRegularByID(_Uid: string): Promise<Regular> {
     let _email = '';
@@ -400,6 +340,21 @@ async getArtistByID(_Uid: string): Promise<Artist> {
         b.usersEnrolled = _usersEnrolled;
       }
       return b;
+    });
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** ------------------- Create ------------------ ***/
+  /*** --------------------------------------------- ***/
+
+  createCourse( _title: string, _price: number, _description: string): void {
+    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
+      artist.createCourse(_title, _price, _description);
+    });
+  }
+  createBooking( _title: string, _description: string, _price: number, _duration: number): void {
+    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
+      artist.createBooking(_title,  _description, _price, _duration);
     });
   }
 

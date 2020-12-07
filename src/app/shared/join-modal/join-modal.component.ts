@@ -1,12 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
+
+import {FirebaseService} from '../../_services/authentication/firebase.service';
+import {AlertService} from '../../_util/alert.service';
 
 import * as $ from 'jquery';
-
 import 'node_modules/bootstrap/js/dist/modal';
-import {Router} from '@angular/router';
-import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
-import {AlertService} from '../../_util/alert.service';
+
+const categories = require('src/assets/data/categories.json').categories;
 
 @Component({
   selector: 'app-join-modal',
@@ -15,187 +17,154 @@ import {AlertService} from '../../_util/alert.service';
 })
 export class JoinModalComponent implements OnInit {
 
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  handler: string;
-  avatar = '';
-
-  checkboxes1 = [
-    {
-      label: 'Acrobatics',
-      checked: false
-    },
-    {
-      label: 'Architecture',
-      checked: false
-    },
-    {
-      label: 'Comedy',
-      checked: false
-    },
-    {
-      label: 'Dance',
-      checked: false
-    },
-    {
-      label: 'Drawing',
-      checked: false
-    },
-    {
-      label: 'Magic',
-      checked: false
-    },
-    {
-      label: 'Painting',
-      checked: false
-    },
-    {
-      label: 'Sculpting',
-      checked: false
-    },
-    {
-      label: 'Video',
-      checked: false
-    }
-  ];
-
-  checkboxes2 = [
-    {
-      label: 'Acting',
-      checked: false
-    },
-    {
-      label: 'Ceramics',
-      checked: false
-    },
-    {
-      label: 'Crafts',
-      checked: false
-    },
-    {
-      label: 'Design',
-      checked: false
-    },
-    {
-      label: 'Films',
-      checked: false
-    },
-    {
-      label: 'Music',
-      checked: false
-    },
-
-    {
-      label: 'Photography',
-      checked: false
-    },
-    {
-      label: 'Theatre',
-      checked: false
-    }
-  ];
+  user: {
+    email: string,
+    password: string,
+    name: string,
+    handler: string,
+    avatar: string,
+    interests: string[],
+    artisticAreas?: string[],
+    title: string,
+    type: string,
+    joiningTimestamp: number
+    // tslint:disable-next-line:max-line-length
+  } = { email: '', password: '', name: '', handler: '', avatar: '', interests: [], artisticAreas: [], title: '', type: '', joiningTimestamp: null};
 
   @ViewChild('form1', { static: false }) form1: NgForm;
   @ViewChild('form2', { static: false }) form2: NgForm;
   @ViewChild('form3', { static: false }) form3: NgForm;
+  @ViewChild('form4', { static: false }) form4: NgForm;
   @ViewChild('form5', { static: false }) form5: NgForm;
+  @ViewChild('form6', { static: false }) form6: NgForm;
 
-  type;
+  interestsCheckboxes: { label: string, checked: boolean }[] = [];
+  artisticAreasCheckboxes: { label: string, checked: boolean }[] = [];
 
-  constructor(private router: Router, private auth: FirebaseAuthService, private alertService: AlertService) { }
+  constructor(
+    private router: Router,
+    private firebaseService: FirebaseService,
+    private alertService: AlertService
+  ) { }
 
   ngOnInit(): void {
+    this.initializeCheckboxes();
+  }
+
+  initializeCheckboxes(): void {
+    for (const category of categories) {
+      this.interestsCheckboxes.push({ label: category, checked: false });
+      this.artisticAreasCheckboxes.push({ label: category, checked: false });
+    }
   }
 
   continueToStep2(): void {
-    if (!this.form1.form.valid) {
-      return;
-    }
+    if (!this.form1.form.valid) return;
 
-    this.auth.emailAlreadyExists(this.email).then(res => {
-      if (res) {
+    this.firebaseService.emailAlreadyExists(this.user.email).then(exists => {
+      if (exists) {
         this.alertService.showAlert('Oops!', 'It seems like this email is already registered on Artistree. Sign in instead.', 'danger');
         return;
       }
-
       this.closeModal('joinModal-step1');
       this.openModal('joinModal-step2');
     });
   }
 
   continueToStep3(): void {
-    if (!this.form2.form.valid) {
-      return;
-    }
+    if (!this.form2.form.valid) return;
 
     this.closeModal('joinModal-step2');
     this.openModal('joinModal-step3');
   }
 
   continueToStep4(): void {
-    if (!this.form3.form.valid) {
-      return;
-    }
+    if (!this.form3.form.valid) return;
 
-    this.auth.handlerAlreadyExists(this.handler).then(res => {
-      if (res) {
+    this.firebaseService.handlerAlreadyExists(this.user.handler).then(exists => {
+      if (exists) {
         this.alertService.showAlert('Oops!', 'It seems like this handler is already in use. Please choose another one.', 'danger');
         return;
       }
-
       this.closeModal('joinModal-step3');
       this.openModal('joinModal-step4');
     });
   }
 
   continueToStep5(type: string): void {
-    this.type = type;
+    this.user.type = type;
     this.closeModal('joinModal-step4');
     this.openModal('joinModal-step5');
   }
 
-  finishJoining(): void {
-    const areas: string[] = [];
-
-    if (!this.form1.form.valid || !this.form2.form.valid || !this.form3.form.valid || !this.form5.form.valid) {
-      return;
-    }
+  continueToStep6(): void {
+    if (!this.form4.form.valid) return;
+    if (this.user.type === 'regular') return this.join('joinModal-step5');
 
     this.closeModal('joinModal-step5');
+    this.openModal('joinModal-step6');
+  }
 
-    for (const checkbox of this.checkboxes1) {
-      if (checkbox.checked) {
-        areas.push(checkbox.label);
-        checkbox.checked = false;
-      }
+  continueToStep7(): void {
+    if (!this.form5.form.valid) return;
+    this.closeModal('joinModal-step6');
+    this.openModal('joinModal-step7');
+  }
+
+  finish(): void {
+    if (!this.form6.valid) return;
+    if (this.user.type === 'artist') return this.join('joinModal-step7');
+  }
+
+  join(from: string): void {
+    this.closeModal(from);
+    const interests = this.getInterests();
+    const artisticAreas = this.getArtisticAreas();
+
+    if (this.user.type === 'regular') {
+      this.firebaseService.signup(this.user.type, this.user.email, this.user.password, this.user.name,
+        this.user.handler, this.user.avatar, interests, Date.now())
+        .then(() => this.router.navigate(['/feed']));
+
+    } else if (this.user.type === 'artist') {
+      this.firebaseService.signup(this.user.type, this.user.email, this.user.password, this.user.name,
+        this.user.handler, this.user.avatar, interests, Date.now(), artisticAreas, this.user.title)
+        .then(() => this.router.navigate(['/feed']));
     }
-
-    for (const checkbox of this.checkboxes2) {
-      if (checkbox.checked) {
-        areas.push(checkbox.label);
-        checkbox.checked = false;
-      }
-    }
-
-    if (this.avatar === '') {
-      this.avatar = 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png';
-    }
-
-    this.auth.signup(this.email, this.password, this.firstName, this.lastName, this.handler, this.avatar, areas, this.type).then(res => {
-      if (res) {
-        this.router.navigate(['/feed']);
-      }
-    });
 
     // Reset
-    this.email = '';
-    this.password = '';
-    this.firstName = '';
-    this.lastName = '';
-    this.handler = '';
-    this.avatar = '';
+    this.user = {
+      email: '',
+      password: '',
+      name: '',
+      handler: '',
+      avatar: '',
+      interests: [],
+      artisticAreas: [],
+      title: '',
+      type: '',
+      joiningTimestamp: null
+    };
+  }
+
+  getInterests(): string[] {
+    const interests: string[] = [];
+    for (const checkbox of this.interestsCheckboxes) {
+      if (checkbox.checked) {
+        interests.push(checkbox.label);
+      }
+    }
+    return interests;
+  }
+
+  getArtisticAreas(): string[] {
+    const artisticAreas: string[] = [];
+    for (const checkbox of this.artisticAreasCheckboxes) {
+      if (checkbox.checked) {
+        artisticAreas.push(checkbox.label);
+      }
+    }
+    return artisticAreas;
   }
 
   signIn(from: number): void {

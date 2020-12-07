@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {FirebaseAuthService} from '../../../_services/authentication/firebase-auth.service';
+import {FirebaseService} from '../../../_services/authentication/firebase.service';
 
 @Component({
   selector: 'app-profile',
@@ -53,13 +53,13 @@ export class ProfileComponent implements OnInit {
     }
   ];
 
-  constructor(private router: ActivatedRoute, private firebaseAuthService: FirebaseAuthService) { }
+  constructor(private router: ActivatedRoute, private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
     this.router.params.subscribe(params => {
       this.uid = params.uid;
 
-      this.firebaseAuthService.isArtist(this.uid).then(res => {
+      this.firebaseService.isArtist(this.uid).then(res => {
         res ? this.type = 'artist' : this.type = 'regular';
       });
     });

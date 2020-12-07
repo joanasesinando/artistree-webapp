@@ -12,3 +12,18 @@
 span span {
   font-size: inherit;
 }
+
+.modal {
+
+  .avatar {
+    height: 6rem;
+    width: 6rem;
+
+    img {
+      width: 100%;
+      height: 6rem;
+      object-fit: cover;
+    }
+  }
+
+}

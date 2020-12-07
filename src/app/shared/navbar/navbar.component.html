@@ -64,7 +64,8 @@
         <!-- Avatar -->
         <div class="av position-relative">
           <div class="avatar ml-3" data-toggle="dropdown">
-            <img class="rounded-circle" src="{{user.photoUrl}}" alt="profile picture">
+            <img *ngIf="user.avatar" class="rounded-circle" src="{{user.avatar}}" alt="profile picture">
+            <img *ngIf="!user.avatar" class="rounded-circle" src="assets/imgs/default-avatar.svg" alt="profile picture">
           </div>
 
           <div class="dropdown-menu shadow-sm">
@@ -101,7 +102,8 @@
       <div class="toggle-menu" id="toggle-menu" (click)="closeMenu()">
         <div class="d-flex justify-content-center align-items-center w-100 mt-3">
           <div class="avatar mr-2">
-            <img class="rounded-circle" src="{{user.photoUrl}}" alt="profile picture">
+            <img *ngIf="user.avatar" class="rounded-circle" src="{{user.avatar}}" alt="profile picture">
+            <img *ngIf="!user.avatar" class="rounded-circle" src="assets/imgs/default-avatar.svg" alt="profile picture">
           </div>
           <span class="text-primary semibold">{{user.name}}</span>
         </div>

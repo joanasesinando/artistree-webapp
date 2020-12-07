@@ -3,7 +3,7 @@ import {NgForm} from '@angular/forms';
 
 import * as eva from 'eva-icons';
 import {Router} from '@angular/router';
-import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {FirebaseService} from '../../_services/authentication/firebase.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
@@ -21,16 +21,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   search;
 
   user = {
-    name: '<user name>',
-    photoUrl: 'https://miro.medium.com/max/720/1*W35QUSvGpcLuxPo3SRTH4w.png'
+    name: '',
+    avatar: ''
   };
 
   @ViewChild('form', { static: false }) form: NgForm;
 
-  constructor(private router: Router, private firebaseAuthService: FirebaseAuthService) {
-    firebaseAuthService.auth.onAuthStateChanged(user => {
-      firebaseAuthService.getUserFullName(user.uid).then(name => this.user.name = name);
-      firebaseAuthService.getUserAvatar(user.uid).then(avatar => this.user.photoUrl = avatar);
+  constructor(private router: Router, private firebaseService: FirebaseService) {
+    firebaseService.auth.onAuthStateChanged(user => {
+      this.firebaseService.getUserInfo(user.uid).then(userInfo => {
+        this.user.name = userInfo.name;
+        this.user.avatar = userInfo.avatar;
+      });
     });
   }
 
@@ -84,11 +86,11 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   logout(): void {
-    this.firebaseAuthService.logout();
+    this.firebaseService.logout();
   }
 
   goToProfile(): void {
-    this.router.navigate(['/profile/', this.firebaseAuthService.currentUser.uid]);
+    this.router.navigate(['/profile/', this.firebaseService.currentUser.uid]);
   }
 
 }

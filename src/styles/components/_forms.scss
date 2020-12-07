@@ -100,6 +100,7 @@
   .custom-control-label {
     font-size: .75rem;
     position: relative;
+    user-select: none;
 
     &::before, &::after {
       position: absolute;

@@ -1,4 +1,4 @@
-<!-- Step #1 -->
+<!-- Step #1: email -->
 <div class="modal fade" id="joinModal-step1" tabindex="-1">
 
   <div class="modal-dialog">
@@ -44,7 +44,7 @@
               class="form-control"
               name="joinInputEmail"
               placeholder="E-mail address"
-              [(ngModel)]="email"
+              [(ngModel)]="user.email"
               #inputEmail="ngModel"
               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
               [ngClass]="{ 'is-invalid': form1.submitted && inputEmail.invalid }"
@@ -81,7 +81,7 @@
 
 </div>
 
-<!-- Step #2 -->
+<!-- Step #2: password -->
 <div class="modal fade" id="joinModal-step2" tabindex="-1">
 
   <div class="modal-dialog">
@@ -111,10 +111,10 @@
               class="form-control"
               name="joinInputPassword"
               placeholder="Password"
-              [(ngModel)]="password"
+              [(ngModel)]="user.password"
               #inputPassword="ngModel"
               [ngClass]="{ 'is-invalid': form2.submitted && inputPassword.invalid }"
-              required minlength="8" autofocus>
+              required minlength="6" autofocus>
 
             <i class="icon" data-eva="lock-outline"></i>
             <label for="joinInputPassword">Password</label>
@@ -123,7 +123,7 @@
 
           <div *ngIf="form2.submitted && inputPassword.invalid" class="is-invalid">
             <span *ngIf="inputPassword.errors.required" class="small text-danger">Password is required</span>
-            <span *ngIf="inputPassword.errors.minlength" class="small text-danger">Password must be at least 8 characters long</span>
+            <span *ngIf="inputPassword.errors.minlength" class="small text-danger">Password must be at least 6 characters long</span>
           </div>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Continue</button>
@@ -145,7 +145,7 @@
 
 </div>
 
-<!-- Step #3 -->
+<!-- Step #3: avatar, name, handler -->
 <div class="modal fade" id="joinModal-step3" tabindex="-1">
 
   <div class="modal-dialog">
@@ -166,83 +166,69 @@
 
         <form #form3="ngForm" (submit)="continueToStep4()">
 
-          <!-- First name -->
-          <div class="form-label-group mb-2">
-            <input
-              type="text"
-              id="joinInputFirstName"
-              class="form-control"
-              name="joinInputFirstName"
-              placeholder="First name"
-              [(ngModel)]="firstName"
-              #inputFirstName="ngModel"
-              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-              [ngClass]="{ 'is-invalid': form3.submitted && inputFirstName.invalid }"
-              required autofocus>
-
-            <i class="icon" data-eva="person-outline"></i>
-            <label for="joinInputFirstName">First name</label>
-          </div>
-
-          <div *ngIf="form3.submitted && inputFirstName.invalid" class="is-invalid">
-            <span *ngIf="inputFirstName.errors.required" class="small text-danger">First name is required</span>
-            <span *ngIf="inputFirstName.errors.pattern" class="small text-danger">First name must be in a valid format</span>
-          </div>
-
-          <!-- Last name -->
-          <div class="form-label-group mb-2">
-            <input
-              type="text"
-              id="joinInputLastName"
-              class="form-control"
-              name="joinInputLastName"
-              placeholder="Last name"
-              [(ngModel)]="lastName"
-              #inputLastName="ngModel"
-              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-              [ngClass]="{ 'is-invalid': form3.submitted && inputLastName.invalid }"
-              required autofocus>
-
-            <i class="icon" data-eva="person-outline"></i>
-            <label for="joinInputLastName">Last name</label>
-          </div>
-
-          <div *ngIf="form3.submitted && inputLastName.invalid" class="is-invalid">
-            <span *ngIf="inputLastName.errors.required" class="small text-danger">Last name is required</span>
-            <span *ngIf="inputLastName.errors.pattern" class="small text-danger">Last name must be in a valid format</span>
-          </div>
-
-          <!-- Handler -->
-          <div class="form-label-group mb-2">
-            <input
-              type="text"
-              id="joinInputHandler"
-              class="form-control"
-              name="joinInputHandler"
-              placeholder="Handler"
-              [(ngModel)]="handler"
-              #inputHandler="ngModel"
-              pattern="^[\w'\-,.\d^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-              [ngClass]="{ 'is-invalid': form3.submitted && inputHandler.invalid }"
-              required autofocus>
-
-            <i class="icon" data-eva="at-outline"></i>
-            <label for="joinInputHandler">Handler</label>
-          </div>
-
           <!-- Avatar -->
-          <div class="form-label-group">
+          <div class="avatar mx-auto mb-3">
+            <img *ngIf="!user.avatar" class="rounded-circle" src="assets/imgs/default-avatar.svg" alt="">
+            <img *ngIf="user.avatar" class="rounded-circle" src="{{user.avatar}}" alt="">
+          </div>
+
+          <div class="form-label-group mb-2">
             <input
               type="text"
               id="joinInputAvatar"
               class="form-control"
               name="joinInputAvatar"
               placeholder="Profile picture URL"
-              [(ngModel)]="avatar"
+              [(ngModel)]="user.avatar"
               autofocus>
 
             <i class="icon" data-eva="image-outline"></i>
             <label for="joinInputAvatar">Profile picture URL</label>
+          </div>
+
+          <!-- Name -->
+          <div class="form-label-group mb-2">
+            <input
+              type="text"
+              id="joinInputName"
+              class="form-control"
+              name="joinInputName"
+              placeholder="Name"
+              [(ngModel)]="user.name"
+              #inputName="ngModel"
+              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              [ngClass]="{ 'is-invalid': form3.submitted && inputName.invalid }"
+              required>
+
+            <i class="icon" data-eva="person-outline"></i>
+            <label for="joinInputName">Name</label>
+          </div>
+
+          <div *ngIf="form3.submitted && inputName.invalid" class="is-invalid">
+            <span *ngIf="inputName.errors.required" class="small text-danger">Name is required</span>
+            <span *ngIf="inputName.errors.pattern" class="small text-danger">Name must be in a valid format</span>
+          </div>
+
+          <!-- Handler -->
+          <div class="form-label-group">
+            <input
+              type="text"
+              id="joinInputHandler"
+              class="form-control"
+              name="joinInputHandler"
+              placeholder="Handler"
+              [(ngModel)]="user.handler"
+              #inputHandler="ngModel"
+              pattern="^[\w'\-,.\d^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              [ngClass]="{ 'is-invalid': form3.submitted && inputHandler.invalid }"
+              required>
+
+            <i class="icon" data-eva="at-outline"></i>
+            <label for="joinInputHandler">Handler</label>
+          </div>
+
+          <div *ngIf="form3.submitted && inputHandler.invalid" class="is-invalid">
+            <span *ngIf="inputHandler.errors.required" class="small text-danger">Handler is required</span>
           </div>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Continue</button>
@@ -256,7 +242,7 @@
 
 </div>
 
-<!-- Step #4 -->
+<!-- Step #4: type of user  -->
 <div class="modal fade" id="joinModal-step4" tabindex="-1">
 
   <div class="modal-dialog">
@@ -283,7 +269,7 @@
         </button>
 
         <button class="btn btn-seconday btn-block btn-lg mt-2 mb-3 d-flex align-items-center justify-content-center"
-                (click)="continueToStep5('user')">
+                (click)="continueToStep5('regular')">
           <i class="icon mr-2" data-eva="people" style="fill: white"></i>
           I'm a regular user
         </button>
@@ -295,7 +281,7 @@
 
 </div>
 
-<!-- Step #5 -->
+<!-- Step #5: interests -->
 <div class="modal fade" id="joinModal-step5" tabindex="-1">
 
   <div class="modal-dialog">
@@ -313,16 +299,15 @@
 
       <!-- Body -->
       <div class="modal-body text-center">
-        <span *ngIf="type === 'user'" class="text-grey semibold">Select areas you're interested in</span>
-        <span *ngIf="type === 'artist'" class="text-grey semibold">Select your artistic areas of expertise</span>
+        <span class="text-grey semibold">Select areas you're interested in</span>
 
-        <form #form5="ngForm" class="mt-3" (submit)="finishJoining()">
+        <form #form4="ngForm" class="mt-3" (submit)="continueToStep6()">
 
           <div class="row">
             <div class="col text-left">
 
-              <!-- Checkboxes -->
-              <div *ngFor="let checkbox of checkboxes1" class="custom-control custom-checkbox mb-2">
+              <div *ngFor="let checkbox of interestsCheckboxes; let i = index" class="custom-control custom-checkbox mb-2"
+                   [ngClass]="{'d-none': i >= interestsCheckboxes.length / 2}">
                 <input
                   type="checkbox"
                   id="{{'customCheck1' + checkbox.label}}"
@@ -336,7 +321,8 @@
 
             <div class="col text-left">
 
-              <div *ngFor="let checkbox of checkboxes2" class="custom-control custom-checkbox mb-2">
+              <div *ngFor="let checkbox of interestsCheckboxes; let i = index" class="custom-control custom-checkbox mb-2"
+                   [ngClass]="{'d-none': i < interestsCheckboxes.length / 2}">
                 <input
                   type="checkbox"
                   id="{{'customCheck2' + checkbox.label}}"
@@ -344,6 +330,127 @@
                   name="{{'customCheck2' + checkbox.label}}"
                   [(ngModel)]="checkbox.checked">
                 <label class="custom-control-label" for="{{'customCheck2' + checkbox.label}}">{{checkbox.label}}</label>
+              </div>
+
+            </div>
+          </div>
+
+          <button *ngIf="user.type === 'artist'" class="btn btn-primary btn-block btn-lg mt-3" type="submit">Continue</button>
+          <button *ngIf="user.type === 'regular'" class="btn btn-primary btn-block btn-lg mt-3" type="submit">Join</button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Step #6: title -->
+<div class="modal fade" id="joinModal-step6" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title mt-3">Join Artistree</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="lni lni-close"></i>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body d-flex flex-column align-items-center">
+        <span class="text-grey semibold">Pick an artistic title for yourself</span>
+
+        <form #form5="ngForm" class="mt-3" (submit)="continueToStep7()">
+
+          <!-- Title -->
+          <div class="form-label-group">
+
+            <input
+              type="text"
+              id="joinInputTitle"
+              class="form-control"
+              name="joinInputTitle"
+              placeholder="Title"
+              [(ngModel)]="user.title"
+              #inputTitle="ngModel"
+              [ngClass]="{ 'is-invalid': form5.submitted && inputTitle.invalid }"
+              required autofocus>
+
+            <i class="icon" data-eva="star-outline"></i>
+            <label for="joinInputTitle">Title</label>
+
+          </div>
+
+          <div *ngIf="form5.submitted && inputTitle.invalid" class="is-invalid">
+            <span *ngIf="inputTitle.errors.required" class="small text-danger">Title is required</span>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Continue</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Step #7: artistic areas -->
+<div class="modal fade" id="joinModal-step7" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title mt-3">Join Artistree</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="lni lni-close"></i>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body text-center position-relative">
+        <span class="text-grey semibold">Select your artistic areas</span>
+
+        <form #form6="ngForm" class="mt-3" (submit)="finish()">
+
+          <div class="row">
+            <div class="col text-left">
+
+              <div *ngFor="let checkbox of artisticAreasCheckboxes; let i = index" class="custom-control custom-checkbox mb-2"
+                   [ngClass]="{'d-none': i >= artisticAreasCheckboxes.length / 2}">
+                <input
+                  type="checkbox"
+                  id="{{'customCheck3' + checkbox.label}}"
+                  class="custom-control-input"
+                  name="{{'customCheck3' + checkbox.label}}"
+                  [(ngModel)]="checkbox.checked">
+                <label class="custom-control-label" for="{{'customCheck3' + checkbox.label}}">{{checkbox.label}}</label>
+              </div>
+
+            </div>
+
+            <div class="col text-left">
+
+              <div *ngFor="let checkbox of artisticAreasCheckboxes; let i = index" class="custom-control custom-checkbox mb-2"
+                   [ngClass]="{'d-none': i < artisticAreasCheckboxes.length / 2}">
+                <input
+                  type="checkbox"
+                  id="{{'customCheck4' + checkbox.label}}"
+                  class="custom-control-input"
+                  name="{{'customCheck4' + checkbox.label}}"
+                  [(ngModel)]="checkbox.checked">
+                <label class="custom-control-label" for="{{'customCheck4' + checkbox.label}}">{{checkbox.label}}</label>
               </div>
 
             </div>

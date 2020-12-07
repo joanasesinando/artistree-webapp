@@ -5,7 +5,7 @@ import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
 import {Router} from '@angular/router';
 
-import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {FirebaseService} from '../../_services/authentication/firebase.service';
 
 @Component({
   selector: 'app-sign-in-modal',
@@ -17,7 +17,7 @@ export class SignInModalComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private router: Router, private auth: FirebaseAuthService) { }
+  constructor(private router: Router, private auth: FirebaseService) { }
 
   @ViewChild('form', { static: false }) form: NgForm;
 
