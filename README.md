@@ -12,7 +12,7 @@ It’s been a hard time for artists around the globe, and a hard time for us all
 ArtistTree provides this bridge between artists and their audience where they’re able to perform, receiving adequate compensation and attention. 
 Imagine booking a class with a painter you look up to, or being able to talk to and get feedback from that graphic artist you follow. 
 
-###ArtisTree will let the artistic world flourish!
+### ArtisTree will let the artistic world flourish!
 
 Note: this concept was developed under the User-Centered Design Course at [Instituto Superior Técnico](www.tecnico.ulisboa.pt/en/).
 
