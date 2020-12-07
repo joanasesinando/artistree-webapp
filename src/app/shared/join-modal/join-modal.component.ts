@@ -6,6 +6,7 @@ import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
 import {Router} from '@angular/router';
 import {FirebaseAuthService} from '../../_services/authentication/firebase-auth.service';
+import {AlertService} from '../../_util/alert.service';
 
 @Component({
   selector: 'app-join-modal',
@@ -16,6 +17,9 @@ export class JoinModalComponent implements OnInit {
 
   email: string;
   password: string;
+  fisrtName: string;
+  lastName: string;
+  handler: string;
 
   checkboxes1 = [
     {
@@ -95,10 +99,11 @@ export class JoinModalComponent implements OnInit {
   @ViewChild('form1', { static: false }) form1: NgForm;
   @ViewChild('form2', { static: false }) form2: NgForm;
   @ViewChild('form3', { static: false }) form3: NgForm;
+  @ViewChild('form5', { static: false }) form5: NgForm;
 
   type;
 
-  constructor(private router: Router, private auth: FirebaseAuthService) { }
+  constructor(private router: Router, private auth: FirebaseAuthService, private alertService: AlertService) { }
 
   ngOnInit(): void {
   }
@@ -121,20 +126,34 @@ export class JoinModalComponent implements OnInit {
     this.openModal('joinModal-step3');
   }
 
-  continueToStep4(type: string): void {
-    this.type = type;
+  continueToStep4(): void {
+    if (!this.form3.form.valid) {
+      return;
+    }
+
+    if (this.auth.handlersAlreadyExists()) {
+      this.alertService.showAlert('Oops!', 'It seems like this handler already exists. Please choose another one.', 'danger');
+      return;
+    }
+
     this.closeModal('joinModal-step3');
     this.openModal('joinModal-step4');
+  }
+
+  continueToStep5(type: string): void {
+    this.type = type;
+    this.closeModal('joinModal-step4');
+    this.openModal('joinModal-step5');
   }
 
   finishJoining(): void {
     const areas: string[] = [];
 
-    if (!this.form1.form.valid || !this.form2.form.valid || !this.form3.form.valid) {
+    if (!this.form1.form.valid || !this.form2.form.valid || !this.form3.form.valid || !this.form5.form.valid) {
       return;
     }
 
-    this.closeModal('joinModal-step4');
+    this.closeModal('joinModal-step5');
     this.auth.signup(this.email, this.password).then(res => {
       if (res) {
         this.router.navigate(['/feed']);
@@ -159,6 +178,9 @@ export class JoinModalComponent implements OnInit {
     // Reset
     this.email = '';
     this.password = '';
+    this.fisrtName = '';
+    this.lastName = '';
+    this.handler = '';
   }
 
   signIn(from: number): void {

@@ -34,16 +34,38 @@ export class FirebaseAuthService {
     });
   }
 
-  signup(email: string, password: string): Promise<boolean> {
+  signup(email: string, password: string, firstName: string, lastName: string, handler: string,
+         areas: string[], type: string): Promise<boolean> {
+
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
-      .then(value => {
-        this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
-        return true;
-      })
-      .catch(err => {
-        this.alertService.showAlert('Something went wrong...', err.message, 'danger');
-        return false;
+      .then(() => {
+
+        switch (type) {
+          case 'artist':
+            return this.createArtist(handler, firstName, lastName, areas)
+              .then(() => {
+                this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
+                return true;
+              })
+              .catch(err => {
+                this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+                return false;
+              });
+
+          case 'user':
+          default:
+            return this.createRegular(handler, firstName, lastName, areas)
+              .then(() => {
+                this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
+                return true;
+              })
+              .catch(err => {
+                this.alertService.showAlert('Something went wrong...', err.message, 'danger');
+                return false;
+              });
+        }
+
       });
   }
 
@@ -70,6 +92,11 @@ export class FirebaseAuthService {
       this.alertService.showAlert('Something went wrong...', err.message, 'danger');
       return false;
     });
+  }
+
+  handlersAlreadyExists(): boolean {
+    // TODO
+    return false;
   }
 
   async getRegularByID(_Uid: string): Promise<Regular> {
@@ -199,9 +226,9 @@ async getArtistByID(_Uid: string): Promise<Artist> {
 
 
 
-   createRegular(handler: string, name: string, surname: string, areas: string[]): void {
+  createRegular(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
     const r = new Regular(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
-    this.writeRegularData(handler, name, surname, areas);
+    return this.writeRegularData(handler, name, surname, areas);
   }
 
   createCourse( _title: string, _price: number, _description: string): void{
@@ -216,13 +243,13 @@ async getArtistByID(_Uid: string): Promise<Artist> {
   }
 
 
-  createArtist(handler: string, name: string, surname: string, areas: string[]): void {
+  createArtist(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
     const r = new Artist(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
-    this.writeArtistData(handler, name, surname, areas);
+    return this.writeArtistData(handler, name, surname, areas);
   }
 
-  writeRegularData(username: string, name: string, surname: string, areas: string[]): void{
-    firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
+  writeRegularData(username: string, name: string, surname: string, areas: string[]): Promise<boolean> {
+    return firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
       handler: username,
       Name: name,
       Surname: surname,
@@ -230,11 +257,17 @@ async getArtistByID(_Uid: string): Promise<Artist> {
       interests: areas
     }).then(value => {
       // TODO: alert
-      console.log('Registado com sucesso!', value); });
+      console.log('Registado com sucesso!', value);
+      return true;
+    })
+      .catch(err => {
+        // TODO: alert
+        return false;
+      });
   }
 
-  writeArtistData(username: string, name: string, surname: string, areas: string[]): void{
-    firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).update({
+  writeArtistData(username: string, name: string, surname: string, areas: string[]): Promise<boolean> {
+    return firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).update({
       handler: username,
       Name: name,
       Surname: surname,
@@ -242,7 +275,13 @@ async getArtistByID(_Uid: string): Promise<Artist> {
       interests: areas
     }).then(value => {
       // TODO: alert
-      console.log('Registado com sucesso!', value); });
+      console.log('Registado com sucesso!', value);
+      return true;
+    })
+      .catch(err => {
+        // TODO: alert
+        return false;
+      });
   }
 
 }

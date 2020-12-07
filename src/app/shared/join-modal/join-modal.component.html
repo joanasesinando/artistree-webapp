@@ -1,3 +1,4 @@
+<!-- Step #1 -->
 <div class="modal fade" id="joinModal-step1" tabindex="-1">
 
   <div class="modal-dialog">
@@ -80,6 +81,7 @@
 
 </div>
 
+<!-- Step #2 -->
 <div class="modal fade" id="joinModal-step2" tabindex="-1">
 
   <div class="modal-dialog">
@@ -143,7 +145,109 @@
 
 </div>
 
+<!-- Step #3 -->
 <div class="modal fade" id="joinModal-step3" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title mt-3">Join Artistree</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="lni lni-close"></i>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form #form3="ngForm" (submit)="continueToStep4()">
+
+          <!-- First name -->
+          <div class="form-label-group mb-2">
+            <input
+              type="text"
+              id="joinInputFirstName"
+              class="form-control"
+              name="joinInputFirstName"
+              placeholder="First name"
+              [(ngModel)]="fisrtName"
+              #inputFirstName="ngModel"
+              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              [ngClass]="{ 'is-invalid': form3.submitted && inputFirstName.invalid }"
+              required autofocus>
+
+            <i class="icon" data-eva="text-outline"></i>
+            <label for="joinInputFirstName">First name</label>
+          </div>
+
+          <div *ngIf="form3.submitted && inputFirstName.invalid" class="is-invalid">
+            <span *ngIf="inputFirstName.errors.required" class="small text-danger">First name is required</span>
+            <span *ngIf="inputFirstName.errors.pattern" class="small text-danger">First name must be in a valid format</span>
+          </div>
+
+          <!-- Last name -->
+          <div class="form-label-group mb-2">
+            <input
+              type="text"
+              id="joinInputLastName"
+              class="form-control"
+              name="joinInputLastName"
+              placeholder="Last name"
+              [(ngModel)]="lastName"
+              #inputLastName="ngModel"
+              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              [ngClass]="{ 'is-invalid': form3.submitted && inputLastName.invalid }"
+              required autofocus>
+
+            <i class="icon" data-eva="text-outline"></i>
+            <label for="joinInputLastName">Last name</label>
+          </div>
+
+          <div *ngIf="form3.submitted && inputLastName.invalid" class="is-invalid">
+            <span *ngIf="inputLastName.errors.required" class="small text-danger">Last name is required</span>
+            <span *ngIf="inputLastName.errors.pattern" class="small text-danger">Last name must be in a valid format</span>
+          </div>
+
+          <!-- Handler -->
+          <div class="form-label-group">
+            <input
+              type="text"
+              id="joinInputHandler"
+              class="form-control"
+              name="joinInputHandler"
+              placeholder="Handler"
+              [(ngModel)]="handler"
+              #inputHandler="ngModel"
+              pattern="[\w'\-,.\d^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              [ngClass]="{ 'is-invalid': form3.submitted && inputHandler.invalid }"
+              required autofocus>
+
+            <i class="icon" data-eva="at-outline"></i>
+            <label for="joinInputHandler">Handler</label>
+          </div>
+
+          <div *ngIf="form3.submitted && inputHandler.invalid" class="is-invalid">
+            <span *ngIf="inputHandler.errors.required" class="small text-danger">Handler is required</span>
+            <span *ngIf="inputHandler.errors.pattern" class="small text-danger">Handler must be in a valid format</span>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Continue</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Step #4 -->
+<div class="modal fade" id="joinModal-step4" tabindex="-1">
 
   <div class="modal-dialog">
 
@@ -163,13 +267,13 @@
         <span class="text-grey semibold">Pick what best describes you</span>
 
         <button class="btn btn-primary btn-block btn-lg mt-3 d-flex align-items-center justify-content-center"
-                (click)="continueToStep4('artist')">
+                (click)="continueToStep5('artist')">
           <i class="icon mr-2" data-eva="color-palette" style="fill: white"></i>
           I'm an Artist
         </button>
 
         <button class="btn btn-seconday btn-block btn-lg mt-2 mb-3 d-flex align-items-center justify-content-center"
-                (click)="continueToStep4('user')">
+                (click)="continueToStep5('user')">
           <i class="icon mr-2" data-eva="people" style="fill: white"></i>
           I'm a regular user
         </button>
@@ -181,7 +285,8 @@
 
 </div>
 
-<div class="modal fade" id="joinModal-step4" tabindex="-1">
+<!-- Step #5 -->
+<div class="modal fade" id="joinModal-step5" tabindex="-1">
 
   <div class="modal-dialog">
 
@@ -201,7 +306,7 @@
         <span *ngIf="type === 'user'" class="text-grey semibold">Select areas you're interested in</span>
         <span *ngIf="type === 'artist'" class="text-grey semibold">Select your artistic areas of expertise</span>
 
-        <form #form3="ngForm" class="mt-3" (submit)="finishJoining()">
+        <form #form5="ngForm" class="mt-3" (submit)="finishJoining()">
 
           <div class="row">
             <div class="col text-left">
