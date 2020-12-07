@@ -22,7 +22,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   user = {
     name: '',
-    avatar: ''
+    avatar: '',
+    type: ''
   };
 
   @ViewChild('form', { static: false }) form: NgForm;
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       this.firebaseService.getUserInfo(user.uid).then(userInfo => {
         this.user.name = userInfo.name;
         this.user.avatar = userInfo.avatar;
+        this.user.type = userInfo.type;
       });
     });
   }

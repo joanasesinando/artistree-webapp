@@ -71,7 +71,7 @@
               [(ngModel)]="password"
               #inputPassword="ngModel"
               [ngClass]="{ 'is-invalid': form.submitted && inputPassword.invalid }"
-              required minlength="8" autofocus>
+              required minlength="6" autofocus>
 
             <i class="icon" data-eva="lock-outline"></i>
             <label for="signinInputPassword">Password</label>
@@ -80,7 +80,7 @@
 
           <div *ngIf="form.submitted && inputPassword.invalid" class="is-invalid">
             <span *ngIf="inputPassword.errors.required" class="small text-danger">Password is required</span>
-            <span *ngIf="inputPassword.errors.minlength" class="small text-danger">Password must be at least 8 characters long</span>
+            <span *ngIf="inputPassword.errors.minlength" class="small text-danger">Password must be at least 6 characters long</span>
           </div>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Sign in</button>

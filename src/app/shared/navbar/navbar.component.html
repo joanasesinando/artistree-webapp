@@ -48,7 +48,7 @@
               </a>
             </div>
           </div>
-          <a href="#">Community</a>
+          <a class="cursor-pointer">Community</a>
           <a href="#" routerLink="/academy">Academy</a>
         </div>
 
@@ -70,9 +70,10 @@
 
           <div class="dropdown-menu shadow-sm">
             <a class="dropdown-item px-3 cursor-pointer" (click)="goToProfile()">Profile</a>
-            <a class="dropdown-item px-3 mt-2" href="#">Become an Artist</a>
-            <a class="dropdown-item px-3 mt-2 pt-2 border-top" href="#">Settings</a>
-            <a class="dropdown-item px-3 mt-2" href="#">Help & Support</a>
+            <a class="dropdown-item px-3 cursor-pointer mt-2">Balance</a>
+            <a *ngIf="user.type === 'regular'" class="dropdown-item px-3 cursor-pointer mt-2">Become an Artist</a>
+            <a class="dropdown-item px-3 mt-2 pt-2 border-top cursor-pointer">Settings</a>
+            <a class="dropdown-item px-3 mt-2 cursor-pointer">Help & Support</a>
             <a class="dropdown-item px-3 mt-2 pt-2 border-top" href="#" (click)="logout()">Logout</a>
           </div>
         </div>
@@ -110,7 +111,7 @@
 
         <div class="navigation mt-3">
           <a href="#">Discover</a>
-          <a href="#">Community</a>
+          <a>Community</a>
           <a href="#" routerLink="/academy">Academy</a>
         </div>
 
