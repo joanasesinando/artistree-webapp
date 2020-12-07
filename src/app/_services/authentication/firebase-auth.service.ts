@@ -281,8 +281,8 @@ async getArtistByID(_Uid: string): Promise<Artist> {
     return this.writeArtistData(handler, name, surname, areas);
   }
 
-  writeRegularData(username: string, _name: string, _surname: string, _areas: string[]): void{
-    firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
+  writeRegularData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
+    return firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
       handler: username,
       name: _name,
       surname: _surname,
@@ -298,8 +298,8 @@ async getArtistByID(_Uid: string): Promise<Artist> {
         return false;
       });
   }
-  writeArtistData(username: string, _name: string, _surname: string, _areas: string[]): void{
-    firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
+  writeArtistData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
+    return firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
       handler: username,
       name: _name,
       surname: _surname,

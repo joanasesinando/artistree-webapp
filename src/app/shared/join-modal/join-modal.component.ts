@@ -17,7 +17,7 @@ export class JoinModalComponent implements OnInit {
 
   email: string;
   password: string;
-  fisrtName: string;
+  firstName: string;
   lastName: string;
   handler: string;
 
@@ -154,13 +154,7 @@ export class JoinModalComponent implements OnInit {
     }
 
     this.closeModal('joinModal-step5');
-    this.auth.signup(this.email, this.password).then(res => {
-      if (res) {
-        this.router.navigate(['/feed']);
-      }
-    });
 
-    // TODO: save areas
     for (const checkbox of this.checkboxes1) {
       if (checkbox.checked) {
         areas.push(checkbox.label);
@@ -175,10 +169,16 @@ export class JoinModalComponent implements OnInit {
       }
     }
 
+    this.auth.signup(this.email, this.password, this.firstName, this.lastName, this.handler, areas, this.type).then(res => {
+      if (res) {
+        this.router.navigate(['/feed']);
+      }
+    });
+
     // Reset
     this.email = '';
     this.password = '';
-    this.fisrtName = '';
+    this.firstName = '';
     this.lastName = '';
     this.handler = '';
   }
