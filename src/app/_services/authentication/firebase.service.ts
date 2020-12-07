@@ -209,11 +209,9 @@ export class FirebaseService {
   }
 
   getUserInfo(uid: string): Promise<any> {
-    return this.getDatabaseData('users/artists/' + uid).then(user => user).catch(() => {
-      this.getDatabaseData('users/regular/' + uid).then(user => user).catch(() => {
-        console.log('User with ID ' + uid + ' does not exist');
-        return null;
-      });
+    return this.getDatabaseData('users/artists/' + uid).then(artist => {
+      if (artist) return artist;
+      return this.getDatabaseData('users/regular/' + uid).then(regular => regular);
     });
   }
 
