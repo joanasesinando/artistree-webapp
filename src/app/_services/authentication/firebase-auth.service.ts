@@ -7,7 +7,6 @@ import {AlertService} from '../../_util/alert.service';
 import {Router} from '@angular/router';
 import {Artist} from '../../_domain/Artist';
 import {Course} from '../../_domain/Course';
-import {User} from '../../_domain/User';
 import {Booking} from '../../_domain/Booking';
 
 
@@ -72,7 +71,6 @@ export class FirebaseAuthService {
       return false;
     });
   }
-
 
   async getRegularByID(_Uid: string): Promise<Regular> {
     let _email = '';
@@ -235,8 +233,6 @@ async getArtistByID(_Uid: string): Promise<Artist> {
       console.log('Registado com sucesso!', value); });
   }
 
-  writeArtistData(username: string, name: string, surname: string): void{
-    firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
   writeArtistData(username: string, name: string, surname: string, areas: string[]): void{
     firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).update({
       handler: username,
@@ -250,7 +246,3 @@ async getArtistByID(_Uid: string): Promise<Artist> {
   }
 
 }
-
-
-
-
