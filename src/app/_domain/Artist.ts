@@ -4,6 +4,8 @@ import firebase from 'firebase';
 export class Artist extends User {
   coursesCreated: string[];
   bookingsCreated: string[];
+  followers: string[];
+  following: string[];
   constructor(public _Uid: string, public _email: string, public _name: string,
               public _surname: string, public _handler: string, public _areas: string[]) {
     super(_Uid, _email, _name, _surname, _handler, _areas);
@@ -55,6 +57,21 @@ export class Artist extends User {
 
   set areas(value: string[]) {
     this._areas = value;
+  }
+
+  beFollowed(_user: string): void {
+    this.followers.push(_user);
+    firebase.database().ref('users/Artists/' + this._Uid ).update({
+      followers: this.followers
+    });
+  }
+
+  follow(_artist: Artist): void{
+    this.following.push(_artist.Uid);
+    _artist.beFollowed(this._Uid);
+    firebase.database().ref('users/Artists/' + this._Uid ).update({
+      following: this.following
+    });
   }
 
   createCourse(_title: string, _price: number, _description: string): void{

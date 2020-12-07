@@ -2,10 +2,12 @@ import {User} from './User';
 import {Course} from './Course';
 import firebase from 'firebase';
 import {Booking} from './Booking';
+import {Artist} from './Artist';
 
 export class Regular extends User {
   coursesEnrolled: string[];
   bookingsEnrolled: string[];
+  following: string[];
 
   constructor(public _Uid: string, public _email: string, public _name: string,
               public _surname: string, public _handler: string, public _areas: string[]) {
@@ -61,9 +63,17 @@ export class Regular extends User {
     this._areas = value;
   }
 
+  follow(_artist: Artist): void{
+
+    this.following.push(_artist.Uid);
+    firebase.database().ref('users/Regulars/' + this._Uid ).update({
+      following: this.following
+    });
+    _artist.beFollowed(this._Uid);
+  }
+
   enrollInCourse(_course: Course): void{
     this.coursesEnrolled.push(_course.title);
-
     firebase.database().ref('users/Regulars/' + this._Uid ).update({
      coursesEnrolled: this.coursesEnrolled
     });
