@@ -39,6 +39,14 @@ export class AppComponent {
     this.auth.enrollInBooking(_title);
   }
 
+  regularFollow(_ID: string): void{
+    this.auth.followRegular(_ID);
+  }
+
+  artistFollow(_ID: string): void{
+    this.auth.followArtist(_ID);
+  }
+
   createRegular(username: string, name: string, surname: string): void{
     this.auth.createRegular(username, name, surname, ['Dance', 'Music', 'Magic']);
   }

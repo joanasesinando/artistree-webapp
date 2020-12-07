@@ -72,7 +72,11 @@ export class FirebaseAuthService {
       }else{
         r.bookingsEnrolled = snap.val().bookingsEnrolled;
       }
-
+      if (snap.val().following === undefined){
+        r.following = [];
+      }else{
+        r.following = snap.val().following;
+      }
       return r;
     });
   }
@@ -102,6 +106,18 @@ async getArtistByID(_Uid: string): Promise<Artist> {
         a.bookingsCreated = [];
       }else{
         a.bookingsCreated = snap.val().bookingsCreated;
+      }
+
+      if (snap.val().followers === undefined){
+        a.followers = [];
+      }else{
+        a.followers = snap.val().followers;
+      }
+
+      if (snap.val().following === undefined){
+        a.following = [];
+      }else{
+        a.following = snap.val().following;
       }
       return a;
     });
@@ -192,29 +208,46 @@ async getArtistByID(_Uid: string): Promise<Artist> {
     });
   }
 
+  followRegular(_artistID: string): void{
+    this.getRegularByID(firebase.auth().currentUser.uid).then((regular) => {
+      this.getArtistByID(_artistID).then((artist) => {
+
+        regular.follow(artist);
+      });
+    });
+  }
+
+  followArtist(_artistID: string): void{
+    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
+      this.getArtistByID(_artistID).then((artist2) => {
+        artist2.follow(artist);
+      });
+    });
+  }
+
 
   createArtist(handler: string, name: string, surname: string, areas: string[]): void {
     const r = new Artist(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
     this.writeArtistData(handler, name, surname, areas);
   }
 
-  writeRegularData(username: string, name: string, surname: string, areas: string[]): void{
+  writeRegularData(username: string, _name: string, _surname: string, _areas: string[]): void{
     firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
       handler: username,
-      Name: name,
-      Surname: surname,
+      name: _name,
+      surname: _surname,
       email: firebase.auth().currentUser.email,
-      interests: areas
+      areas: _areas
     }).then(value => {
       console.log('Registado com sucesso!', value); });
   }
-  writeArtistData(username: string, name: string, surname: string, areas: string[]): void{
-    firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).update({
+  writeArtistData(username: string, _name: string, _surname: string, _areas: string[]): void{
+    firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
       handler: username,
-      Name: name,
-      Surname: surname,
+      name: _name,
+      surname: _surname,
       email: firebase.auth().currentUser.email,
-      interests: areas
+      areas: _areas
     }).then(value => {
       console.log('Registado com sucesso!', value); });
   }
