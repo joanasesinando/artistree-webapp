@@ -1,45 +1,11 @@
 <section class="container-fluid py-4" id="profile-section">
 
-  <div *ngIf="type === 'artist'" class="artist row">
-
-    <div class="left-section col-4">
-
-      <!-- User -->
-
-      <!-- Highlights -->
-
-    </div>
-
-    <div class="right-section col">Hello</div>
-
+  <div *ngIf="user.type === 'artist'">
+    <app-profile-artist [isCurrent]="isCurrentUser()" [user]="user"></app-profile-artist>
   </div>
 
-  <div *ngIf="type === 'regular'" class="regular row">
-
-    <div class="left-section col-4">
-
-      <!-- User -->
-      <app-user-card
-        [name]="user.name"
-        [handler]="user.handler"
-        [avatar]="user.avatar"
-        [from]="user.from"
-        [following]="user.following"
-        [since]="user.since">
-      </app-user-card>
-
-      <!-- Interests -->
-      <app-interests-card [interests]="user.interests"></app-interests-card>
-
-    </div>
-
-    <div class="right-section col">
-
-      <!-- Reviews -->
-      <app-reviews></app-reviews>
-
-    </div>
-
+  <div *ngIf="user.type === 'regular'">
+    <app-profile-regular [isCurrent]="isCurrentUser()" [user]="user"></app-profile-regular>
   </div>
 
 </section>

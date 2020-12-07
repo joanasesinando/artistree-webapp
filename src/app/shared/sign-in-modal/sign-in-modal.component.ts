@@ -5,7 +5,7 @@ import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
 import {Router} from '@angular/router';
 
-import {FirebaseService} from '../../_services/authentication/firebase.service';
+import {FirebaseService} from '../../_services/firebase.service';
 
 @Component({
   selector: 'app-sign-in-modal',

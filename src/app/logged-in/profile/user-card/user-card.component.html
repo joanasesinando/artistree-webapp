@@ -1,0 +1,200 @@
+<div class="main rounded d-flex flex-column align-items-center p-4 position-relative">
+
+  <div data-toggle="modal" data-target="#edit-user-card">
+    <i *ngIf="isCurrent" class="edit-icon" data-eva="edit"></i>
+  </div>
+
+  <span *ngIf="this.user.type === 'artist'" class="badge badge-pill badge-primary">ARTIST</span>
+
+  <!-- Avatar -->
+  <div class="avatar">
+    <img class="rounded-circle" src="{{user.avatar}}" alt="profile picture">
+  </div>
+
+  <!-- Name & Follows -->
+  <p class="name text-dark bold mt-2 mb-0">{{user.name}}</p>
+  <div class="d-flex align-items-center justify-content-center flex-wrap">
+    <p *ngIf="this.user.type === 'artist'" class="following text-light-grey regular mb-3">{{user.followers}} followers</p>
+    <span *ngIf="this.user.type === 'artist'" class="following text-light-grey regular mb-3 mx-1"> . </span>
+    <p class="following text-light-grey regular mb-3">{{user.following}} following</p>
+  </div>
+
+  <!-- Social -->
+  <div class="social d-flex align-items-center justify-content-center mb-3">
+
+    <a *ngFor="let social of user.socialLinks; let last = last" class="rounded-circle cursor-pointer"
+       [ngClass]="{'mr-3': !last}"
+       href="{{social.link}}" target="_blank">
+
+      <i *ngIf="social.network === 'facebook'" class="icon center-xy" data-eva="facebook"></i>
+      <i *ngIf="social.network === 'instagram'" class="lni lni-instagram-original center-xy"></i>
+      <i *ngIf="social.network === 'youtube'" class="lni lni-youtube center-xy"></i>
+      <i *ngIf="social.network === 'twitter'" class="icon center-xy" data-eva="twitter"></i>
+    </a>
+
+  </div>
+
+  <div class="bottom w-100 border-top pt-3 mb-3"
+  [ngClass]="{'mb-3': this.user.type === 'artist'}">
+
+    <!-- Handler -->
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <div class="d-flex align-items-center">
+        <i class="icon" data-eva="at-outline"></i>
+        <span class="text-grey regular ml-2">Handler</span>
+      </div>
+      <span>{{user.handler}}</span>
+    </div>
+
+    <!-- Location -->
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <div class="d-flex align-items-center">
+        <i class="icon" data-eva="pin"></i>
+        <span class="text-grey regular ml-2">From</span>
+      </div>
+      <span *ngIf="user.location">{{user.location}}</span>
+      <span *ngIf="!user.location">-</span>
+    </div>
+
+    <!-- Member since -->
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <i class="icon" data-eva="person"></i>
+        <span class="text-grey regular ml-2">Member since</span>
+      </div>
+      <span>{{formatTimestamp(this.user.joiningTimestamp)}}</span>
+    </div>
+
+  </div>
+
+  <div *ngIf="this.user.type === 'artist'" class="w-100 border-top pt-3">
+    <button class="d-flex align-items-center justify-content-center btn btn-primary btn-block btn-lg">
+      <i class="icon mr-2" data-eva="calendar-outline" style="fill: white"></i> Schedule</button>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="edit-user-card" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h4 class="modal-title mt-3">Edit profile</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="lni lni-close"></i>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form #form="ngForm" (submit)="update()">
+          <span class="text-grey semibold">General Information</span>
+
+          <!-- Name -->
+          <div class="form-label-group mb-2 mt-2">
+            <input
+              type="text"
+              id="profileInputName"
+              class="form-control"
+              name="profileInputName"
+              placeholder="Name"
+              [(ngModel)]="user.name"
+              #inputName="ngModel"
+              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              [ngClass]="{ 'is-invalid': form.submitted && inputName.invalid }"
+              required>
+            <i class="icon" data-eva="person-outline"></i>
+            <label for="profileInputName">Name</label>
+          </div>
+
+          <div *ngIf="form.submitted && inputName.invalid" class="is-invalid">
+            <span *ngIf="inputName.errors.required" class="small text-danger">Name is required</span>
+            <span *ngIf="inputName.errors.pattern" class="small text-danger">Name must be in a valid format</span>
+          </div>
+
+          <!-- Location -->
+          <div class="form-label-group mb-3">
+            <input
+              type="text"
+              id="profileInputLocation"
+              class="form-control"
+              name="profileInputLocation"
+              placeholder="Location"
+              [(ngModel)]="user.location">
+
+            <i class="icon" data-eva="pin"></i>
+            <label for="profileInputLocation">Location</label>
+          </div>
+
+          <!-- Social Links -->
+          <span class="text-grey semibold">Social links</span>
+
+          <div class="form-label-group mb-2">
+            <input
+              type="text"
+              id="profileInputFacebook"
+              class="form-control"
+              name="profileInputFacebook"
+              placeholder="Facebook"
+              [(ngModel)]="socialLinks.facebook">
+
+            <i class="icon" data-eva="pin"></i>
+            <label for="profileInputFacebook">Facebook</label>
+          </div>
+
+          <div class="form-label-group mb-2">
+            <input
+              type="text"
+              id="profileInputInstagram"
+              class="form-control"
+              name="profileInputInstagram"
+              placeholder="Instagram"
+              [(ngModel)]="socialLinks.instagram">
+
+            <i class="icon lni lni-instagram-original"></i>
+            <label for="profileInputInstagram">Instagram</label>
+          </div>
+
+          <div class="form-label-group mb-2">
+            <input
+              type="text"
+              id="profileInputYoutube"
+              class="form-control"
+              name="profileInputYoutube"
+              placeholder="Youtube"
+              [(ngModel)]="socialLinks.youtube">
+
+            <i class="icon lni lni-youtube"></i>
+            <label for="profileInputYoutube">Youtube</label>
+          </div>
+
+          <div class="form-label-group">
+            <input
+              type="text"
+              id="profileInputTwitter"
+              class="form-control"
+              name="profileInputTwitter"
+              placeholder="Twitter"
+              [(ngModel)]="socialLinks.twitter">
+
+            <i class="icon" data-eva="twitter"></i>
+            <label for="profileInputTwitter">Twitter</label>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  (click)="update()" data-dismiss="modal">Update</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

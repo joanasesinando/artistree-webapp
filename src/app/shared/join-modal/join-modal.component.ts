@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 
-import {FirebaseService} from '../../_services/authentication/firebase.service';
+import {FirebaseService} from '../../_services/firebase.service';
 import {AlertService} from '../../_util/alert.service';
 
 import * as $ from 'jquery';

@@ -1,0 +1,96 @@
+@import "../../../../styles/abstracts/variables", "../../../../styles/abstracts/functions", "../../../../styles/abstracts/mixins";
+@import "../../../../../node_modules/bootstrap/scss/functions", "../../../../../node_modules/bootstrap/scss/variables", "../../../../../node_modules/bootstrap/scss/mixins";
+
+$avatar-height: 8rem;
+
+.main {
+  height: auto;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+
+  &.rounded, {
+    border-radius: 16.1663px !important;
+  }
+
+  .avatar {
+    height: $avatar-height;
+    width: $avatar-height;
+
+    img {
+      width: 100%;
+      height: $avatar-height;
+      object-fit: cover;
+    }
+  }
+
+  .name {
+    font-size: 1rem;
+    letter-spacing: 0.763177px;
+  }
+
+  .following {
+    font-size: .65rem;
+    letter-spacing: 0.763177px;
+  }
+
+  .social {
+    .rounded-circle {
+      position: relative;
+      width: 1.8rem;
+      height: 1.8rem;
+      background-color: get-color(primary, 3);
+      &:hover, &:focus {
+        background-color: get-color(primary, 1);
+      }
+
+      svg {
+        fill: white;
+        font-size: .9rem;
+      }
+
+      i {
+        color: white;
+        font-size: .9rem;
+      }
+    }
+  }
+
+  .bottom {
+    span {
+      font-size: .8rem;
+    }
+
+    svg {
+      height: 1rem;
+      fill: get-color(typography, 2);
+    }
+  }
+
+  .border-top {
+    border-top: 1.5px solid get-color(border, 1) !important;
+  }
+
+  .edit-icon {
+    fill: get-color(typography, 3);
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    &:hover {
+      fill: get-color(typography, 2);
+    }
+  }
+
+  .badge-primary {
+    padding: .25rem .7rem;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    font-size: .55rem;
+    @include font-weight-att(semibold);
+    background-color: white;
+    border: 2.5px solid get-color(primary, 3);
+    color: get-color(primary, 3);
+  }
+
+}

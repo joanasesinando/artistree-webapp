@@ -5,12 +5,12 @@ import firebase from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 
-import {AlertService} from '../../_util/alert.service';
+import {AlertService} from '../_util/alert.service';
 
-import {Regular} from '../../_domain/Regular';
-import {Artist} from '../../_domain/Artist';
-import {Course} from '../../_domain/Course';
-import {Booking} from '../../_domain/Booking';
+import {Regular} from '../_domain/Regular';
+import {Artist} from '../_domain/Artist';
+import {Course} from '../_domain/Course';
+import {Booking} from '../_domain/Booking';
 
 
 @Injectable({
@@ -212,12 +212,6 @@ export class FirebaseService {
     return this.getDatabaseData('users/artists/' + uid).then(artist => {
       if (artist) return artist;
       return this.getDatabaseData('users/regular/' + uid).then(regular => regular);
-    });
-  }
-
-  isArtist(uid: string): Promise<boolean> {
-    return this.getUserInfo(uid).then(user => {
-      return user.type === 'artist';
     });
   }
 

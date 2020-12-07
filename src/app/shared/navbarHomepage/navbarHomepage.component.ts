@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {FirebaseService} from '../../_services/authentication/firebase.service';
+import {FirebaseService} from '../../_services/firebase.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../_util/alert.service';
 

@@ -24,7 +24,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
 
   artistsList: IArtist[] = [ // TODO: ir buscar todos os artistas
     {
-      uid: '1',
+      uid: 'Aciq4JOLk6hqSLekTlgHlroxZ9m1',
       name: 'Ned Tomlinson',
       job: 'Magician',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
@@ -36,8 +36,8 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
       ]
     },
     {
-      uid: '2',
-      name: 'John Doe',
+      uid: 'uJBpUysncqdl8SwwLniSil2evIu2',
+      name: 'Regular',
       job: 'Full-Stack Developer',
       avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
       imagesSrc: [
