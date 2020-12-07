@@ -20,8 +20,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   search;
 
   user = {
-    name: 'John Doe',
-    photoUrl: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1'
+    name: '',
+    photoUrl: ''
   };
 
   @ViewChild('form', { static: false }) form: NgForm;
@@ -82,7 +82,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   goToProfile(): void {
-    console.log(this.firebaseAuthService.currentUser.uid);
     this.router.navigate(['/profile/', this.firebaseAuthService.currentUser.uid]);
   }
 

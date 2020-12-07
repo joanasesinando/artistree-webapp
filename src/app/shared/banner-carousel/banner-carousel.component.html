@@ -1,0 +1,25 @@
+<div id="homepageBanner" class="banner w-100 position-relative carousel slide" data-ride="carousel">
+
+  <ol class="carousel-indicators">
+    <li data-target="#homepageBanner" data-slide-to="0" class="active"></li>
+    <li data-target="#homepageBanner" data-slide-to="1"></li>
+    <li data-target="#homepageBanner" data-slide-to="2"></li>
+    <li data-target="#homepageBanner" data-slide-to="3"></li>
+  </ol>
+
+  <div class="carousel-inner">
+
+    <div *ngFor="let item of items; let first = first" class="carousel-item" [ngClass]="{ 'active': first }">
+      <img class="rounded" src="{{item.imgUrl}}" alt="banner">
+
+      <div class="text">
+        <p class="title bold mb-2"
+           [ngClass]="{ 'text-white': item.textColor === 'white', 'text-grey': item.textColor === 'grey' }">{{item.title}}</p>
+        <p class="description regular"
+           [ngClass]="{ 'text-white': item.textColor === 'white', 'text-grey': item.textColor === 'grey' }">{{item.description}}</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>

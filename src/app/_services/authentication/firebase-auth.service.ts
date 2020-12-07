@@ -43,7 +43,7 @@ export class FirebaseAuthService {
 
         switch (type) {
           case 'artist':
-            return this.createArtist(handler, firstName, lastName, areas)
+            return this.writeArtistData(handler, firstName, lastName, areas)
               .then(() => {
                 this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
                 return true;
@@ -55,7 +55,7 @@ export class FirebaseAuthService {
 
           case 'user':
           default:
-            return this.createRegular(handler, firstName, lastName, areas)
+            return this.writeRegularData(handler, firstName, lastName, areas)
               .then(() => {
                 this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
                 return true;
@@ -72,7 +72,7 @@ export class FirebaseAuthService {
   login(email: string, password: string): Promise<boolean> {
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
-      .then(value => {
+      .then(() => {
         this.alertService.showAlert('Welcome back!', 'You successfully logged in to Artistree.', 'success');
         return true;
       })
@@ -83,7 +83,7 @@ export class FirebaseAuthService {
   }
 
   logout(): Promise<boolean> {
-    return this.firebaseAuth.signOut().then(value => {
+    return this.firebaseAuth.signOut().then(() => {
       this.alertService.showAlert('Sad to see you go', 'You successfully logged out of Artistree.', 'success');
       return true;
     })
@@ -99,6 +99,10 @@ export class FirebaseAuthService {
 
   public getDatabaseData(path): Promise<any> {
     return firebase.database().ref(path).once('value').then(snapshot => snapshot.val());
+  }
+
+  public setDatabaseData(path, data): Promise<boolean> {
+    return firebase.database().ref(path).update(data).then(() => true).catch(() => false);
   }
 
   /*** --------------------------------------------- ***/
@@ -131,16 +135,6 @@ export class FirebaseAuthService {
   /*** ------------------- Create ------------------ ***/
   /*** --------------------------------------------- ***/
 
-  createRegular(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
-    const r = new Regular(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
-    return this.writeRegularData(handler, name, surname, areas);
-  }
-
-  createArtist(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
-    const r = new Artist(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
-    return this.writeArtistData(handler, name, surname, areas);
-  }
-
   createCourse( _title: string, _price: number, _description: string): void {
     this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
       artist.createCourse(_title, _price, _description);
@@ -156,23 +150,24 @@ export class FirebaseAuthService {
   /*** -------------------- Write ------------------ ***/
   /*** --------------------------------------------- ***/
 
-  writeRegularData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
-    return firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
-      handler: username,
-      name: _name,
-      surname: _surname,
+  writeRegularData(handler: string, firstname: string, lastName: string, areas: string[]): Promise<boolean> {
+    return this.setDatabaseData('users/Regulars/' + firebase.auth().currentUser.uid, {
+      handler,
+      name: firstname,
+      surname: lastName,
       email: firebase.auth().currentUser.email,
-      areas: _areas
-    }).then(() => true).catch(() => false);
+      areas
+    });
   }
-  writeArtistData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
-    return firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
-      handler: username,
-      name: _name,
-      surname: _surname,
+
+  writeArtistData(handler: string, firstname: string, lastName: string, areas: string[]): Promise<boolean> {
+    return this.setDatabaseData('users/Artists/' + firebase.auth().currentUser.uid, {
+      handler,
+      name: firstname,
+      surname: lastName,
       email: firebase.auth().currentUser.email,
-      areas: _areas
-    }).then(() => true).catch(() => false);
+      areas
+    });
   }
 
   /*** --------------------------------------------- ***/
@@ -223,6 +218,10 @@ export class FirebaseAuthService {
 
       return emails;
     });
+  }
+
+  getUserFullName(uid: string): void {
+
   }
 
   async getRegularByID(_Uid: string): Promise<Regular> {

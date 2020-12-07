@@ -14,6 +14,7 @@ import { FilterComponent } from './filter/filter.component';
 import { SortByComponent } from './sort-by/sort-by.component';
 import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
 import { ToggleComponent } from './toggle/toggle.component';
+import { BannerCarouselComponent } from './banner-carousel/banner-carousel.component';
 
 
 @NgModule({
@@ -28,19 +29,21 @@ import { ToggleComponent } from './toggle/toggle.component';
     FilterComponent,
     SortByComponent,
     SubNavbarComponent,
-    ToggleComponent
+    ToggleComponent,
+    BannerCarouselComponent
   ],
-  exports: [
-    FooterComponent,
-    NavbarHomepageComponent,
-    GoTopComponent,
-    NavbarComponent,
-    BannerComponent,
-    FilterComponent,
-    SortByComponent,
-    SubNavbarComponent,
-    ToggleComponent
-  ],
+    exports: [
+        FooterComponent,
+        NavbarHomepageComponent,
+        GoTopComponent,
+        NavbarComponent,
+        BannerComponent,
+        FilterComponent,
+        SortByComponent,
+        SubNavbarComponent,
+        ToggleComponent,
+        BannerCarouselComponent
+    ],
   imports: [
     CommonModule,
     FormsModule,
