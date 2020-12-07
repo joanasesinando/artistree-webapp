@@ -69,7 +69,6 @@ export class FirebaseAuthService {
       });
   }
 
-
   login(email: string, password: string): Promise<boolean> {
     return this.firebaseAuth
       .signInWithEmailAndPassword(email, password)
@@ -94,9 +93,136 @@ export class FirebaseAuthService {
     });
   }
 
-  handlersAlreadyExists(): boolean {
-    // TODO
-    return false;
+  /*** --------------------------------------------- ***/
+  /*** -------- General Database Functions --------- ***/
+  /*** --------------------------------------------- ***/
+
+  public getDatabaseData(path): Promise<any> {
+    return firebase.database().ref(path).once('value').then(snapshot => snapshot.val());
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** ------------------- Exists ------------------ ***/
+  /*** --------------------------------------------- ***/
+
+  emailAlreadyExists(other: string): Promise<boolean> {
+    return this.getAllEmails().then(emails => {
+      for (const email of emails) {
+        if (email === other) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  handlerAlreadyExists(other: string): Promise<boolean> {
+    return this.getAllHandlers().then(handlers => {
+      for (const handler of handlers) {
+        if (handler === other) {
+          return true;
+        }
+      }
+      return false;
+    });
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** ------------------- Create ------------------ ***/
+  /*** --------------------------------------------- ***/
+
+  createRegular(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
+    const r = new Regular(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
+    return this.writeRegularData(handler, name, surname, areas);
+  }
+
+  createArtist(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
+    const r = new Artist(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
+    return this.writeArtistData(handler, name, surname, areas);
+  }
+
+  createCourse( _title: string, _price: number, _description: string): void {
+    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
+      artist.createCourse(_title, _price, _description);
+    });
+  }
+  createBooking( _title: string, _description: string, _price: number, _duration: number): void {
+    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
+      artist.createBooking(_title,  _description, _price, _duration);
+    });
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** -------------------- Write ------------------ ***/
+  /*** --------------------------------------------- ***/
+
+  writeRegularData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
+    return firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
+      handler: username,
+      name: _name,
+      surname: _surname,
+      email: firebase.auth().currentUser.email,
+      areas: _areas
+    }).then(() => true).catch(() => false);
+  }
+  writeArtistData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
+    return firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
+      handler: username,
+      name: _name,
+      surname: _surname,
+      email: firebase.auth().currentUser.email,
+      areas: _areas
+    }).then(() => true).catch(() => false);
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** -------------------- Get -------------------- ***/
+  /*** --------------------------------------------- ***/
+
+  getAllHandlers(): Promise<string[]> {
+    const handlers: string[] = [];
+
+    return this.getDatabaseData('users').then(users => {
+
+      for (const key in users.Artists) {
+        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
+          const user = users.Artists[key];
+          handlers.push(user.handler);
+        }
+      }
+
+      for (const key in users.Regulars) {
+        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
+          const user = users.Regulars[key];
+          handlers.push(user.handler);
+        }
+      }
+
+      return handlers;
+    });
+  }
+
+  getAllEmails(): Promise<string[]> {
+    const emails: string[] = [];
+
+    return this.getDatabaseData('users').then(users => {
+
+      for (const key in users.Artists) {
+        if (Object.prototype.hasOwnProperty.call(users.Artists, key)) {
+          const user = users.Artists[key];
+          emails.push(user.email);
+        }
+      }
+
+      for (const key in users.Regulars) {
+        if (Object.prototype.hasOwnProperty.call(users.Regulars, key)) {
+          const user = users.Regulars[key];
+          emails.push(user.email);
+        }
+      }
+
+      return emails;
+    });
   }
 
   async getRegularByID(_Uid: string): Promise<Regular> {
@@ -216,7 +342,9 @@ async getArtistByID(_Uid: string): Promise<Artist> {
     });
   }
 
-
+  /*** --------------------------------------------- ***/
+  /*** ------------------- Enroll ------------------ ***/
+  /*** --------------------------------------------- ***/
 
   enrollInCourse(_courseTitle: string): void {
     this.getCourseByName(_courseTitle).then((course) => {
@@ -240,23 +368,9 @@ async getArtistByID(_Uid: string): Promise<Artist> {
     });
   }
 
-
-
-  createRegular(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
-    const r = new Regular(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
-    return this.writeRegularData(handler, name, surname, areas);
-  }
-
-  createCourse( _title: string, _price: number, _description: string): void{
-    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
-      artist.createCourse(_title, _price, _description);
-    });
-  }
-  createBooking( _title: string, _description: string, _price: number, _duration: number): void{
-    this.getArtistByID(firebase.auth().currentUser.uid).then((artist) => {
-      artist.createBooking(_title,  _description, _price, _duration);
-    });
-  }
+  /*** --------------------------------------------- ***/
+  /*** ------------------- Follow ------------------ ***/
+  /*** --------------------------------------------- ***/
 
   followRegular(_artistID: string): void{
     this.getRegularByID(firebase.auth().currentUser.uid).then((regular) => {
@@ -273,47 +387,6 @@ async getArtistByID(_Uid: string): Promise<Artist> {
         artist2.follow(artist);
       });
     });
-  }
-
-
-  createArtist(handler: string, name: string, surname: string, areas: string[]): Promise<boolean> {
-    const r = new Artist(firebase.auth().currentUser.uid, firebase.auth().currentUser.email, name, surname, handler, areas);
-    return this.writeArtistData(handler, name, surname, areas);
-  }
-
-  writeRegularData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
-    return firebase.database().ref('users/Regulars/' + firebase.auth().currentUser.uid).update({
-      handler: username,
-      name: _name,
-      surname: _surname,
-      email: firebase.auth().currentUser.email,
-      areas: _areas
-    }).then(value => {
-      // TODO: alert
-      console.log('Registado com sucesso!', value);
-      return true;
-    })
-      .catch(err => {
-        // TODO: alert
-        return false;
-      });
-  }
-  writeArtistData(username: string, _name: string, _surname: string, _areas: string[]): Promise<boolean> {
-    return firebase.database().ref('users/Artists/' + firebase.auth().currentUser.uid).set({
-      handler: username,
-      name: _name,
-      surname: _surname,
-      email: firebase.auth().currentUser.email,
-      areas: _areas
-    }).then(value => {
-      // TODO: alert
-      console.log('Registado com sucesso!', value);
-      return true;
-    })
-      .catch(err => {
-        // TODO: alert
-        return false;
-      });
   }
 
 }

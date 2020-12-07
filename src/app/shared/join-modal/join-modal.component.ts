@@ -113,8 +113,15 @@ export class JoinModalComponent implements OnInit {
       return;
     }
 
-    this.closeModal('joinModal-step1');
-    this.openModal('joinModal-step2');
+    this.auth.emailAlreadyExists(this.email).then(res => {
+      if (res) {
+        this.alertService.showAlert('Oops!', 'It seems like this email is already registered on Artistree. Sign in instead.', 'danger');
+        return;
+      }
+
+      this.closeModal('joinModal-step1');
+      this.openModal('joinModal-step2');
+    });
   }
 
   continueToStep3(): void {
@@ -131,13 +138,15 @@ export class JoinModalComponent implements OnInit {
       return;
     }
 
-    if (this.auth.handlersAlreadyExists()) {
-      this.alertService.showAlert('Oops!', 'It seems like this handler already exists. Please choose another one.', 'danger');
-      return;
-    }
+    this.auth.handlerAlreadyExists(this.handler).then(res => {
+      if (res) {
+        this.alertService.showAlert('Oops!', 'It seems like this handler is already in use. Please choose another one.', 'danger');
+        return;
+      }
 
-    this.closeModal('joinModal-step3');
-    this.openModal('joinModal-step4');
+      this.closeModal('joinModal-step3');
+      this.openModal('joinModal-step4');
+    });
   }
 
   continueToStep5(type: string): void {

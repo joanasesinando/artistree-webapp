@@ -222,7 +222,7 @@
               placeholder="Handler"
               [(ngModel)]="handler"
               #inputHandler="ngModel"
-              pattern="[\w'\-,.\d^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
+              pattern="^[\w'\-,.\d^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
               [ngClass]="{ 'is-invalid': form3.submitted && inputHandler.invalid }"
               required autofocus>
 
