@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IArtist} from '../discover-artists.component';
+import {IUser} from '../discover-artists.component';
 import {Router} from '@angular/router';
 
 @Component({
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class ArtistCardComponent implements OnInit {
 
-  @Input() artist: IArtist;
+  @Input() artist: IUser;
 
   constructor(private router: Router) { }
 

@@ -1,11 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import * as eva from 'eva-icons';
 
 @Component({
   selector: 'app-sort-by',
   templateUrl: './sort-by.component.html',
   styleUrls: ['./sort-by.component.scss']
 })
-export class SortByComponent implements OnInit {
+export class SortByComponent implements OnInit, AfterViewInit {
 
   @Input() items: string[];
 
@@ -14,6 +15,10 @@ export class SortByComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    eva.replace();
   }
 
   changeArrowDirection(): void {

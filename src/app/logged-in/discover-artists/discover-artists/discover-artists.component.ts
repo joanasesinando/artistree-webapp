@@ -1,15 +1,33 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import * as eva from 'eva-icons';
+import {FirebaseService} from '../../../_services/firebase.service';
 
 const categories = require('src/assets/data/categories.json').categories;
+import _ from 'lodash';
 
-export interface IArtist {
+export interface IUser {
   uid: string;
   name: string;
-  job: string;
-  avatarSrc: string;
-  imagesSrc: string[];
+  handler: string;
+  avatar: string;
+  following: number;
+  followers?: number;
+  location: string;
+  joiningTimestamp: number;
+  socialLinks: { network: string, link: string }[];
+  reviewsGiven: { artistID: string, rate: number, description: string, timestamp: number }[];
+  interests: string[];
+  title?: string;
+  artisticAreas?: string[];
+  bio?: string;
+  skills?: string[];
+  highlights?: { title: string, description: string }[];
+  reviewsReceived?: { artistID: string, rate: number, description: string, timestamp: number }[];
+  portfolio?: string[];
+  gigs?: any[];
+  courses?: any[];
+  type: string;
 }
 
 @Component({
@@ -22,260 +40,20 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   search;
   @ViewChild('form', { static: false }) form: NgForm;
 
-  artistsList: IArtist[] = [ // TODO: ir buscar todos os artistas
-    {
-      uid: 'Aciq4JOLk6hqSLekTlgHlroxZ9m1',
-      name: 'Ned Tomlinson',
-      job: 'Magician',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: 'uJBpUysncqdl8SwwLniSil2evIu2',
-      name: 'Regular',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '3',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '4',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '5',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    },
-    {
-      uid: '2',
-      name: 'John Doe',
-      job: 'Full-Stack Developer',
-      avatarSrc: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-      imagesSrc: [
-        'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1501854140801-50d01698950b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1680&q=80',
-        'https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80',
-        'https://images.unsplash.com/photo-1508558936510-0af1e3cccbab?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80'
-      ]
-    }
-  ];
+  artistsList: IUser[] = [];
+  artistsToShow: IUser[] = [];
+  artistsAfterSplit: IUser[] = [];
 
-  artists: IArtist[] = [];
-
-  filterItems: {name: string, total: number}[] = [];
+  filterItems: { name: string, total: number }[] = [];
+  filterLocations: { name: string, total: number }[] = [];
   sortItems: string[] = ['Popularity', 'Best matching', 'Newest'];
 
-  constructor() {
-    this.initializeFilterByCategory();
-  }
+  numberArtistsShowing = 20;
+
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
-    this.filterArtists(); // TODO: meter na função de load de artistas (no fim)
+    this.loadArtists();
   }
 
   ngAfterViewInit(): void {
@@ -287,34 +65,114 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   }
 
   initializeFilterByCategory(): void {
-    this.filterItems.push({ name: 'All Categories', total: this.artists.length});
-    for (const category of categories) {
-      // TODO: get total for a specific category
-      const total = 12;
-      this.filterItems.push({ name: category, total});
+    let cat: { name: string, total: number }[] = [];
+    for (const artist of this.artistsList) {
+      for (const area of artist.artisticAreas) {
+        if (!this.existsInArrayWithObjects(cat, {name: area, total: 0}))
+          cat.push({name: area, total: 0}); // FIXME
+      }
     }
+    cat = this.orderAlphabetically(cat);
+    cat.unshift({ name: 'All Categories', total: cat.length});
+    this.filterItems = cat;
+  }
+
+  initializeFilterByLocation(): void {
+    const locations: { name: string, total: number }[] = [];
+    for (const artist of this.artistsList) {
+      if (artist.location && artist.location !== '' &&
+        !this.existsInArrayWithObjects(locations, {name: artist.location, total: 0}))
+        locations.push({
+          name: artist.location.split(',')[0],
+          total: 0 // FIXME
+        });
+    }
+    this.filterLocations = this.orderAlphabetically(locations);
+  }
+
+  existsInArrayWithObjects(array: {name: string, total: number}[], obj: {name: string, total: number}): boolean {
+    for (const item of array) {
+      if (item.name === obj.name)
+        return true;
+    }
+    return false;
+  }
+
+  orderAlphabetically(array: {name: string, total: number}[]): {name: string, total: number}[] {
+    return array.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      else if (a.name > b.name) return 1;
+      else return 0;
+    });
+  }
+
+  getAllArtists(): Promise<void> {
+    return this.firebaseService.getDatabaseData('users/artists').then(artists => {
+
+      for (const key in artists) {
+        if (Object.prototype.hasOwnProperty.call(artists, key)) {
+          const artist = artists[key] as IUser;
+          artist.uid = key;
+          this.artistsList.push(artist);
+        }
+      }
+    });
+  }
+
+  loadArtists(): void {
+    this.getAllArtists().then(() => {
+      this.filterArtists();
+    });
+  }
+
+  splitArtists(max: number, artists: IUser[]): void {
+    artists.splice(max, artists.length - max);
   }
 
   loadMoreArtists(): void {
-    // TODO: load more 20 artists
+    this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+    this.splitArtists(this.numberArtistsShowing + 20, this.artistsAfterSplit);
   }
 
   doSearch(): void {
     this.filterArtists();
   }
 
-  isQueryTrue(artist: IArtist): boolean {
-    return !this.search || !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
-      !!artist.job.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()));
+  listToString(list: string[]): string {
+    if (list.length > 0) {
+      let s = list[0];
+      for (let i = 0; i < list.length; i++) {
+        if (i !== 0)
+          s += ' ' + list[i];
+      }
+      return s;
+    }
+    return '';
+  }
+
+  isQueryTrue(artist: IUser): boolean {
+    return !this.search ||
+      !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
+      !!artist.title.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
+      !!artist.handler.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
+      // tslint:disable-next-line:max-line-length
+      (artist.artisticAreas && !!this.listToString(artist.artisticAreas).toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()))) ||
+      (artist.skills && !!this.listToString(artist.skills).toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())));
   }
 
   filterArtists(): void {
-    this.artists = [];
+    this.artistsToShow = [];
     for (const artist of this.artistsList) {
       if (this.isQueryTrue(artist)) {
-        this.artists.push(artist);
+        this.artistsToShow.push(artist);
       }
     }
+
+    this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+    this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+
+    this.initializeFilterByCategory();
+    this.initializeFilterByLocation();
   }
 
 }

@@ -4,10 +4,10 @@
   <div class="w-50 d-flex flex-row justify-content-around left-section">
     <div class="d-flex flex-column align-items-center justify-content-center text-center">
       <div class="avatar-div">
-        <img class="rounded-circle cover-div avatar-img" src="{{artist.avatarSrc}}" alt="{{artist.name}}-avatar">
+        <img class="rounded-circle cover-div avatar-img" src="{{artist.avatar}}" alt="{{artist.name}}-avatar">
       </div>
       <p class="name text-dark bold mb-0">{{artist.name}}</p>
-      <p class="job text-grey regular mb-0">{{artist.job}}</p>
+      <p class="job text-grey regular mb-0">{{artist.title}}</p>
     </div>
   </div>
 
@@ -15,19 +15,31 @@
   <div class="w-50 d-flex flex-row">
     <div class="w-100 d-flex flex-column align-items-center justify-content-center">
       <div class="pics-div">
-        <img class="cover-div pics-img" src="{{artist.imagesSrc[0]}}" alt="pic1">
+        <img *ngIf="artist.portfolio && artist.portfolio[0]"
+             class="cover-div pics-img" src="{{artist.portfolio[0]}}" alt="pic1">
+        <img *ngIf="!artist.portfolio || !artist.portfolio[0]"
+             class="cover-div pics-img" src="assets/imgs/default_photo.png" alt="pic1">
       </div>
       <div class="pics">
-        <img class="cover-div pics-img" src="{{artist.imagesSrc[1]}}" alt="pic2">
+        <img *ngIf="artist.portfolio && artist.portfolio[1]"
+             class="cover-div pics-img" src="{{artist.portfolio[1]}}" alt="pic2">
+        <img *ngIf="!artist.portfolio || !artist.portfolio[0]"
+             class="cover-div pics-img" src="assets/imgs/default_photo.png" alt="pic1">
       </div>
 
     </div>
     <div class="w-100 d-flex flex-column align-items-center justify-content-center">
       <div class="pics cover-image">
-        <img class="cover-div pics-img rounded-top-right" src="{{artist.imagesSrc[2]}}" alt="pic3">
+        <img *ngIf="artist.portfolio && artist.portfolio[2]"
+             class="cover-div pics-img rounded-top-right" src="{{artist.portfolio[2]}}" alt="pic3">
+        <img *ngIf="!artist.portfolio || !artist.portfolio[0]"
+             class="cover-div pics-img rounded-top-right" src="assets/imgs/default_photo.png" alt="pic1">
       </div>
       <div class="pics cover-image">
-        <img class="cover-div pics-img rounded-bottom-right" src="{{artist.imagesSrc[3]}}" alt="pic4">
+        <img *ngIf="artist.portfolio && artist.portfolio[3]"
+             class="cover-div pics-img rounded-bottom-right" src="{{artist.portfolio[3]}}" alt="pic4">
+        <img *ngIf="!artist.portfolio || !artist.portfolio[0]"
+             class="cover-div pics-img rounded-bottom-right" src="assets/imgs/default_photo.png" alt="pic1">
       </div>
 
     </div>
