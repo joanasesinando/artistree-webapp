@@ -88,6 +88,7 @@ export class UserCardComponent implements OnInit, AfterViewInit {
     if (this.user.type === 'artist') {
       this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
         name: this.user.name,
+        title: this.user.title,
         location: this.user.location,
         socialLinks: this.user.socialLinks
       });
