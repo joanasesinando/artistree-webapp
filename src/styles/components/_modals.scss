@@ -2,16 +2,21 @@
 @import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
 
 @include media-breakpoint-up(sm) {
-  .modal-dialog {
+  .modal-dialog.modal-sm-att {
     max-width: 427px;
   }
+}
+
+.modal {
+  // it tries to compensate scrollbar
+  padding-right: 0 !important;
 }
 
 .modal-content {
   border: none;
   background-color: white;
   border-radius: 17px;
-  filter: drop-shadow(0px 7.11111px 14.2222px rgba(17, 17, 17, 0.04));
+  box-shadow: 0 7.11111px 14.2222px rgba(17, 17, 17, 0.04);
 }
 
 .modal-header,
@@ -34,16 +39,19 @@
 }
 
 .modal-title {
-  margin-top: 0;
+  margin-top: 1rem;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
 }
 
 .close {
-  &:hover, &:focus { outline: none; }
+  &:hover, &:focus {
+    outline: none;
+  }
+
   i {
-    font-size: 1rem;
     position: absolute;
+    font-size: 1rem;
   }
 }

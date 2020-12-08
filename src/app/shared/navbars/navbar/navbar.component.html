@@ -10,7 +10,7 @@
         <!-- Logo -->
         <div class="brand header-brand mr-3" (click)="closeMenu()">
           <a href="#" [routerLink]="'/feed'">
-            <img src="assets/imgs/logo.svg" alt="logo">
+            <img src="../../../../assets/imgs/logo.svg" alt="logo">
           </a>
         </div>
 
@@ -65,7 +65,7 @@
         <div class="av position-relative">
           <div class="avatar ml-3" data-toggle="dropdown">
             <img *ngIf="user.avatar" class="rounded-circle" src="{{user.avatar}}" alt="profile picture">
-            <img *ngIf="!user.avatar" class="rounded-circle" src="assets/imgs/default-avatar.svg" alt="profile picture">
+            <img *ngIf="!user.avatar" class="rounded-circle" src="../../../../assets/imgs/default-avatar.svg" alt="profile picture">
           </div>
 
           <div class="dropdown-menu shadow-sm">
@@ -88,7 +88,7 @@
       <div class="header-mobile">
         <div class="brand header-brand" (click)="closeMenu()">
           <a href="#" [routerLink]="'/feed'">
-            <img src="assets/imgs/logo.svg" alt="logo">
+            <img src="../../../../assets/imgs/logo.svg" alt="logo">
           </a>
         </div>
 
@@ -104,7 +104,7 @@
         <div class="d-flex justify-content-center align-items-center w-100 mt-3">
           <div class="avatar mr-2">
             <img *ngIf="user.avatar" class="rounded-circle" src="{{user.avatar}}" alt="profile picture">
-            <img *ngIf="!user.avatar" class="rounded-circle" src="assets/imgs/default-avatar.svg" alt="profile picture">
+            <img *ngIf="!user.avatar" class="rounded-circle" src="../../../../assets/imgs/default-avatar.svg" alt="profile picture">
           </div>
           <span class="text-primary semibold">{{user.name}}</span>
         </div>

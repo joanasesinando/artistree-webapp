@@ -1,0 +1,31 @@
+.card-att {
+  position: relative;
+  height: auto;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 16.1663px;
+  padding: 1rem 1.5rem;
+
+  .edit-icon {
+    fill: get-color(typography, 3);
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+
+    &:hover {
+      fill: get-color(typography, 2);
+    }
+  }
+
+  .border-top {
+    border-top: 1.5px solid get-color(border, 1) !important;
+  }
+
+  .subtitle {
+    color: get-color(typography, 1);
+    @include font-weight-att(bold);
+    margin-top: 0;
+    margin-bottom: .5rem;
+  }
+
+}

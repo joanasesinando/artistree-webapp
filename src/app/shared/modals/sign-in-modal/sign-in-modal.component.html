@@ -1,17 +1,11 @@
 <div class="modal fade" id="signinModal" tabindex="-1">
 
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-sm-att">
 
     <div class="modal-content">
 
       <!-- Header -->
-      <div class="modal-header">
-        <h4 class="modal-title mt-3">Sign in to Artistree</h4>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="lni lni-close"></i>
-        </button>
-      </div>
+      <app-modal-header [header]="'Sign in to Artistree'"></app-modal-header>
 
       <!-- Body -->
       <div class="modal-body">
@@ -24,7 +18,7 @@
           </button>
 
           <button class="btn btn-google btn-block btn-lg">
-            <img class="mr-3" src="assets/imgs/icons/google.svg" alt="Google icon">
+            <img class="mr-3" src="../../../../assets/imgs/icons/google.svg" alt="Google icon">
             Continue with Google
           </button>
 

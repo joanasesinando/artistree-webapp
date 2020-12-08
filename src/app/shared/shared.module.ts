@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { NavbarHomepageComponent } from './navbarHomepage/navbarHomepage.component';
+import { NavbarHomepageComponent } from './navbars/navbarHomepage/navbarHomepage.component';
 import { FooterComponent } from './footer/footer.component';
 import { GoTopComponent } from './go-top/go-top.component';
-import { JoinModalComponent } from './join-modal/join-modal.component';
-import { SignInModalComponent } from './sign-in-modal/sign-in-modal.component';
-import { NavbarComponent } from './navbar/navbar.component';
+import { JoinModalComponent } from './modals/join-modal/join-modal.component';
+import { SignInModalComponent } from './modals/sign-in-modal/sign-in-modal.component';
+import { NavbarComponent } from './navbars/navbar/navbar.component';
 import {RouterModule} from '@angular/router';
-import { BannerComponent } from './banner/banner.component';
+import { BannerComponent } from './banners/banner/banner.component';
 import { FilterComponent } from './filter/filter.component';
 import { SortByComponent } from './sort-by/sort-by.component';
 import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
 import { ToggleComponent } from './toggle/toggle.component';
-import { BannerCarouselComponent } from './banner-carousel/banner-carousel.component';
+import { BannerCarouselComponent } from './banners/banner-carousel/banner-carousel.component';
+import { ModalHeaderComponent } from './modals/modal-header/modal-header.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { BannerCarouselComponent } from './banner-carousel/banner-carousel.compo
     SortByComponent,
     SubNavbarComponent,
     ToggleComponent,
-    BannerCarouselComponent
+    BannerCarouselComponent,
+    ModalHeaderComponent
   ],
     exports: [
         FooterComponent,

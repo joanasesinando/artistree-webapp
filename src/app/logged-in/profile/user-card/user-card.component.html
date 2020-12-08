@@ -1,4 +1,4 @@
-<div class="main rounded d-flex flex-column align-items-center p-4 position-relative">
+<div class="user-card card-att d-flex flex-column align-items-center">
 
   <!-- Edit btn -->
   <div data-toggle="modal" data-target="#edit-user-card">
@@ -6,7 +6,7 @@
   </div>
 
   <!-- Artist badge -->
-  <span *ngIf="this.user.type === 'artist'" class="badge badge-pill badge-primary">ARTIST</span>
+  <span *ngIf="this.user.type === 'artist'" class="badge badge-pill badge-artist">ARTIST</span>
 
   <!-- Avatar -->
   <div class="avatar">
@@ -21,9 +21,9 @@
 
   <!-- Follows -->
   <div class="d-flex align-items-center justify-content-center flex-wrap">
-    <p *ngIf="this.user.type === 'artist'" class="following text-light-grey regular mb-3">{{user.followers}} followers</p>
-    <span *ngIf="this.user.type === 'artist'" class="following text-light-grey regular mb-3 mx-1"> . </span>
-    <p class="following text-light-grey regular mb-3">{{user.following}} following</p>
+    <p *ngIf="this.user.type === 'artist'" class="follow text-light-grey regular mb-3">{{user.followers}} followers</p>
+    <span *ngIf="this.user.type === 'artist'" class="follow text-light-grey regular mb-3 mx-1"> . </span>
+    <p class="follow text-light-grey regular mb-3">{{user.following}} following</p>
   </div>
 
   <!-- Social -->

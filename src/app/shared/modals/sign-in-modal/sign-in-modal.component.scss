@@ -1,8 +1,10 @@
 @import "../../../../styles/abstracts/variables", "../../../../styles/abstracts/functions", "../../../../styles/abstracts/mixins";
 @import "../../../../../node_modules/bootstrap/scss/functions", "../../../../../node_modules/bootstrap/scss/variables", "../../../../../node_modules/bootstrap/scss/mixins";
 
-.badge-light {
-  background-color: get-color(border, 1);
-  font-size: .65rem;
-  padding: .3rem 1rem;
+.divider {
+  div {
+    height: 2px;
+    width: 45%;
+    background-color: get-color(border, 1);
+  }
 }
