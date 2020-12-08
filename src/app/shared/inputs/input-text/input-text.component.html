@@ -13,7 +13,8 @@
     [required]="required"
     (keydown.enter)="enterPressed()">
 
-  <i class="icon" [attr.data-eva]="icon"></i>
+  <i *ngIf="!iconType" class="icon" [attr.data-eva]="icon"></i>
+  <i *ngIf="iconType === 'line-icons'" class="icon lni lni-{{icon}}"></i>
   <label for="{{id}}">{{placeholder}}</label>
 
 </div>

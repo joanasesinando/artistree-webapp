@@ -12,6 +12,11 @@
     right: 1rem;
     top: 1rem;
 
+    &.sections {
+      right: 0;
+      top: 0;
+    }
+
     &:hover {
       fill: get-color(typography, 2);
     }
@@ -23,7 +28,9 @@
 
   .subtitle {
     color: get-color(typography, 1);
+    @include font-family-att(base);
     @include font-weight-att(bold);
+    font-size: .9rem;
     margin-top: 0;
     margin-bottom: .5rem;
   }

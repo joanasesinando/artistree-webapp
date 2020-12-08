@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 
 import {FirebaseService} from '../../../_services/firebase.service';
 
@@ -21,8 +20,10 @@ export class UserCardComponent implements OnInit, AfterViewInit {
     reviewsReceived?: { artistID: string, rate: number, description: string, timestamp: number }[],
     portfolio?: string[], gigs?: any[], courses?: any[], type: string };
 
-
-  @ViewChild('form', { static: false }) form: NgForm;
+  form = {
+    nameValid: true,
+    titleValid: true,
+  };
 
   socialLinks = {
     facebook: '',
@@ -72,6 +73,7 @@ export class UserCardComponent implements OnInit, AfterViewInit {
   }
 
   update(): void {
+    if (!this.form.nameValid || !this.form.titleValid) return;
 
     // Update social links in user obj
     this.user.socialLinks = [];

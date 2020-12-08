@@ -1,45 +1,112 @@
-<div class="interests card-att mt-4">
+<div class="card-att mt-4">
 
-  <!-- Edit btn -->
-  <div data-toggle="modal" data-target="#edit-interests-card">
-    <i *ngIf="isCurrent" class="edit-icon" data-eva="edit"></i>
+  <div class="interests position-relative">
+
+    <!-- Edit btn -->
+    <div data-toggle="modal" data-target="#edit-interests-card">
+      <i *ngIf="isCurrent" class="edit-icon sections" data-eva="edit"></i>
+    </div>
+
+    <h6 class="subtitle">Interests</h6>
+
+    <div class="w-100 d-flex align-items-center flex-wrap"
+         [ngClass]="{'mb-3': user.type === 'artist'}">
+      <app-pill *ngFor="let interest of user.interests; let last = last"
+                [isCurrent]="isCurrent" [user]="user" [label]="interest" [marginRight]="!last"
+                (deleteClicked)="deleteInterest($event)">
+      </app-pill>
+    </div>
+
   </div>
 
-  <h6 class="subtitle">Interests</h6>
+  <div *ngIf="user.type === 'artist'" class="areas position-relative border-top pt-3">
 
-  <div class="w-100 d-flex align-items-center flex-wrap">
-    <app-pill *ngFor="let interest of user.interests; let last = last"
-              [label]="interest" [marginRight]="!last">
-    </app-pill>
+    <!-- Edit btn -->
+    <div data-toggle="modal" data-target="#edit-artistic-areas-card">
+      <i *ngIf="isCurrent" class="edit-icon sections" data-eva="edit"></i>
+    </div>
+
+    <h6 class="subtitle">Artistic areas</h6>
+
+    <div class="w-100 d-flex align-items-center flex-wrap">
+      <app-pill *ngFor="let area of user.artisticAreas; let last = last"
+                [isCurrent]="isCurrent" [user]="user" [label]="area" [marginRight]="!last"
+                (deleteClicked)="deleteArtisticArea($event)">
+      </app-pill>
+    </div>
+
   </div>
 
 </div>
 
 <div class="modal fade" id="edit-interests-card" tabindex="-1">
 
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-sm-att">
 
     <div class="modal-content">
 
       <!-- Header -->
-      <div class="modal-header">
-        <h4 class="modal-title mt-3">Edit profile</h4>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="lni lni-close"></i>
-        </button>
-      </div>
+      <app-modal-header [header]="'Edit profile'"></app-modal-header>
 
       <!-- Body -->
       <div class="modal-body">
 
-        <form #form="ngForm" (submit)="update()">
-          <span class="text-grey semibold">General Information</span>
+        <form (submit)="updateInterests()">
 
+          <!-- Interests -->
+          <span class="text-grey semibold">Interests</span>
 
+          <app-input-select
+            [id]="'profileSelectInterests'"
+            [placeholder]="'Pick a new interest...'"
+            [options]="getOptions('interests')"
+            [icon]="'plus-square-outline'"
+            [marginTop]="'mt-2'"
+            (valueChange)="newInterest = $event">
+          </app-input-select>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
-                  (click)="update()" data-dismiss="modal">Update</button>
+                  (click)="updateInterests()" data-dismiss="modal">Update</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="edit-artistic-areas-card" tabindex="-1">
+
+  <div class="modal-dialog modal-sm-att">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Edit profile'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form (submit)="updateArtisticAreas()">
+
+          <!-- Artistic areas -->
+          <span class="text-grey semibold">Artistic areas</span>
+
+          <app-input-select
+            [id]="'profileSelectArtisticAreas'"
+            [placeholder]="'Pick a new artistic area...'"
+            [options]="getOptions('artistic-areas')"
+            [icon]="'plus-square-outline'"
+            [marginTop]="'mt-2'"
+            (valueChange)="newArtisticArea = $event">
+          </app-input-select>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  (click)="updateArtisticAreas()" data-dismiss="modal">Update</button>
+
         </form>
 
       </div>

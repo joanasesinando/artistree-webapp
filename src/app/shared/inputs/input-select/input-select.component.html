@@ -1,0 +1,19 @@
+<div class="input-group" [ngClass]="{'mt-2': marginTop === 'mt-2', 'mt-3': marginTop === 'mt-3'}">
+
+  <div class="input-group-prepend">
+    <i *ngIf="!iconType" class="icon" [attr.data-eva]="icon"></i>
+    <i *ngIf="iconType === 'line-icons'" class="icon lni lni-{{icon}}"></i>
+  </div>
+
+  <select
+    id="{{id}}"
+    class="custom-select"
+    (change)="onChange()"
+    [required]="required">
+
+    <option selected value="-1">{{placeholder}}</option>
+    <option *ngFor="let option of options" value="{{option}}">{{option}}</option>
+
+  </select>
+
+</div>

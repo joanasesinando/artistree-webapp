@@ -1,2 +1,5 @@
-<span class="badge badge-pill badge-light text-grey medium mb-1"
-[ngClass]="{'mr-2': marginRight}">{{label}}</span>
+<span class="badge badge-pill badge-light text-grey medium mb-1 d-flex align-items-center justify-content-between"
+[ngClass]="{'mr-2': marginRight, 'editMode' : isCurrent}" (click)="deleteClicked.emit(label)">
+  {{label}}
+  <i *ngIf="isCurrent" class="icon cursor-pointer" data-eva="close-outline" ></i>
+</span>

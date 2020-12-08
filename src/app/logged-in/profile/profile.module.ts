@@ -10,6 +10,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { ProfileArtistComponent } from './profile-artist/profile-artist.component';
 import { ProfileRegularComponent } from './profile-regular/profile-regular.component';
 import {FormsModule} from '@angular/forms';
+import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {FormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ]
 })
 export class ProfileModule { }

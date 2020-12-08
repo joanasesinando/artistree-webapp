@@ -5,4 +5,17 @@
   background-color: get-color(border, 1);
   font-size: .65rem;
   padding: .3rem 1rem;
+
+  &.editMode {
+    padding-right: .6rem;
+
+    svg {
+      height: 1rem;
+      fill: get-color(danger, 1);
+
+      &:hover {
+        fill: get-color(danger, 3);
+      }
+    }
+  }
 }

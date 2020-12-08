@@ -91,129 +91,93 @@
 
 <div class="modal fade" id="edit-user-card" tabindex="-1">
 
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-sm-att">
 
     <div class="modal-content">
 
       <!-- Header -->
-      <div class="modal-header">
-        <h4 class="modal-title mt-3">Edit profile</h4>
-
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="lni lni-close"></i>
-        </button>
-      </div>
+      <app-modal-header [header]="'Edit profile'"></app-modal-header>
 
       <!-- Body -->
       <div class="modal-body">
 
-        <form #form="ngForm" (submit)="update()">
+        <form (submit)="update()">
           <span class="text-grey semibold">General Information</span>
 
           <!-- Name -->
-          <div class="form-label-group mb-2 mt-2">
-            <input
-              type="text"
-              id="profileInputName"
-              class="form-control"
-              name="profileInputName"
-              placeholder="Name"
-              [(ngModel)]="user.name"
-              #inputName="ngModel"
-              pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
-              [ngClass]="{ 'is-invalid': form.submitted && inputName.invalid }"
-              required>
-            <i class="icon" data-eva="person-outline"></i>
-            <label for="profileInputName">Name</label>
-          </div>
-
-          <div *ngIf="form.submitted && inputName.invalid" class="is-invalid">
-            <span *ngIf="inputName.errors.required" class="small text-danger">Name is required</span>
-            <span *ngIf="inputName.errors.pattern" class="small text-danger">Name must be in a valid format</span>
-          </div>
+          <app-input-text
+            [id]="'profileInputName'"
+            [placeholder]="'Name'"
+            [icon]="'person-outline'"
+            [(value)]="user.name"
+            [pattern]="'^[\\w\'\\-,.][^0-9_!¡?÷?¿/\\\\+=@#$%ˆ&*(){}|~<>;:[\\]]{2,}$'"
+            [required]="true"
+            [marginTop]="'mt-2'"
+            (validityChange)="this.form.nameValid = $event">
+          </app-input-text>
 
           <!-- Title -->
-          <div *ngIf="user.type === 'artist'" class="form-label-group mb-2">
-            <input
-              type="text"
-              id="profileInputTitle"
-              class="form-control"
-              name="profileInputTitle"
-              placeholder="Title"
-              [(ngModel)]="user.title"
-              required>
-            <i class="icon" data-eva="star-outline"></i>
-            <label for="profileInputTitle">Title</label>
-          </div>
+          <app-input-text
+            *ngIf="user.type === 'artist'"
+            [id]="'profileInputTitle'"
+            [placeholder]="'Title'"
+            [icon]="'star-outline'"
+            [(value)]="user.title"
+            [required]="true"
+            [marginTop]="'mt-2'"
+            (validityChange)="this.form.titleValid = $event">
+          </app-input-text>
 
           <!-- Location -->
-          <div class="form-label-group mb-3">
-            <input
-              type="text"
-              id="profileInputLocation"
-              class="form-control"
-              name="profileInputLocation"
-              placeholder="Location"
-              [(ngModel)]="user.location">
-
-            <i class="icon" data-eva="pin"></i>
-            <label for="profileInputLocation">Location</label>
-          </div>
+          <app-input-text
+            [id]="'profileInputLocation'"
+            [placeholder]="'Location'"
+            [icon]="'pin-outline'"
+            [marginTop]="'mt-2'"
+            [(value)]="user.location">
+          </app-input-text>
 
           <!-- Social Links -->
-          <span class="text-grey semibold">Social links</span>
+          <div class="mt-3 mb-2"><span class="text-grey semibold">Social links</span></div>
 
-          <div class="form-label-group mb-2">
-            <input
-              type="text"
-              id="profileInputFacebook"
-              class="form-control"
-              name="profileInputFacebook"
-              placeholder="Facebook"
-              [(ngModel)]="socialLinks.facebook">
+          <!-- Facebook -->
+          <app-input-text
+            [id]="'profileInputFacebook'"
+            [placeholder]="'Facebook'"
+            [icon]="'facebook'"
+            [iconType]="'line-icons'"
+            [(value)]="socialLinks.facebook">
+          </app-input-text>
 
-            <i class="icon" data-eva="pin"></i>
-            <label for="profileInputFacebook">Facebook</label>
-          </div>
+          <!-- Instagram -->
+          <app-input-text
+            [id]="'profileInputInstagram'"
+            [placeholder]="'Instagram'"
+            [icon]="'instagram-original'"
+            [iconType]="'line-icons'"
+            [marginTop]="'mt-2'"
+            [(value)]="socialLinks.instagram">
+          </app-input-text>
 
-          <div class="form-label-group mb-2">
-            <input
-              type="text"
-              id="profileInputInstagram"
-              class="form-control"
-              name="profileInputInstagram"
-              placeholder="Instagram"
-              [(ngModel)]="socialLinks.instagram">
+          <!-- Youtube -->
+          <app-input-text
+            [id]="'profileInputYoutube'"
+            [placeholder]="'Youtube'"
+            [icon]="'youtube'"
+            [iconType]="'line-icons'"
+            [marginTop]="'mt-2'"
+            [(value)]="socialLinks.youtube">
+          </app-input-text>
 
-            <i class="icon lni lni-instagram-original"></i>
-            <label for="profileInputInstagram">Instagram</label>
-          </div>
-
-          <div class="form-label-group mb-2">
-            <input
-              type="text"
-              id="profileInputYoutube"
-              class="form-control"
-              name="profileInputYoutube"
-              placeholder="Youtube"
-              [(ngModel)]="socialLinks.youtube">
-
-            <i class="icon lni lni-youtube"></i>
-            <label for="profileInputYoutube">Youtube</label>
-          </div>
-
-          <div class="form-label-group">
-            <input
-              type="text"
-              id="profileInputTwitter"
-              class="form-control"
-              name="profileInputTwitter"
-              placeholder="Twitter"
-              [(ngModel)]="socialLinks.twitter">
-
-            <i class="icon" data-eva="twitter"></i>
-            <label for="profileInputTwitter">Twitter</label>
-          </div>
+          <!-- Twitter -->
+          <app-input-text
+            [id]="'profileInputTwitter'"
+            [placeholder]="'Twitter'"
+            [icon]="'twitter'"
+            [iconType]="'line-icons'"
+            [marginTop]="'mt-2'"
+            [(value)]="socialLinks.twitter">
+          </app-input-text>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
                   (click)="update()" data-dismiss="modal">Update</button>

@@ -19,6 +19,7 @@ import { ModalHeaderComponent } from './modals/modal-header/modal-header.compone
 import { InputEmailComponent } from './inputs/input-email/input-email.component';
 import { InputPasswordComponent } from './inputs/input-password/input-password.component';
 import { InputTextComponent } from './inputs/input-text/input-text.component';
+import { InputSelectComponent } from './inputs/input-select/input-select.component';
 
 
 @NgModule({
@@ -38,20 +39,24 @@ import { InputTextComponent } from './inputs/input-text/input-text.component';
     ModalHeaderComponent,
     InputEmailComponent,
     InputPasswordComponent,
-    InputTextComponent
+    InputTextComponent,
+    InputSelectComponent
   ],
-    exports: [
-        FooterComponent,
-        NavbarHomepageComponent,
-        GoTopComponent,
-        NavbarComponent,
-        BannerComponent,
-        FilterComponent,
-        SortByComponent,
-        SubNavbarComponent,
-        ToggleComponent,
-        BannerCarouselComponent
-    ],
+  exports: [
+    FooterComponent,
+    NavbarHomepageComponent,
+    GoTopComponent,
+    NavbarComponent,
+    BannerComponent,
+    FilterComponent,
+    SortByComponent,
+    SubNavbarComponent,
+    ToggleComponent,
+    BannerCarouselComponent,
+    ModalHeaderComponent,
+    InputTextComponent,
+    InputSelectComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,

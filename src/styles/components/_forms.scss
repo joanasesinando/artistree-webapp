@@ -16,6 +16,38 @@
   }
 }
 
+.input-group-prepend {
+  position: relative;
+  height: auto;
+  min-height: 56px;
+  background-color: get-color(border, 1);
+  border-top-left-radius: 9.47556px;
+  border-bottom-left-radius: 9.47556px;
+  border: transparent;
+  padding-right: .5rem;
+  padding-left: .5rem;
+
+  .icon {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: #919EB7;
+    color: #919EB7;
+  }
+}
+
+.custom-select {
+  height: auto;
+  min-height: 56px;
+  background-color: get-color(border, 1);
+  border-top-right-radius: 9.47556px;
+  border-bottom-right-radius: 9.47556px;
+  border: transparent;
+  font-size: .8rem;
+  color: get-color(typography, 1);
+  padding-left: .3rem;
+}
+
 .form-label-group input {
   height: auto;
   min-height: 56px;

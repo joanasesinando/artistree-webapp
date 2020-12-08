@@ -13,6 +13,7 @@ export class InputTextComponent implements OnInit, AfterViewInit {
   @Input() id: string;
   @Input() placeholder: string;
   @Input() icon: string;
+  @Input() iconType: string;
   @Input() value: string;
   @Input() pattern: string;
   @Input() required: boolean;
