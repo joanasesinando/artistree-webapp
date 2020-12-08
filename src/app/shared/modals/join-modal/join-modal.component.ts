@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {FirebaseService} from '../../../_services/firebase.service';
@@ -31,12 +30,13 @@ export class JoinModalComponent implements OnInit {
     // tslint:disable-next-line:max-line-length
   } = { email: '', password: '', name: '', handler: '', avatar: '', interests: [], artisticAreas: [], title: '', type: '', joiningTimestamp: null};
 
-  @ViewChild('form1', { static: false }) form1: NgForm;
-  @ViewChild('form2', { static: false }) form2: NgForm;
-  @ViewChild('form3', { static: false }) form3: NgForm;
-  @ViewChild('form4', { static: false }) form4: NgForm;
-  @ViewChild('form5', { static: false }) form5: NgForm;
-  @ViewChild('form6', { static: false }) form6: NgForm;
+  form = {
+    emailValid: false,
+    passwordValid: false,
+    nameValid: false,
+    handlerValid: false,
+    titleValid: false
+  };
 
   interestsCheckboxes: { label: string, checked: boolean }[] = [];
   artisticAreasCheckboxes: { label: string, checked: boolean }[] = [];
@@ -59,7 +59,7 @@ export class JoinModalComponent implements OnInit {
   }
 
   continueToStep2(): void {
-    if (!this.form1.form.valid) return;
+    if (!this.form.emailValid) return;
 
     this.firebaseService.emailAlreadyExists(this.user.email).then(exists => {
       if (exists) {
@@ -72,14 +72,14 @@ export class JoinModalComponent implements OnInit {
   }
 
   continueToStep3(): void {
-    if (!this.form2.form.valid) return;
+    if (!this.form.passwordValid) return;
 
     this.closeModal('joinModal-step2');
     this.openModal('joinModal-step3');
   }
 
   continueToStep4(): void {
-    if (!this.form3.form.valid) return;
+    if (!this.form.nameValid || !this.form.handlerValid) return;
 
     this.firebaseService.handlerAlreadyExists(this.user.handler).then(exists => {
       if (exists) {
@@ -98,7 +98,6 @@ export class JoinModalComponent implements OnInit {
   }
 
   continueToStep6(): void {
-    if (!this.form4.form.valid) return;
     if (this.user.type === 'regular') return this.join('joinModal-step5');
 
     this.closeModal('joinModal-step5');
@@ -106,13 +105,14 @@ export class JoinModalComponent implements OnInit {
   }
 
   continueToStep7(): void {
-    if (!this.form5.form.valid) return;
+    if (!this.form.titleValid) return;
     this.closeModal('joinModal-step6');
     this.openModal('joinModal-step7');
   }
 
   finish(): void {
-    if (!this.form6.valid) return;
+    if (!this.form.emailValid || !this.form.passwordValid || !this.form.nameValid || !this.form.handlerValid
+    || ! this.form.titleValid) return;
     if (this.user.type === 'artist') return this.join('joinModal-step7');
   }
 

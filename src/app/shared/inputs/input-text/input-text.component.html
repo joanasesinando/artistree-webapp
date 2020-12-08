@@ -1,0 +1,24 @@
+<div class="form-label-group" [ngClass]="{'mt-2': marginTop === 'mt-2', 'mt-3': marginTop === 'mt-3'}">
+
+  <input
+    type="text"
+    id="{{id}}"
+    class="form-control"
+    placeholder="{{placeholder}}"
+    [(ngModel)]="value"
+    (ngModelChange)="valueChange.emit(value); onValidityChange(inputText)"
+    #inputText="ngModel"
+    [pattern]="pattern"
+    [ngClass]="{ 'is-invalid': (enter || inputText.touched) && inputText.touched && inputText.invalid }"
+    [required]="required"
+    (keydown.enter)="enterPressed()">
+
+  <i class="icon" [attr.data-eva]="icon"></i>
+  <label for="{{id}}">{{placeholder}}</label>
+
+</div>
+
+<div *ngIf="(enter || inputText.touched) && inputText.touched && inputText.invalid" class="is-invalid">
+  <span *ngIf="inputText.errors.required" class="small text-danger">{{placeholder}} is required</span>
+  <span *ngIf="inputText.errors.pattern" class="small text-danger">{{placeholder}} must be in a valid format</span>
+</div>

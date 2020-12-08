@@ -16,6 +16,9 @@ import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
 import { ToggleComponent } from './toggle/toggle.component';
 import { BannerCarouselComponent } from './banners/banner-carousel/banner-carousel.component';
 import { ModalHeaderComponent } from './modals/modal-header/modal-header.component';
+import { InputEmailComponent } from './inputs/input-email/input-email.component';
+import { InputPasswordComponent } from './inputs/input-password/input-password.component';
+import { InputTextComponent } from './inputs/input-text/input-text.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { ModalHeaderComponent } from './modals/modal-header/modal-header.compone
     SubNavbarComponent,
     ToggleComponent,
     BannerCarouselComponent,
-    ModalHeaderComponent
+    ModalHeaderComponent,
+    InputEmailComponent,
+    InputPasswordComponent,
+    InputTextComponent
   ],
     exports: [
         FooterComponent,

@@ -1,5 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
 
 import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
@@ -17,17 +16,24 @@ export class SignInModalComponent implements OnInit {
   email: string;
   password: string;
 
+  form = {
+    emailValid: false,
+    passwordValid: false
+  };
+
+  rememberMe = true;
+
   constructor(private router: Router, private auth: FirebaseService) { }
-
-  @ViewChild('form', { static: false }) form: NgForm;
-
-  rememberMe = false;
 
   ngOnInit(): void {
   }
 
+  isFormValid(): boolean {
+    return this.form.emailValid && this.form.passwordValid;
+  }
+
   signIn(): void {
-    if (!this.form.form.valid) {
+    if (!this.isFormValid()) {
       return;
     }
 

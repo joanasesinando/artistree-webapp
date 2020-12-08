@@ -10,7 +10,7 @@
       <!-- Body -->
       <div class="modal-body">
 
-        <form #form="ngForm" (submit)="signIn()">
+        <form (submit)="signIn()">
 
           <button class="btn btn-fb btn-block btn-lg">
             <i class="lni lni-facebook-original mr-3"></i>
@@ -29,53 +29,24 @@
           </div>
 
           <!-- Email -->
-          <div class="form-label-group">
-
-            <input
-              type="email"
-              id="signinInputEmail"
-              class="form-control"
-              name="signinInputEmail"
-              placeholder="E-mail address"
-              [(ngModel)]="email"
-              #inputEmail="ngModel"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-              [ngClass]="{ 'is-invalid': form.submitted && inputEmail.invalid }"
-              required email autofocus>
-
-            <i class="icon" data-eva="email-outline"></i>
-            <label for="signinInputEmail">E-mail address</label>
-
-          </div>
-
-          <div *ngIf="form.submitted && inputEmail.invalid" class="is-invalid">
-            <span *ngIf="inputEmail.errors.required" class="small text-danger">Email is required</span>
-            <span *ngIf="inputEmail.errors.pattern" class="small text-danger">Email must be a valid email address</span>
-          </div>
+          <app-input-email
+            [id]="'signinInputEmail'"
+            [placeholder]="'E-mail address'"
+            [(value)]="email"
+            [required]="true"
+            (validityChange)="form.emailValid = $event">
+          </app-input-email>
 
           <!-- Password -->
-          <div class="form-label-group mt-2">
-
-            <input
-              type="password"
-              id="signinInputPassword"
-              class="form-control"
-              name="signinInputPassword"
-              placeholder="Password"
-              [(ngModel)]="password"
-              #inputPassword="ngModel"
-              [ngClass]="{ 'is-invalid': form.submitted && inputPassword.invalid }"
-              required minlength="6" autofocus>
-
-            <i class="icon" data-eva="lock-outline"></i>
-            <label for="signinInputPassword">Password</label>
-
-          </div>
-
-          <div *ngIf="form.submitted && inputPassword.invalid" class="is-invalid">
-            <span *ngIf="inputPassword.errors.required" class="small text-danger">Password is required</span>
-            <span *ngIf="inputPassword.errors.minlength" class="small text-danger">Password must be at least 6 characters long</span>
-          </div>
+          <app-input-password
+            [id]="'signinInputPassword'"
+            [placeholder]="'Password'"
+            [(value)]="password"
+            [required]="true"
+            [minLength]="6"
+            [marginTop]="'mt-2'"
+            (validityChange)="form.passwordValid = $event">
+          </app-input-password>
 
           <button class="btn btn-primary btn-block btn-lg mt-3" type="submit">Sign in</button>
         </form>
