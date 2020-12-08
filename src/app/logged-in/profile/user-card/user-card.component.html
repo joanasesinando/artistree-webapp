@@ -40,7 +40,8 @@
     </a>
 
   </div>
-  <div *ngIf="user.socialLinks.length === 0" class="social w-100 mb-3">
+
+  <div *ngIf="user.socialLinks.length === 0 && isCurrent" class="social w-100 mb-3">
     <button class="d-flex align-items-center justify-content-center btn btn-grey-rounded btn-block btn-lg"
     data-toggle="modal" data-target="#edit-user-card">
       <i class="icon mr-2" data-eva="plus-circle-outline" style="fill: white"></i> Add social media links</button>
