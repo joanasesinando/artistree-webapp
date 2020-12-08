@@ -69,11 +69,35 @@
   }
 }
 
-.btn-primary:not(:disabled):not(.disabled).active,
-.btn-primary:not(:disabled):not(.disabled):active,
-.show>.btn-primary.dropdown-toggle {
+.btn-seconday:not(:disabled):not(.disabled).active,
+.btn-seconday:not(:disabled):not(.disabled):active,
+.show>.btn-seconday.dropdown-toggle {
   color: white;
   background-color: get-color(secondary, 3);
+}
+
+/*--------------------------------------------------------------
+# Grey
+--------------------------------------------------------------*/
+.btn-grey {
+  padding: .7rem 1rem;
+  color: white;
+  background-color: get-color(typography, 3);
+  border-radius: 9.47556px;
+  border: none;
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: darken(get-color(typography, 3), 7);
+    box-shadow: none;
+  }
+}
+
+.btn-grey:not(:disabled):not(.disabled).active,
+.btn-grey:not(:disabled):not(.disabled):active,
+.show>.btn-grey.dropdown-toggle {
+  color: white;
+  background-color: darken(get-color(typography, 3), 7);
 }
 
 /*--------------------------------------------------------------
@@ -116,11 +140,35 @@
   }
 }
 
-.btn-primary:not(:disabled):not(.disabled).active,
-.btn-primary:not(:disabled):not(.disabled):active,
-.show>.btn-primary.dropdown-toggle {
+.btn-primary-rounded:not(:disabled):not(.disabled).active,
+.btn-primary-rounded:not(:disabled):not(.disabled):active,
+.show>.btn-primary-rounded.dropdown-toggle {
   color: white;
   background-color: darken(get-color(primary, 3), 7);
+}
+
+/*--------------------------------------------------------------
+# Grey rounded
+--------------------------------------------------------------*/
+.btn-grey-rounded {
+  padding: .4rem 1rem;
+  color: white;
+  background-color: get-color(typography, 3);
+  border-radius: 30.3333px;
+  border: none;
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: darken(get-color(typography, 3), 7);
+    box-shadow: none;
+  }
+}
+
+.btn-grey-rounded:not(:disabled):not(.disabled).active,
+.btn-grey-rounded:not(:disabled):not(.disabled):active,
+.show>.btn-grey-rounded.dropdown-toggle {
+  color: white;
+  background-color: darken(get-color(typography, 3), 7);
 }
 
 /*--------------------------------------------------------------

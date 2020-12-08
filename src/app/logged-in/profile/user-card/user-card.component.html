@@ -1,9 +1,11 @@
 <div class="main rounded d-flex flex-column align-items-center p-4 position-relative">
 
+  <!-- Edit btn -->
   <div data-toggle="modal" data-target="#edit-user-card">
     <i *ngIf="isCurrent" class="edit-icon" data-eva="edit"></i>
   </div>
 
+  <!-- Artist badge -->
   <span *ngIf="this.user.type === 'artist'" class="badge badge-pill badge-primary">ARTIST</span>
 
   <!-- Avatar -->
@@ -11,8 +13,13 @@
     <img class="rounded-circle" src="{{user.avatar}}" alt="profile picture">
   </div>
 
-  <!-- Name & Follows -->
+  <!-- Name -->
   <p class="name text-dark bold mt-2 mb-0">{{user.name}}</p>
+
+  <!-- Title -->
+  <p *ngIf="user.type === 'artist'" class="title text-grey medium mt-0 mb-2">{{user.title}}</p>
+
+  <!-- Follows -->
   <div class="d-flex align-items-center justify-content-center flex-wrap">
     <p *ngIf="this.user.type === 'artist'" class="following text-light-grey regular mb-3">{{user.followers}} followers</p>
     <span *ngIf="this.user.type === 'artist'" class="following text-light-grey regular mb-3 mx-1"> . </span>
@@ -20,19 +27,25 @@
   </div>
 
   <!-- Social -->
-  <div class="social d-flex align-items-center justify-content-center mb-3">
+  <div *ngIf="user.socialLinks.length !== 0" class="social d-flex align-items-center justify-content-center mb-3">
 
     <a *ngFor="let social of user.socialLinks; let last = last" class="rounded-circle cursor-pointer"
        [ngClass]="{'mr-3': !last}"
        href="{{social.link}}" target="_blank">
 
-      <i *ngIf="social.network === 'facebook'" class="icon center-xy" data-eva="facebook"></i>
+      <i *ngIf="social.network === 'facebook'" class="lni lni-facebook-filled center-xy"></i>
       <i *ngIf="social.network === 'instagram'" class="lni lni-instagram-original center-xy"></i>
       <i *ngIf="social.network === 'youtube'" class="lni lni-youtube center-xy"></i>
-      <i *ngIf="social.network === 'twitter'" class="icon center-xy" data-eva="twitter"></i>
+      <i *ngIf="social.network === 'twitter'" class="lni lni-twitter-original center-xy"></i>
     </a>
 
   </div>
+  <div *ngIf="user.socialLinks.length === 0" class="social w-100 mb-3">
+    <button class="d-flex align-items-center justify-content-center btn btn-grey-rounded btn-block btn-lg"
+    data-toggle="modal" data-target="#edit-user-card">
+      <i class="icon mr-2" data-eva="plus-circle-outline" style="fill: white"></i> Add social media links</button>
+  </div>
+
 
   <div class="bottom w-100 border-top pt-3 mb-3"
   [ngClass]="{'mb-3': this.user.type === 'artist'}">
@@ -67,6 +80,7 @@
 
   </div>
 
+  <!-- Schedule -->
   <div *ngIf="this.user.type === 'artist'" class="w-100 border-top pt-3">
     <button class="d-flex align-items-center justify-content-center btn btn-primary btn-block btn-lg">
       <i class="icon mr-2" data-eva="calendar-outline" style="fill: white"></i> Schedule</button>
@@ -116,6 +130,20 @@
           <div *ngIf="form.submitted && inputName.invalid" class="is-invalid">
             <span *ngIf="inputName.errors.required" class="small text-danger">Name is required</span>
             <span *ngIf="inputName.errors.pattern" class="small text-danger">Name must be in a valid format</span>
+          </div>
+
+          <!-- Title -->
+          <div *ngIf="user.type === 'artist'" class="form-label-group mb-2">
+            <input
+              type="text"
+              id="profileInputTitle"
+              class="form-control"
+              name="profileInputTitle"
+              placeholder="Title"
+              [(ngModel)]="user.title"
+              required>
+            <i class="icon" data-eva="star-outline"></i>
+            <label for="profileInputTitle">Title</label>
           </div>
 
           <!-- Location -->

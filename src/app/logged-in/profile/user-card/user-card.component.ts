@@ -1,10 +1,9 @@
 import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
-import * as eva from 'eva-icons';
 import {NgForm} from '@angular/forms';
 
-import * as $ from 'jquery';
-import 'node_modules/bootstrap/js/dist/modal';
 import {FirebaseService} from '../../../_services/firebase.service';
+
+import * as eva from 'eva-icons';
 
 @Component({
   selector: 'app-user-card',
@@ -76,7 +75,6 @@ export class UserCardComponent implements OnInit, AfterViewInit {
 
     // Update social links in user obj
     this.user.socialLinks = [];
-
     for (const key in this.socialLinks) {
       if (Object.prototype.hasOwnProperty.call(this.socialLinks, key)) {
         const link = this.socialLinks[key];
@@ -84,11 +82,13 @@ export class UserCardComponent implements OnInit, AfterViewInit {
       }
     }
 
-    console.log(this.user.socialLinks);
-    console.log(this.socialLinks);
-
+    // Update database
     if (this.user.type === 'artist') {
-
+      this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
+        name: this.user.name,
+        location: this.user.location,
+        socialLinks: this.user.socialLinks
+      });
 
     } else if (this.user.type === 'regular') {
       this.firebaseService.setDatabaseData('users/regular/' + this.user.uid, {

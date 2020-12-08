@@ -31,8 +31,7 @@ export class FilterComponent implements OnInit {
   }
 
   submitBudget(): void {
-    console.log(this.min);
-    console.log(this.max);
+    // TODO
   }
 
 }
