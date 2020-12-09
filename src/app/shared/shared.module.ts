@@ -20,6 +20,8 @@ import { InputEmailComponent } from './inputs/input-email/input-email.component'
 import { InputPasswordComponent } from './inputs/input-password/input-password.component';
 import { InputTextComponent } from './inputs/input-text/input-text.component';
 import { InputSelectComponent } from './inputs/input-select/input-select.component';
+import { FilterListComponent } from './filters/filter-list/filter-list.component';
+import { FilterPillComponent } from './filters/filter-pill/filter-pill.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { InputSelectComponent } from './inputs/input-select/input-select.compone
     InputEmailComponent,
     InputPasswordComponent,
     InputTextComponent,
-    InputSelectComponent
+    InputSelectComponent,
+    FilterListComponent,
+    FilterPillComponent
   ],
   exports: [
     FooterComponent,
@@ -55,7 +59,9 @@ import { InputSelectComponent } from './inputs/input-select/input-select.compone
     BannerCarouselComponent,
     ModalHeaderComponent,
     InputTextComponent,
-    InputSelectComponent
+    InputSelectComponent,
+    FilterListComponent,
+    FilterPillComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,24 @@
+<div class="filter dropdown position-relative" [ngClass]="{'mr-2': marginRight}">
+
+  <button class="btn btn-filter dropdown-toggle d-flex align-items-center" type="button"
+          data-toggle="dropdown" (click)="this.arrowDown = !this.arrowDown;">
+    {{name}}
+
+    <div [ngClass]="{ 'd-none': !arrowDown }"><i class="arrow-down" data-eva="chevron-down"></i></div>
+    <div [ngClass]="{ 'd-none': arrowDown }"><i class="arrow-up" data-eva="chevron-up"></i></div>
+  </button>
+
+  <div class="dropdown-menu">
+
+    <div *ngFor="let item of items" id="{{item.name}}"
+         class="dropdown-item d-flex align-items-center justify-content-between px-3"
+        [ngClass]="{'selected': item.name === selectedItem}"
+        (click)="onItemSelected($event.target); this.arrowDown = !this.arrowDown">
+
+      <span class="text-dark">{{item.name}}</span>
+      <span class="text-grey">({{formatNumberWithCommas(item.total)}})</span>
+    </div>
+
+  </div>
+
+</div>

@@ -26,18 +26,28 @@
 
   <!-- Filters -->
   <div class="filters d-flex align-items-center mb-4">
-    <app-filter
-    [name]="'Category'"
-    [items]="filterItems"
-    [type]="'list'"
-    [marginRight]="true">
-    </app-filter>
+    <app-filter-list
+      [name]="'Category'"
+      [items]="categoryFilters"
+      [selectedItem]="selectedCategory"
+      [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'category')">
+    </app-filter-list>
 
-    <app-filter
+    <app-filter-list
       [name]="'Location'"
-      [items]="filterLocations"
-      [type]="'list'">
-    </app-filter>
+      [items]="locationFilters"
+      [selectedItem]="selectedLocation"
+      (itemSelected)="selectFilter($event, 'location')">
+    </app-filter-list>
+
+  </div>
+
+  <div class="filter-pills w-100 d-flex align-items-center flex-wrap">
+    <app-filter-pill *ngFor="let filter of selectedFilters; let last = last"
+       [label]="filter.name" [type]="filter.type" [marginRight]="!last"
+       (deleteClicked)="deleteFilter($event, filter.type)">
+    </app-filter-pill>
   </div>
 
   <div *ngIf="this.artistsAfterSplit.length !== 0" class="d-flex align-items-center justify-content-between">
@@ -52,7 +62,7 @@
   <!-- Artists -->
   <div class="w-100 d-flex align-items-center flex-wrap mt-3 position-relative">
 
-    <div *ngIf="this.artistsAfterSplit.length === 0" class="center-x">
+    <div *ngIf="loading" class="center-x">
       <div class="spinner-border text-primary" role="status">
         <span class="sr-only">Finding artists...</span>
       </div>

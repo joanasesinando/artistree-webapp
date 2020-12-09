@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IUser} from '../discover-artists.component';
 import {Router} from '@angular/router';
+
+import {IUser} from '../../../../_domain/User';
 
 @Component({
   selector: 'app-artist-card',

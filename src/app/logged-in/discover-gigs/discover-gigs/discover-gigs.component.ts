@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import * as eva from 'eva-icons';
-import {IUser} from '../../discover-artists/discover-artists/discover-artists.component';
+
 const categories = require('src/assets/data/categories.json').categories;
 
 export interface IGig {

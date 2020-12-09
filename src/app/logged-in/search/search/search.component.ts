@@ -2,9 +2,9 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 const categories = require('src/assets/data/categories.json').categories;
 import * as eva from 'eva-icons';
-import {IUser} from '../../discover-artists/discover-artists/discover-artists.component';
 import {IGig} from '../../discover-gigs/discover-gigs/discover-gigs.component';
 import {ICourse} from '../../academy/academy/academy.component';
+import {IUser} from '../../../_domain/User';
 
 @Component({
   selector: 'app-search',

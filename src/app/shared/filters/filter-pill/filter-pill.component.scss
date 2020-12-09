@@ -1,0 +1,29 @@
+@import "../../../../styles/abstracts/variables", "../../../../styles/abstracts/functions", "../../../../styles/abstracts/mixins";
+@import "../../../../../node_modules/bootstrap/scss/functions", "../../../../../node_modules/bootstrap/scss/variables", "../../../../../node_modules/bootstrap/scss/mixins";
+
+.badge-light {
+  background-color: get-color(border, 1);
+  font-size: .65rem;
+  padding: .2rem 0 .2rem 1rem;
+
+  .delete {
+    visibility: hidden;
+  }
+
+  &:hover {
+    padding: .3rem .5rem .3rem 1rem;
+
+    svg {
+      height: 1rem;
+      fill: get-color(danger, 1);
+
+      &:hover {
+        fill: get-color(danger, 3);
+      }
+    }
+
+    .delete {
+      visibility: visible;
+    }
+  }
+}

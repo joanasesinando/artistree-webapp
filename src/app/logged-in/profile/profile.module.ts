@@ -14,12 +14,15 @@ import {SharedModule} from '../../shared/shared.module';
 
 
 @NgModule({
-  declarations: [ProfileComponent, UserCardComponent, PillComponent, InterestsCardComponent, ReviewsComponent, ProfileArtistComponent, ProfileRegularComponent],
-  imports: [
-    CommonModule,
-    ProfileRoutingModule,
-    FormsModule,
-    SharedModule
-  ]
+    declarations: [ProfileComponent, UserCardComponent, PillComponent, InterestsCardComponent, ReviewsComponent, ProfileArtistComponent, ProfileRegularComponent],
+    exports: [
+        PillComponent
+    ],
+    imports: [
+        CommonModule,
+        ProfileRoutingModule,
+        FormsModule,
+        SharedModule
+    ]
 })
 export class ProfileModule { }

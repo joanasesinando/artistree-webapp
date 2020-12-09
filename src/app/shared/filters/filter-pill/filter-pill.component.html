@@ -1,0 +1,8 @@
+<span class="badge badge-pill badge-light text-grey medium mb-1
+            d-flex align-items-center justify-content-between"
+            [ngClass]="{'mr-2': marginRight}" (click)="deleteClicked.emit(label)">
+
+  {{type}}: {{label}}
+  <i class="delete cursor-pointer" data-eva="close-outline" ></i>
+
+</span>
