@@ -1,0 +1,112 @@
+<div class="card-att mt-4">
+
+  <div class="description position-relative">
+
+    <!-- Edit btn -->
+    <div data-toggle="modal" data-target="#edit-description-card">
+      <i *ngIf="isCurrent" class="edit-icon sections" data-eva="edit"></i>
+    </div>
+
+    <h6 class="subtitle">Description</h6>
+    <p class="text-dark font-size-3">{{user.bio}}</p>
+
+  </div>
+
+  <div class="skills position-relative border-top pt-3">
+
+    <!-- Edit btn -->
+    <div data-toggle="modal" data-target="#edit-skills-card">
+      <i *ngIf="isCurrent" class="edit-icon sections" data-eva="edit"></i>
+    </div>
+
+    <h6 class="subtitle">Skills</h6>
+
+    <div class="w-100 d-flex align-items-center flex-wrap mb-3">
+      <app-pill *ngFor="let skill of user.skills; let last = last"
+                [isCurrent]="isCurrent" [user]="user" [label]="skill" [marginRight]="!last"
+                (deleteClicked)="deleteSkill($event)">
+      </app-pill>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="edit-description-card" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Edit profile'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form (submit)="updateDescription()">
+
+          <!-- Description -->
+          <span class="text-grey semibold">Description</span>
+
+          <app-input-textarea
+            [id]="'profileInputDescription'"
+            [placeholder]="'Tell us a bit about yourself'"
+            [rows]="8"
+            [icon]="'book-outline'"
+            [(value)]="user.bio"
+            [marginTop]="'mt-2'">
+          </app-input-textarea>
+
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  (click)="updateDescription()" data-dismiss="modal">Update</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="edit-skills-card" tabindex="-1">
+
+  <div class="modal-dialog modal-sm-att">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Edit profile'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form (submit)="updateSkills()">
+
+          <!-- Skills -->
+          <span class="text-grey semibold">Skills</span>
+
+          <app-input-text
+            [id]="'profilInputSkills'"
+            [placeholder]="'Add a new skill'"
+            [icon]="'certificate'"
+            [iconType]="'line-icons'"
+            [(value)]="newSkill"
+            [marginTop]="'mt-2'">
+          </app-input-text>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  (click)="updateSkills()" data-dismiss="modal">Update</button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

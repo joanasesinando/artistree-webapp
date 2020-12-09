@@ -22,6 +22,7 @@ import { InputTextComponent } from './inputs/input-text/input-text.component';
 import { InputSelectComponent } from './inputs/input-select/input-select.component';
 import { FilterListComponent } from './filters/filter-list/filter-list.component';
 import { FilterPillComponent } from './filters/filter-pill/filter-pill.component';
+import { InputTextareaComponent } from './inputs/input-textarea/input-textarea.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { FilterPillComponent } from './filters/filter-pill/filter-pill.component
     InputTextComponent,
     InputSelectComponent,
     FilterListComponent,
-    FilterPillComponent
+    FilterPillComponent,
+    InputTextareaComponent
   ],
   exports: [
     FooterComponent,
@@ -61,7 +63,8 @@ import { FilterPillComponent } from './filters/filter-pill/filter-pill.component
     InputTextComponent,
     InputSelectComponent,
     FilterListComponent,
-    FilterPillComponent
+    FilterPillComponent,
+    InputTextareaComponent
   ],
   imports: [
     CommonModule,

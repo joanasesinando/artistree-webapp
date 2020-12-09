@@ -1,0 +1,27 @@
+<div class="input-group" [ngClass]="{'mt-2': marginTop === 'mt-2', 'mt-3': marginTop === 'mt-3'}">
+
+  <div class="input-group-prepend">
+    <i *ngIf="!iconType" class="icon" [attr.data-eva]="icon"></i>
+    <i *ngIf="iconType === 'line-icons'" class="icon lni lni-{{icon}}"></i>
+  </div>
+
+  <textarea
+    id="{{id}}"
+    class="form-control"
+    [placeholder]="placeholder"
+    [rows]="rows"
+    [(ngModel)]="value"
+    (ngModelChange)="valueChange.emit(value); onValidityChange(inputText)"
+    #inputText="ngModel"
+    [ngClass]="{ 'is-invalid': (enter || inputText.touched) && inputText.touched && inputText.invalid }"
+    [required]="required"
+    [minLength]="minLength"
+    (keydown.enter)="enterPressed()">
+  </textarea>
+
+</div>
+
+<div *ngIf="(enter || inputText.touched) && inputText.touched && inputText.invalid" class="is-invalid">
+  <span *ngIf="inputText.errors.required" class="small text-danger">{{placeholder}} is required</span>
+  <span *ngIf="inputText.errors.pattern" class="small text-danger">{{placeholder}} must be in a valid format</span>
+</div>

@@ -11,6 +11,7 @@ import { ProfileRegularComponent } from './profile-regular/profile-regular.compo
 import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../../shared/shared.module';
 import { ReviewsCardComponent } from './reviews-card/reviews-card.component';
+import { DescriptionCardComponent } from './description-card/description-card.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReviewsCardComponent } from './reviews-card/reviews-card.component';
       InterestsCardComponent,
       ProfileArtistComponent,
       ProfileRegularComponent,
-      ReviewsCardComponent
+      ReviewsCardComponent,
+      DescriptionCardComponent
     ],
     exports: [
         PillComponent

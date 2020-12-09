@@ -7,12 +7,6 @@ import {AngularFireDatabase} from '@angular/fire/database';
 
 import {AlertService} from '../_util/alert.service';
 
-import {Regular} from '../_domain/Regular';
-import {Artist} from '../_domain/Artist';
-import {Course} from '../_domain/Course';
-import {Booking} from '../_domain/Booking';
-import {from} from 'rxjs';
-
 
 @Injectable({
   providedIn: 'root'

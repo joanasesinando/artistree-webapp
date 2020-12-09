@@ -228,3 +228,10 @@
 .budget-max.form-label-group > label{
   padding: .55rem 1rem;
 }
+
+.input-group>.custom-file,
+.input-group>.custom-select,
+.input-group>.form-control,
+.input-group>.form-control-plaintext {
+  font-size: .8rem;
+}
