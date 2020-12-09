@@ -2,15 +2,24 @@
 
   <span class="text-dark regular mr-2">Sort by</span>
 
-  <div class="dropdown-toggle d-flex align-items-center" data-toggle="dropdown" (click)="changeArrowDirection()">
-    <span class="text-dark semibold">Relevance</span>
+  <div class="dropdown-toggle d-flex align-items-center" data-toggle="dropdown"
+       (click)="this.arrowDown = !this.arrowDown">
+
+    <span class="selected text-dark semibold">{{selectedItem}}</span>
     <div [ngClass]="{ 'd-none': !arrowDown }"><i class="arrow-down" data-eva="chevron-down"></i></div>
     <div [ngClass]="{ 'd-none': arrowDown }"><i class="arrow-up" data-eva="chevron-up"></i></div>
 
     <div class="dropdown-menu">
-      <a *ngFor="let item of items" class="dropdown-item d-flex align-items-center justify-content-between px-3" href="#">
-        {{item}}
-      </a>
+
+      <div *ngFor="let item of items">
+        <div *ngIf="item !== selectedItem" data-selected="{{item}}"
+             class="dropdown-item d-flex align-items-center justify-content-between px-3"
+             (click)="onItemSelected(item); this.arrowDown = !this.arrowDown">
+
+          <span class="text-dark" (click)="this.arrowDown = !this.arrowDown">{{item}}</span>
+        </div>
+      </div>
+
     </div>
   </div>
 

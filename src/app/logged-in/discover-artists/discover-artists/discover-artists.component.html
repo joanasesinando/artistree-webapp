@@ -56,7 +56,11 @@
     <span *ngIf="artistsToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artistsToShow.length)}} Artist found</span>
 
     <!-- Sort -->
-    <app-sort-by [items]="sortItems"></app-sort-by>
+    <app-sort-by
+      [items]="sortItems"
+      [selectedItem]="sortItems[0]"
+      (itemSelected)="doSort($event)">
+    </app-sort-by>
   </div>
 
   <!-- Artists -->

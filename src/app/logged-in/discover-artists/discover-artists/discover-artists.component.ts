@@ -31,9 +31,10 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   selectedLocation = LOCATION_DEFAULT;
 
   selectedFilters: {name: string, type: string}[] = [];
-  sortItems: string[] = ['Popularity', 'Best matching', 'Newest'];
+  sortItems: string[] = ['Relevance', 'Popularity', 'Best matching', 'Newest'];
 
   numberArtistsShowing = 20;
+  currentSorting = this.sortItems[0];
   loading = true;
 
   constructor(private firebaseService: FirebaseService) { }
@@ -133,6 +134,36 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     this.selectFilter(this.search, 'search');
   }
 
+  doSort(type: string): void {
+    this.currentSorting = type;
+    switch (type) {
+      case 'Relevance':
+        // TODO
+        this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
+
+      case 'Popularity':
+        // TODO
+        this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
+
+      case 'Best Matching':
+        // TODO
+        this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
+
+      case 'Newest':
+        console.log('Newest');
+        this.artistsToShow.sort((a, b) => a.joiningTimestamp - b.joiningTimestamp);
+        this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
+    }
+  }
+
   parseForSearching(query: string): string[] {
     let res: string[];
     let temp: string;
@@ -185,8 +216,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
         this.artistsToShow.push(artist);
     }
 
-    this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-    this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+    this.doSort(this.currentSorting);
 
     this.getFiltersByCategory();
     this.getFiltersByLocation();

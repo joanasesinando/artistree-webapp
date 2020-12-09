@@ -11,6 +11,7 @@
     top: 5px !important;
 
     .dropdown-item {
+      user-select: none;
       span {
         font-size: .75rem;
       }

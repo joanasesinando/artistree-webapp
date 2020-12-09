@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
 import * as eva from 'eva-icons';
 
 @Component({
@@ -9,6 +10,9 @@ import * as eva from 'eva-icons';
 export class SortByComponent implements OnInit, AfterViewInit {
 
   @Input() items: string[];
+  @Input() selectedItem: string;
+
+  @Output() itemSelected = new EventEmitter<string>();
 
   arrowDown = true;
 
@@ -21,8 +25,9 @@ export class SortByComponent implements OnInit, AfterViewInit {
     eva.replace();
   }
 
-  changeArrowDirection(): void {
-    this.arrowDown = !this.arrowDown;
+  onItemSelected(item): void {
+    this.selectedItem = item;
+    this.itemSelected.emit(item);
   }
 
 }
