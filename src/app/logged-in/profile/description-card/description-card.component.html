@@ -8,6 +8,7 @@
     </div>
 
     <h6 class="subtitle">Description</h6>
+    <span *ngIf="!user.bio || user.bio === ''" class="text-grey font-size-3">No description to show</span>
     <p class="text-dark font-size-3">{{user.bio}}</p>
 
   </div>
@@ -20,6 +21,7 @@
     </div>
 
     <h6 class="subtitle">Skills</h6>
+    <span *ngIf="user.skills.length === 0" class="text-grey font-size-3">No skills to show</span>
 
     <div class="w-100 d-flex align-items-center flex-wrap mb-3">
       <app-pill *ngFor="let skill of user.skills; let last = last"

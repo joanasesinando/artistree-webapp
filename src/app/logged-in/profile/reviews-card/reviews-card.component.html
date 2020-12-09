@@ -1,17 +1,19 @@
-<div class="reviews card-att" [ngClass]="{'mt-4': marginTop, 'mt-4 mt-md-0': marginTopOnMobile}">
+<div class="reviews card-att" [ngClass]="{'mt-4-att': marginTop, 'mt-4 mt-md-0': marginTopOnMobile}">
 
   <div class="d-flex align-items-center justify-content-between flex-wrap">
     <h6 *ngIf="type === 'given'" class="subtitle">Reviews given</h6>
     <h6 *ngIf="type === 'received'" class="subtitle">Reviews received</h6>
 
     <!-- Sort by -->
-    <app-sort-by
+    <app-sort-by *ngIf="reviewsToShow.length > 0"
       [items]="sortItems"
       [selectedItem]="sortItems[0]"
       [marginBottom]="'mb-2'"
       (itemSelected)="doSort($event)"
     ></app-sort-by>
   </div>
+
+  <span *ngIf="reviewsToShow.length === 0" class="text-grey font-size-3">No reviews to show</span>
 
   <!-- Reviews -->
   <div *ngFor="let review of reviewsAfterSplit" class="w-100 mt-2">

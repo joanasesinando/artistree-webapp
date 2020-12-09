@@ -8,8 +8,9 @@
     </div>
 
     <h6 class="subtitle">Interests</h6>
+    <span *ngIf="user.interests.length === 0" class="text-grey font-size-3">No interests to show</span>
 
-    <div class="w-100 d-flex align-items-center flex-wrap"
+    <div *ngIf="user.interests.length !== 0" class="w-100 d-flex align-items-center flex-wrap"
          [ngClass]="{'mb-3': user.type === 'artist'}">
       <app-pill *ngFor="let interest of user.interests; let last = last"
                 [isCurrent]="isCurrent" [user]="user" [label]="interest" [marginRight]="!last"
@@ -27,8 +28,9 @@
     </div>
 
     <h6 class="subtitle">Artistic areas</h6>
+    <span *ngIf="user.artisticAreas.length === 0" class="text-grey font-size-3">No artistic areas to show</span>
 
-    <div class="w-100 d-flex align-items-center flex-wrap">
+    <div *ngIf="user.artisticAreas.length !== 0" class="w-100 d-flex align-items-center flex-wrap">
       <app-pill *ngFor="let area of user.artisticAreas; let last = last"
                 [isCurrent]="isCurrent" [user]="user" [label]="area" [marginRight]="!last"
                 (deleteClicked)="deleteArtisticArea($event)">

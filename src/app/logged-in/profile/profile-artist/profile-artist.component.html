@@ -4,10 +4,22 @@
     <app-user-card [isCurrent]="isCurrent" [user]="user"></app-user-card>
     <app-description-card [isCurrent]="isCurrent" [user]="user"></app-description-card>
     <app-interests-card [isCurrent]="isCurrent" [user]="user"></app-interests-card>
+
+    <app-reviews-card *ngIf="isCurrent"
+      [isCurrent]="isCurrent"
+      [user]="user"
+      [type]="'given'"
+      [marginTop]="true"
+    ></app-reviews-card>
   </div>
 
-  <div class="col bg-info">
-    hello
+  <div class="col">
+    <app-reviews-card
+      [isCurrent]="isCurrent"
+      [user]="user"
+      [type]="'received'"
+      [marginTop]="true"
+    ></app-reviews-card>
   </div>
 
 </div>
