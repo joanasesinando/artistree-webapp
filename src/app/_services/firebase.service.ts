@@ -11,6 +11,7 @@ import {Regular} from '../_domain/Regular';
 import {Artist} from '../_domain/Artist';
 import {Course} from '../_domain/Course';
 import {Booking} from '../_domain/Booking';
+import {from} from 'rxjs';
 
 
 @Injectable({
@@ -40,7 +41,6 @@ export class FirebaseService {
   }
 
   /*** --------------------------------------------- ***/
-
   /*** -------- General Database Functions --------- ***/
   /*** --------------------------------------------- ***/
 
@@ -53,7 +53,6 @@ export class FirebaseService {
   }
 
   /*** --------------------------------------------- ***/
-
   /*** ------------ Joining Artistree -------------- ***/
   /*** --------------------------------------------- ***/
 
@@ -107,7 +106,6 @@ export class FirebaseService {
   }
 
   /*** --------------------------------------------- ***/
-
   /*** ------------------- Login ------------------- ***/
   /*** --------------------------------------------- ***/
 
@@ -125,7 +123,6 @@ export class FirebaseService {
   }
 
   /*** --------------------------------------------- ***/
-
   /*** ------------------ Logout ------------------- ***/
   /*** --------------------------------------------- ***/
 
@@ -141,7 +138,6 @@ export class FirebaseService {
   }
 
   /*** --------------------------------------------- ***/
-
   /*** ------------------- Exists ------------------ ***/
   /*** --------------------------------------------- ***/
 
@@ -164,7 +160,6 @@ export class FirebaseService {
   }
 
   /*** --------------------------------------------- ***/
-
   /*** -------------------- Get -------------------- ***/
   /*** --------------------------------------------- ***/
 
@@ -220,6 +215,45 @@ export class FirebaseService {
     return this.getDatabaseData('users/artists/' + uid).then(artist => {
       if (artist) return artist;
       return this.getDatabaseData('users/regular/' + uid).then(regular => regular);
+    });
+  }
+
+  /*** --------------------------------------------- ***/
+  /*** ------------------ Reviews ------------------ ***/
+  /*** --------------------------------------------- ***/
+
+  createReview(fromID: string, toID: string, rate: number, description: string): void {
+    this.getDatabaseData('users/artists/' + toID).then(artist => {
+      let reviewsArtist: { userID: string, rate: number, description: string, timestamp: number }[];
+
+      if (!artist.reviewsReceived) reviewsArtist = [];
+      else reviewsArtist = artist.reviewsReceived;
+
+      reviewsArtist.push({
+        userID: fromID,
+        rate,
+        description,
+        timestamp: Date.now()
+      });
+
+      this.setDatabaseData('users/artists/' + toID, { reviewsReceived: reviewsArtist });
+    });
+
+    this.getDatabaseData('users/regular/' + fromID).then(user => {
+      let reviewsUser: { artistID: string, rate: number, description: string, timestamp: number }[];
+
+      console.log(user.reviewsGiven);
+      if (!user.reviewsGiven) reviewsUser = [];
+      else reviewsUser = user.reviewsGiven;
+
+      reviewsUser.push({
+        artistID: toID,
+        rate,
+        description,
+        timestamp: Date.now()
+      });
+
+      this.setDatabaseData('users/regular/' + fromID, { reviewsGiven: reviewsUser });
     });
   }
 }

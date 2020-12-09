@@ -1,0 +1,48 @@
+<div class="reviews card-att" [ngClass]="{'mt-4': marginTop, 'mt-4 mt-md-0': marginTopOnMobile}">
+
+  <div class="d-flex align-items-center justify-content-between flex-wrap">
+    <h6 *ngIf="type === 'given'" class="subtitle">Reviews given</h6>
+    <h6 *ngIf="type === 'received'" class="subtitle">Reviews received</h6>
+
+    <!-- Sort by -->
+    <app-sort-by
+      [items]="sortItems"
+      [selectedItem]="sortItems[0]"
+      [marginBottom]="'mb-2'"
+      (itemSelected)="doSort($event)"
+    ></app-sort-by>
+  </div>
+
+  <!-- Reviews -->
+  <div *ngFor="let review of reviewsAfterSplit" class="w-100 mt-2">
+
+    <div class="review">
+
+      <div class="top d-flex align-items-center">
+
+        <div class="avatar mr-2">
+          <img class="rounded-circle" src="{{review.avatar}}" alt="avatar">
+        </div>
+
+        <span class="text-dark bold">{{review.name}}</span>
+
+        <div class="rate d-flex align-items-center ml-2">
+          <i *ngFor="let rate of getRateArray(review.rate)" class="star" data-eva="star"></i>
+        </div>
+
+      </div>
+
+      <div class="text">
+        <p class="description text-dark font-size-3 mb-2 mt-1">{{review.description}}</p>
+        <p class="when text-grey font-size-4">Reviewed on {{getTime(review.timestamp)}}</p>
+      </div>
+
+    </div>
+
+    <!-- Load more -->
+    <p *ngIf="reviewsToShow.length > 3 && reviewsAfterSplit < reviewsToShow"
+       class="link regular text-grey text-center font-size-2" (click)="loadMoreReviews()">Load more</p>
+
+  </div>
+
+</div>

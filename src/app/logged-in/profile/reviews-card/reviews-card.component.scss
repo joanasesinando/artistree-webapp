@@ -1,0 +1,29 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$avatar-height: 2rem;
+
+.reviews {
+  letter-spacing: 0.505197px;
+
+  .avatar {
+    width: $avatar-height;
+    height: $avatar-height;
+
+    img {
+      width: 100%;
+      height: $avatar-height;
+      object-fit: cover;
+    }
+  }
+
+  .star {
+    fill: #F2C94C;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  .text {
+    padding-left: calc(#{$avatar-height} + .5rem);
+  }
+}

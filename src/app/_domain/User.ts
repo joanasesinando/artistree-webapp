@@ -70,7 +70,7 @@ export interface IUser {
   bio?: string;
   skills?: string[];
   highlights?: { title: string, description: string }[];
-  reviewsReceived?: { artistID: string, rate: number, description: string, timestamp: number }[];
+  reviewsReceived?: { userID: string, rate: number, description: string, timestamp: number }[];
   portfolio?: string[];
   gigs?: any[];
   courses?: any[];

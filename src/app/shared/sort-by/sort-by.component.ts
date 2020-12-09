@@ -11,6 +11,7 @@ export class SortByComponent implements OnInit, AfterViewInit {
 
   @Input() items: string[];
   @Input() selectedItem: string;
+  @Input() marginBottom: string;
 
   @Output() itemSelected = new EventEmitter<string>();
 

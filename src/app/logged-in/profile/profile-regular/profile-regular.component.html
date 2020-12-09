@@ -5,8 +5,13 @@
     <app-interests-card [isCurrent]="isCurrent" [user]="user"></app-interests-card>
   </div>
 
-  <div class="col bg-info">
-    hello
+  <div class="col">
+    <app-reviews-card
+      [isCurrent]="isCurrent"
+      [user]="user"
+      [type]="'given'"
+      [marginTopOnMobile]="true"
+    ></app-reviews-card>
   </div>
 
 </div>
