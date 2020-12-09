@@ -25,7 +25,7 @@
     </div>
 
     <!-- Create -->
-    <button class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
+    <button *ngIf="isCurrent" class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
       data-toggle="modal" data-target="#edit-highlights-card">
       <i class="icon mr-2" data-eva="plus-square-outline" style="fill: white"></i> Create highlight</button>
 
