@@ -13,7 +13,7 @@
     [(ngModel)]="value"
     (ngModelChange)="valueChange.emit(value); onValidityChange(inputText)"
     #inputText="ngModel"
-    [ngClass]="{ 'is-invalid': (enter || inputText.touched) && inputText.touched && inputText.invalid }"
+    [ngClass]="{ 'is-invalid': inputText.touched && inputText.invalid }"
     [required]="required"
     [minLength]="minLength"
     (keydown.enter)="enterPressed()">
@@ -21,7 +21,7 @@
 
 </div>
 
-<div *ngIf="(enter || inputText.touched) && inputText.touched && inputText.invalid" class="is-invalid">
+<div *ngIf="inputText.touched && inputText.invalid" class="is-invalid">
   <span *ngIf="inputText.errors.required" class="small text-danger">{{placeholder}} is required</span>
   <span *ngIf="inputText.errors.pattern" class="small text-danger">{{placeholder}} must be in a valid format</span>
 </div>

@@ -69,7 +69,7 @@ export interface IUser {
   artisticAreas?: string[];
   bio?: string;
   skills?: string[];
-  highlights?: { title: string, description: string }[];
+  highlights?: { title: string, description: string, color: string }[];
   reviewsReceived?: { userID: string, rate: number, description: string, timestamp: number }[];
   portfolio?: string[];
   gigs?: any[];

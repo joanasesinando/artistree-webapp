@@ -1,0 +1,124 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+.highlight {
+  border: 2.5px solid;
+  border-left-width: 6px;
+  border-radius: 7px;
+  padding: .7rem;
+  letter-spacing: 1px;
+  position: relative;
+
+  &:hover {
+    .delete {
+      visibility: visible;
+    }
+  }
+
+  .delete {
+    position: absolute;
+    top: .2rem;
+    right: .2rem;
+    visibility: hidden;
+    cursor: pointer;
+
+    &.pink { fill: get-color(danger, 1); }
+    &.purple { fill: get-color(secondary, 1); }
+    &.blue { fill: get-color(primary, 1); }
+    &.green { fill: get-color(additional, 1); }
+  }
+
+  .left-border {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 4px;
+  }
+
+  &.pink {
+    border-color: get-color(danger, 1);
+    background-color: lighten(get-color(danger, 1), 27);
+
+    .left-border {
+      background-color: get-color(danger, 1);
+    }
+
+    .title {
+      color: get-color(danger, 3);
+    }
+
+    .description {
+      color: get-color(danger, 1);
+    }
+  }
+
+  &.purple {
+    border-color: get-color(secondary, 1);
+    background-color: lighten(get-color(secondary, 1), 27);
+
+    .left-border {
+      background-color: get-color(secondary, 1);
+    }
+
+    .title {
+      color: get-color(secondary, 3);
+    }
+
+    .description {
+      color: get-color(secondary, 1);
+    }
+  }
+
+  &.blue {
+    border-color: get-color(additional, 1);
+    background-color: lighten(get-color(additional, 1), 27);
+
+    .left-border {
+      background-color: get-color(additional, 1);
+    }
+
+    .title {
+      color: get-color(additional, 3);
+    }
+
+    .description {
+      color: get-color(additional, 1);
+    }
+  }
+
+  &.green {
+    border-color: get-color(primary, 1);
+    background-color: lighten(get-color(primary, 1), 27);
+
+    .left-border {
+      background-color: get-color(primary, 1);
+    }
+
+    .title {
+      color: get-color(primary, 3);
+    }
+
+    .description {
+      color: get-color(primary, 1);
+    }
+  }
+}
+
+.colors .color {
+  cursor: pointer;
+
+  svg {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  &.selected {
+    border: 2px solid #d2dae5;
+    border-radius: 7px;
+  }
+
+  &.pink { svg { fill: get-color(danger, 1); } }
+  &.purple {  svg { fill: get-color(secondary, 1); } }
+  &.blue {  svg { fill: get-color(primary, 1); } }
+  &.green {  svg { fill: get-color(additional, 1); } }
+}

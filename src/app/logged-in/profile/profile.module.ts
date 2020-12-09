@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {SharedModule} from '../../shared/shared.module';
 import { ReviewsCardComponent } from './reviews-card/reviews-card.component';
 import { DescriptionCardComponent } from './description-card/description-card.component';
+import { HighlightsCardComponent } from './highlights-card/highlights-card.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { DescriptionCardComponent } from './description-card/description-card.co
       ProfileArtistComponent,
       ProfileRegularComponent,
       ReviewsCardComponent,
-      DescriptionCardComponent
+      DescriptionCardComponent,
+      HighlightsCardComponent
     ],
     exports: [
         PillComponent
