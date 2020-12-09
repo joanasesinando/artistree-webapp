@@ -3,6 +3,7 @@ import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as eva from 'eva-icons';
+import {IUser} from '../../../_domain/User';
 
 @Component({
   selector: 'app-user-card',
@@ -12,13 +13,7 @@ import * as eva from 'eva-icons';
 export class UserCardComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: { uid: string, name: string, handler: string, avatar: string, following: number, followers?: number,
-    location: string, joiningTimestamp: number, socialLinks: { network: string, link: string }[],
-    reviewsGiven: { artistID: string, rate: number, description: string, timestamp: number }[],
-    interests: string[], title?: string, artisticAreas?: string[], bio?: string, skills?: string[],
-    highlights?: { title: string, description: string }[],
-    reviewsReceived?: { artistID: string, rate: number, description: string, timestamp: number }[],
-    portfolio?: string[], gigs?: any[], courses?: any[], type: string };
+  @Input() user: IUser;
 
   form = {
     nameValid: true,

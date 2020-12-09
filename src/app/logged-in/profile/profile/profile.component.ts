@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {FirebaseService} from '../../../_services/firebase.service';
+import {IUser} from '../../../_domain/User';
 
 @Component({
   selector: 'app-profile',
@@ -10,35 +11,33 @@ import {FirebaseService} from '../../../_services/firebase.service';
 })
 export class ProfileComponent implements OnInit {
 
-  user: { uid: string, name: string, handler: string, avatar: string, following: number, followers?: number,
-          location: string, joiningTimestamp: number, socialLinks: { network: string, link: string }[],
-          reviewsGiven: { artistID: string, rate: number, description: string, timestamp: number }[],
-          interests: string[], title?: string, artisticAreas?: string[], bio?: string, skills?: string[],
-          highlights?: { title: string, description: string }[],
-          reviewsReceived?: { artistID: string, rate: number, description: string, timestamp: number }[],
-          portfolio?: string[], gigs?: any[], courses?: any[], type: string } = {
-
-    uid: '',
-    name: '',
-    handler: '',
+  user: IUser = {
+    artisticAreas: [],
     avatar: '',
-    following: 0,
+    balance: 0,
+    bio: '',
+    courses: [],
     followers: 0,
+    following: 0,
+    gigs: [],
+    handler: '',
+    highlights: [],
+    interests: [],
+    joiningTimestamp: 0,
     location: '',
-    joiningTimestamp: null,
-    socialLinks: [],
+    moneyEarned: 0,
+    name: '',
+    popularity: 0,
+    portfolio: [],
+    relevance: 0,
     reviewsGiven: [],
     reviewsReceived: [],
-    interests: [],
-    title: '',
-    artisticAreas: [],
-    bio: '',
+    schedule: undefined,
     skills: [],
-    highlights: [],
-    portfolio: [],
-    gigs: [],
-    courses: [],
-    type: ''
+    socialLinks: [],
+    title: '',
+    type: '',
+    uid: ''
   };
 
   constructor(private router: ActivatedRoute, private firebaseService: FirebaseService) { }
@@ -51,9 +50,9 @@ export class ProfileComponent implements OnInit {
         this.user.type = userInfo.type;
         this.user.name = userInfo.name;
         this.user.handler = userInfo.handler;
-        this.user.avatar = userInfo.avatar;
         this.user.interests = userInfo.interests;
         this.user.joiningTimestamp = userInfo.joiningTimestamp;
+        if (userInfo.avatar) this.user.avatar = userInfo.avatar;
 
         if (userInfo.following) this.user.following = userInfo.following.length;
         if (userInfo.followers) this.user.followers = userInfo.followers.length;
@@ -70,9 +69,16 @@ export class ProfileComponent implements OnInit {
         if (userInfo.portfolio) this.user.portfolio = userInfo.portfolio;
         if (userInfo.gigs) this.user.gigs = userInfo.gigs;
         if (userInfo.courses) this.user.courses = userInfo.courses;
+        if (userInfo.schedule) this.user.schedule = userInfo.schedule;
 
         if (userInfo.reviewsGiven) this.user.reviewsGiven = userInfo.reviewsGiven;
         if (userInfo.reviewsReceived) this.user.reviewsReceived = userInfo.reviewsReceived;
+
+        if (userInfo.balance) this.user.balance = userInfo.balance;
+        if (userInfo.moneyEarned) this.user.moneyEarned = userInfo.moneyEarned;
+
+        if (userInfo.relevance) this.user.relevance = userInfo.relevance;
+        if (userInfo.popularity) this.user.popularity = userInfo.popularity;
       });
     });
   }

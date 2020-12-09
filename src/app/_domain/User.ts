@@ -57,13 +57,13 @@ export interface IUser {
   uid: string;
   name: string;
   handler: string;
-  avatar: string;
-  following: number;
+  avatar?: string;
+  following?: number;
   followers?: number;
-  location: string;
+  location?: string;
   joiningTimestamp: number;
-  socialLinks: { network: string, link: string }[];
-  reviewsGiven: { artistID: string, rate: number, description: string, timestamp: number }[];
+  socialLinks?: { network: string, link: string }[];
+  reviewsGiven?: { artistID: string, rate: number, description: string, timestamp: number }[];
   interests: string[];
   title?: string;
   artisticAreas?: string[];
@@ -74,5 +74,10 @@ export interface IUser {
   portfolio?: string[];
   gigs?: any[];
   courses?: any[];
+  balance?: number;
+  moneyEarned?: number;
+  schedule?: any;
+  relevance?: number;
+  popularity?: number;
   type: string;
 }

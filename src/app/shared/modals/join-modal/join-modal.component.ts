@@ -6,6 +6,7 @@ import {AlertService} from '../../../_util/alert.service';
 
 import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
+import {IUser} from '../../../_domain/User';
 
 const categories = require('src/assets/data/categories.json').categories;
 
@@ -16,19 +17,37 @@ const categories = require('src/assets/data/categories.json').categories;
 })
 export class JoinModalComponent implements OnInit {
 
-  user: {
-    email: string,
-    password: string,
-    name: string,
-    handler: string,
-    avatar: string,
-    interests: string[],
-    artisticAreas?: string[],
-    title: string,
-    type: string,
-    joiningTimestamp: number
-    // tslint:disable-next-line:max-line-length
-  } = { email: '', password: '', name: '', handler: '', avatar: '', interests: [], artisticAreas: [], title: '', type: '', joiningTimestamp: null};
+  email: string;
+  password: string;
+
+  user: IUser = {
+    artisticAreas: [],
+    avatar: '',
+    balance: 0,
+    bio: '',
+    courses: [],
+    followers: 0,
+    following: 0,
+    gigs: [],
+    handler: '',
+    highlights: [],
+    interests: [],
+    joiningTimestamp: 0,
+    location: '',
+    moneyEarned: 0,
+    name: '',
+    popularity: 0,
+    portfolio: [],
+    relevance: 0,
+    reviewsGiven: [],
+    reviewsReceived: [],
+    schedule: undefined,
+    skills: [],
+    socialLinks: [],
+    title: '',
+    type: '',
+    uid: ''
+  };
 
   form = {
     emailValid: false,
@@ -61,7 +80,7 @@ export class JoinModalComponent implements OnInit {
   continueToStep2(): void {
     if (!this.form.emailValid) return;
 
-    this.firebaseService.emailAlreadyExists(this.user.email).then(exists => {
+    this.firebaseService.emailAlreadyExists(this.email).then(exists => {
       if (exists) {
         this.alertService.showAlert('Oops!', 'It seems like this email is already registered on Artistree. Sign in instead.', 'danger');
         return;
@@ -122,29 +141,17 @@ export class JoinModalComponent implements OnInit {
     const artisticAreas = this.getArtisticAreas();
 
     if (this.user.type === 'regular') {
-      this.firebaseService.signup(this.user.type, this.user.email, this.user.password, this.user.name,
+      this.firebaseService.signup(this.user.type, this.email, this.password, this.user.name,
         this.user.handler, this.user.avatar, interests, Date.now())
         .then(() => this.router.navigate(['/feed']));
 
     } else if (this.user.type === 'artist') {
-      this.firebaseService.signup(this.user.type, this.user.email, this.user.password, this.user.name,
+      this.firebaseService.signup(this.user.type, this.email, this.password, this.user.name,
         this.user.handler, this.user.avatar, interests, Date.now(), artisticAreas, this.user.title)
         .then(() => this.router.navigate(['/feed']));
     }
 
-    // Reset
-    this.user = {
-      email: '',
-      password: '',
-      name: '',
-      handler: '',
-      avatar: '',
-      interests: [],
-      artisticAreas: [],
-      title: '',
-      type: '',
-      joiningTimestamp: null
-    };
+    this.reset();
   }
 
   getInterests(): string[] {
@@ -186,6 +193,37 @@ export class JoinModalComponent implements OnInit {
   openModal(modalID: string): void {
     const modal = $('#' + modalID);
     modal.modal('show');
+  }
+
+  reset(): void {
+    this.user = {
+      artisticAreas: [],
+      avatar: '',
+      balance: 0,
+      bio: '',
+      courses: [],
+      followers: 0,
+      following: 0,
+      gigs: [],
+      handler: '',
+      highlights: [],
+      interests: [],
+      joiningTimestamp: 0,
+      location: '',
+      moneyEarned: 0,
+      name: '',
+      popularity: 0,
+      portfolio: [],
+      relevance: 0,
+      reviewsGiven: [],
+      reviewsReceived: [],
+      schedule: undefined,
+      skills: [],
+      socialLinks: [],
+      title: '',
+      type: '',
+      uid: ''
+    };
   }
 
 }

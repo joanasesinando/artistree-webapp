@@ -33,7 +33,7 @@
           <app-input-email
             [id]="'joinInputEmail'"
             [placeholder]="'E-mail address'"
-            [(value)]="user.email"
+            [(value)]="email"
             [required]="true"
             (validityChange)="form.emailValid = $event">
           </app-input-email>
@@ -78,7 +78,7 @@
           <app-input-password
             [id]="'joinInputPassword'"
             [placeholder]="'Password'"
-            [(value)]="user.password"
+            [(value)]="password"
             [required]="true"
             [minLength]="6"
             (validityChange)="form.passwordValid = $event">
