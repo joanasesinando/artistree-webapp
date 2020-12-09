@@ -17,6 +17,8 @@ const LOCATION_DEFAULT = 'All Locations';
 })
 export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
 
+  currentUser: IUser = {handler: '', joiningTimestamp: 0, name: '', type: '', uid: '', interests: [], location: ''};
+
   search;
   @ViewChild('form', { static: false }) form: NgForm;
 
@@ -37,7 +39,14 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
   currentSorting = this.sortItems[0];
   loading = true;
 
-  constructor(private firebaseService: FirebaseService) { }
+  constructor(private firebaseService: FirebaseService) {
+    firebaseService.auth.onAuthStateChanged(user => {
+      this.firebaseService.getUserInfo(user.uid).then(userInfo => {
+        this.currentUser.interests = userInfo.interests;
+        if (userInfo.location) this.currentUser.location = userInfo.location;
+      });
+    });
+  }
 
   ngOnInit(): void {
     this.loadArtists();
@@ -149,8 +158,15 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
         this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
         break;
 
-      case 'Best Matching':
-        // TODO
+      case 'Best matching':
+        this.artistsToShow.sort((a, b) => {
+          const aScore = this.getInterestsMatchingScore(a);
+          const bScore = this.getInterestsMatchingScore(b);
+
+          if (bScore - aScore === 0)
+            return this.getLocationMatchingScore(b) - this.getLocationMatchingScore(a);
+          return bScore - aScore;
+        });
         this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
         this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
         break;
@@ -161,6 +177,21 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
         this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
         break;
     }
+  }
+
+  getInterestsMatchingScore(artist: IUser): number {
+    let score = 0;
+    for (const area of artist.artisticAreas) {
+      if (this.currentUser.interests.includes(area)) score++;
+    }
+    return score;
+  }
+
+  getLocationMatchingScore(artist: IUser): number {
+    if (!artist.location || !this.currentUser.location) return 0;
+    const aLocation = artist.location.replace(' ', '').split(',')[1];
+    const uLocation = this.currentUser.location.replace(' ', '').split(',')[1];
+    return uLocation === aLocation ? 1 : 0;
   }
 
   parseForSearching(query: string): string[] {
