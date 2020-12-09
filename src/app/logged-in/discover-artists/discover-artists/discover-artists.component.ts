@@ -133,36 +133,49 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     this.selectFilter(this.search, 'search');
   }
 
-  listToString(list: string[]): string {
-    if (list.length > 0) {
-      let s = list[0];
-      for (let i = 0; i < list.length; i++) {
-        if (i !== 0) s += ' ' + list[i];
-      }
-      return s;
+  parseForSearching(query: string): string[] {
+    let res: string[];
+    let temp: string;
+
+    res = query.toLowerCase().split(' ');
+
+    temp = query.replace(' ', '').toLowerCase();
+    if (!res.includes(temp)) res.push(temp);
+
+    temp = query.toLowerCase();
+    if (!res.includes(temp)) res.push(temp);
+    return res;
+  }
+
+  parseForSearchingList(queries: string[]): string[] {
+    let res: string[] = [];
+    for (const query of queries) {
+      res = res.concat(this.parseForSearching(query));
     }
-    return '';
+    return res;
   }
 
-  isQueryTrueSearch(artist: IUser): boolean { // FIXME: multiple words
-    return !this.search || !!artist.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
-      !!artist.title.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
-      !!artist.handler.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
+  isQueryTrueSearch(artist: IUser): boolean {
+    return !this.search ||
+      !!this.parseForSearching(artist.name).find(a => a.includes(this.search.toLowerCase())) ||
+      !!this.parseForSearching(artist.title).find(a => a.includes(this.search.toLowerCase())) ||
+      !!this.parseForSearching(artist.handler).find(a => a.includes(this.search.toLowerCase())) ||
       // tslint:disable-next-line:max-line-length
-      (artist.artisticAreas && !!this.listToString(artist.artisticAreas).toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()))) ||
-      (artist.skills && !!this.listToString(artist.skills).toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())));
+      (artist.artisticAreas && !!this.parseForSearchingList(artist.artisticAreas).find(a => a.includes(this.search.toLowerCase()))) ||
+      (artist.skills && !!this.parseForSearchingList(artist.skills).find(a => a.includes(this.search.toLowerCase()))) ||
+      (artist.location && !!this.parseForSearching(artist.location.replace(',', ' ')).find(a => a.includes(this.search.toLowerCase())));
   }
 
-  isQueryTrueCategory(artist: IUser): boolean { // FIXME: multiple words
-    return this.selectedCategory === 'All Categories' ||
+  isQueryTrueCategory(artist: IUser): boolean {
+    return this.selectedCategory === CATEGORY_DEFAULT ||
       // tslint:disable-next-line:max-line-length
-      (artist.artisticAreas && !!this.listToString(artist.artisticAreas).toLowerCase().split(' ').find(a => a.includes(this.selectedCategory.toLowerCase())));
+      (artist.artisticAreas && !!this.parseForSearchingList(artist.artisticAreas).find(a => a.includes(this.selectedCategory.toLowerCase())));
   }
 
-  isQueryTrueLocation(artist: IUser): boolean { // FIXME: multiple words
+  isQueryTrueLocation(artist: IUser): boolean {
     return this.selectedLocation === LOCATION_DEFAULT ||
       // tslint:disable-next-line:max-line-length
-      (artist.location && !!artist.location.toLowerCase().replace(',', '').split(' ').find(a => a.includes(this.selectedLocation.toLowerCase())));
+      (artist.location && !!this.parseForSearching(artist.location.replace(',', ' ')).find(a => a.includes(this.selectedLocation.toLowerCase())));
   }
 
   filterArtists(): void {
