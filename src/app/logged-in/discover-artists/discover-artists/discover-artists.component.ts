@@ -138,13 +138,13 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     this.currentSorting = type;
     switch (type) {
       case 'Relevance':
-        // TODO
+        this.artistsToShow.sort((a, b) => b.relevance - a.relevance);
         this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
         this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
         break;
 
       case 'Popularity':
-        // TODO
+        this.artistsToShow.sort((a, b) => b.popularity - a.popularity);
         this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
         this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
         break;
@@ -156,7 +156,6 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
         break;
 
       case 'Newest':
-        console.log('Newest');
         this.artistsToShow.sort((a, b) => a.joiningTimestamp - b.joiningTimestamp);
         this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
         this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);

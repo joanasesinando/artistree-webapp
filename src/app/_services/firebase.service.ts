@@ -73,7 +73,9 @@ export class FirebaseService {
               artisticAreas,
               title,
               type,
-              joiningTimestamp
+              joiningTimestamp,
+              relevance: Math.floor(Math.random() * Math.floor(10000)),
+              popularity: Math.floor(Math.random() * Math.floor(10000))
             }).then(() => {
               this.alertService.showAlert('Thanks for joining!', 'You are now part of Artistree. We hope you feel inspired.', 'success');
 
