@@ -236,7 +236,6 @@ export class FirebaseService {
     this.getDatabaseData('users/regular/' + fromID).then(user => {
       let reviewsUser: { artistID: string, rate: number, description: string, timestamp: number }[];
 
-      console.log(user.reviewsGiven);
       if (!user.reviewsGiven) reviewsUser = [];
       else reviewsUser = user.reviewsGiven;
 

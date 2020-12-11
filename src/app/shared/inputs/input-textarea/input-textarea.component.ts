@@ -39,7 +39,6 @@ export class InputTextareaComponent implements OnInit, AfterViewInit {
   }
 
   onValidityChange(input: NgModel): void {
-    console.log('oi')
     return this.validityChange.emit(input.valid);
   }
 

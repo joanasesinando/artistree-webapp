@@ -13,7 +13,7 @@ export class GigsCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newGig: Gig = { list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newGig: Gig = {id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -64,6 +64,16 @@ export class GigsCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getNewID(): number {
+    let max = -1;
+    if (this.user.gigs.length === 0) return 0;
+
+    for (const gig of this.user.gigs) {
+      if (max < gig.id) max = gig.id;
+    }
+    return max + 1;
+  }
+
   createGig(): void {
     this.newGig.price = parseFloat(this.newPrice);
 
@@ -82,6 +92,7 @@ export class GigsCardComponent implements OnInit {
     if (this.newPhoto6 && this.newPhoto6 !== '') this.newGig.imagesURL.push(this.newPhoto6);
 
     this.user.gigs.push({
+      id: this.getNewID(),
       name: this.newGig.name,
       pitch: this.newGig.pitch,
       description: this.newGig.description,
@@ -94,18 +105,30 @@ export class GigsCardComponent implements OnInit {
       gigs: this.user.gigs
     });
 
-    this.newGig = {description: '', imagesURL: [], name: '', pitch: '', price: 0};
+    this.newGig = {id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+
+    this.newPrice = '';
+
+    this.newListItem1 = '';
+    this.newListItem2 = '';
+    this.newListItem3 = '';
+    this.newListItem4 = '';
+    this.newListItem5 = '';
+    this.newListItem6 = '';
+
+    this.newPhoto1 = '';
+    this.newPhoto2 = '';
+    this.newPhoto3 = '';
+    this.newPhoto4 = '';
+    this.newPhoto5 = '';
+    this.newPhoto6 = '';
   }
 
   deleteGig(gigToDelete: Gig): void {
     for (let i = 0; i < this.user.gigs.length; i++) {
       const gig = this.user.gigs[i];
 
-      if (gig.name === gigToDelete.name && gig.pitch === gigToDelete.pitch && gig.description === gigToDelete.description &&
-      gig.price === gigToDelete.price && gig.list === gigToDelete.list && gig.imagesURL === gigToDelete.imagesURL) {
-
-        if (gig.rate && gigToDelete.rate && gig.rate !== gigToDelete.rate) return;
-
+      if (gig.id === gigToDelete.id) {
         this.user.gigs.splice(i, 1);
         this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
           gigs: this.user.gigs

@@ -1,4 +1,5 @@
 export interface Gig {
+  id: number;
   name: string;
   pitch: string;
   description: string;

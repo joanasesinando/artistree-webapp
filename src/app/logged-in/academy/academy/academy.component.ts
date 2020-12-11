@@ -57,145 +57,32 @@ export class AcademyComponent implements OnInit, AfterViewInit {
 
   coursesList: Course[] = [ // TODO: ir buscar todos os cursos
     {
+      id: 1,
       name: 'Lorem ipsum dolor',
+      pitch: 'sdfgd',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       duration: '3 weeks',
       price: 64.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
+      id: 2,
       name: 'Lorem ipsum dolor',
+      pitch: 'sdfgd',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       duration: '3 weeks',
       price: 64.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
+      id: 3,
       name: 'Lorem ipsum dolor',
+      pitch: 'sdfgd',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       duration: '3 weeks',
       price: 64.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    }
   ];
 
   courses: Course[] = [];

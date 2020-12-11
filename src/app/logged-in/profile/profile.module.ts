@@ -17,6 +17,7 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
 import { GigsCardComponent } from './gigs-card/gigs-card.component';
 import {DiscoverGigsModule} from '../discover-gigs/discover-gigs.module';
 import {SlickCarouselModule} from 'ngx-slick-carousel';
+import { CoursesCardComponent } from './courses-card/courses-card.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {SlickCarouselModule} from 'ngx-slick-carousel';
       DescriptionCardComponent,
       HighlightsCardComponent,
       PortfolioComponent,
-      GigsCardComponent
+      GigsCardComponent,
+      CoursesCardComponent
     ],
     exports: [
         PillComponent
