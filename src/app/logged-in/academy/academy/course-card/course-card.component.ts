@@ -15,4 +15,9 @@ export class CourseCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  formatText(max: number, text: string): string {
+    if (text.length > max) return text.substr(0, max) + '...';
+    return text;
+  }
+
 }

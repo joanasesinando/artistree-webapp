@@ -1,12 +1,12 @@
-<div class="main rounded mb-3 pb-2">
+<div class="main rounded mb-3">
 
-  <div class="image h-50">
+  <div class="image">
     <img class="rounded-top-right rounded-top-left" src="{{course.imagesURL[0]}}" alt="gig image">
   </div>
 
-  <div class="content px-3 mt-2">
-    <p class="title text-dark semibold mb-1">{{course.name}}</p>
-    <p class="description text-grey regular mb-2">{{course.description}}</p>
+  <div class="content mx-3 my-2 position-relative">
+    <p class="title text-dark semibold mb-1">{{formatText(50, course.name)}}</p>
+    <p class="description text-grey regular mb-2">{{formatText(70, course.pitch)}}</p>
     <p class="duration text-dark medium mb-2">{{course.duration}}</p>
     <p class="price text-right text-dark semibold mb-3">{{course.price}}€</p>
     <button class="btn btn-primary-rounded btn-block">ENROL</button>

@@ -18,6 +18,7 @@ import { GigsCardComponent } from './gigs-card/gigs-card.component';
 import {DiscoverGigsModule} from '../discover-gigs/discover-gigs.module';
 import {SlickCarouselModule} from 'ngx-slick-carousel';
 import { CoursesCardComponent } from './courses-card/courses-card.component';
+import {AcademyModule} from '../academy/academy.module';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { CoursesCardComponent } from './courses-card/courses-card.component';
     FormsModule,
     SharedModule,
     DiscoverGigsModule,
-    SlickCarouselModule
+    SlickCarouselModule,
+    AcademyModule
   ]
 })
 export class ProfileModule { }

@@ -1,1 +1,299 @@
-<p>courses-card works!</p>
+<div class="card-att card-filled mt-4">
+
+  <h6 class="subtitle">My Courses</h6>
+
+  <div class="profile-courses position-relative">
+    <span *ngIf="!user.courses || user.courses.length === 0" class="d-block text-grey font-size-3 mb-3">No courses to show</span>
+
+    <div *ngIf="user.courses && user.courses.length > 2" class="mb-3">
+
+      <ngx-slick-carousel class="carousel"
+                          id="coursesCarousel"
+                          [config]="slideConfig"
+                          #slickModal='slick-carousel'>
+
+        <div ngxSlickItem *ngFor="let course of this.user.courses" class="slide mr-3 position-relative">
+          <app-course-card [course]="course"></app-course-card>
+
+          <div class="delete" (click)="deleteCourse(course)">
+            <i *ngIf="isCurrent" data-eva="trash"></i>
+          </div>
+        </div>
+
+      </ngx-slick-carousel>
+
+    </div>
+
+    <div *ngIf="user.courses && user.courses.length > 0 && user.courses.length <= 2" class="mb-3">
+
+      <div class="d-flex align-items-center flex-wrap">
+        <div *ngFor="let course of this.user.courses" class="position-relative mr-3"[style]="'width: 15rem'">
+          <app-course-card [course]="course"></app-course-card>
+
+          <div class="delete" (click)="deleteCourse(course)">
+            <i *ngIf="isCurrent" data-eva="trash"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Create -->
+    <div *ngIf="isCurrent" class="border-top-darker">
+      <button class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
+              data-toggle="modal" data-target="#edit-courses-card-step1">
+        <i class="icon mr-2" data-eva="plus-square-outline" style="fill: white"></i>Create course</button>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="edit-courses-card-step1" tabindex="-1">
+
+  <div class="modal-dialog modal-sm-att">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Create Course'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form>
+
+          <!-- Name -->
+          <span class="text-grey semibold">Name</span>
+          <app-input-text
+            [id]="'profileInputCourseName'"
+            [placeholder]="'Your course name'"
+            [icon]="'text-outline'"
+            [marginTop]="'mt-2'"
+            [required]="true"
+            [(value)]="newCourse.name">
+          </app-input-text>
+
+          <!-- Pitch -->
+          <span class="text-grey semibold mt-3 d-block">Entice the audience</span>
+          <app-input-text
+            [id]="'profileInputCoursePitch'"
+            [placeholder]="'What is your course about?'"
+            [icon]="'microphone'"
+            [iconType]="'line-icons'"
+            [marginTop]="'mt-2'"
+            [required]="true"
+            [(value)]="newCourse.pitch">
+          </app-input-text>
+
+          <!-- Duration -->
+          <span class="text-grey semibold mt-3 d-block">Duration</span>
+          <app-input-text
+            [id]="'profileInputCourseDuration'"
+            [placeholder]="'Your course duration'"
+            [icon]="'clock-outline'"
+            [marginTop]="'mt-2'"
+            [required]="true"
+            [(value)]="newCourse.duration">
+          </app-input-text>
+
+          <!-- Price -->
+          <span class="text-grey semibold mt-3 d-block">Price</span>
+          <app-input-number
+            [id]="'profileInputCoursePrice'"
+            [placeholder]="'Your course price'"
+            [icon]="'euro'"
+            [iconType]="'line-icons'"
+            [marginTop]="'mt-2'"
+            [required]="true"
+            [(value)]="newPrice">
+          </app-input-number>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  data-toggle="modal" data-target="#edit-courses-card-step2" data-dismiss="modal">Continue</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="edit-courses-card-step2" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Create Course'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form>
+
+          <!-- Description -->
+          <span class="text-grey semibold">Description</span>
+          <app-input-textarea
+            [id]="'profileInputCourseDescription'"
+            [placeholder]="'Tell people about your course'"
+            [rows]="8"
+            [icon]="'menu-2-outline'"
+            [marginTop]="'mt-2'"
+            [required]="true"
+            [(value)]="newCourse.description">
+          </app-input-textarea>
+
+          <!-- List -->
+          <span class="text-grey semibold mt-3 d-block">What does your course include?</span>
+          <div class="d-flex align-items-center flex-wrap">
+            <div class="col-6 pl-0">
+              <app-input-text
+                [id]="'profileInputCourseList1'"
+                [placeholder]="'Add item'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newListItem1">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseList2'"
+                [placeholder]="'Add item'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newListItem2">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseList3'"
+                [placeholder]="'Add item'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newListItem3">
+              </app-input-text>
+            </div>
+
+            <div class="col-6 pr-0">
+              <app-input-text
+                [id]="'profileInputCourseList4'"
+                [placeholder]="'Add item'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newListItem4">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseList5'"
+                [placeholder]="'Add item'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newListItem5">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseList6'"
+                [placeholder]="'Add item'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newListItem6">
+              </app-input-text>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  data-toggle="modal" data-target="#edit-courses-card-step3" data-dismiss="modal">Continue</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal fade" id="edit-courses-card-step3" tabindex="-1">
+
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Create Gig'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form (submit)="createCourse()">
+
+          <!-- Images -->
+          <span class="text-grey semibold mt-3 d-block">Pick some photos to show</span>
+          <div class="d-flex align-items-center flex-wrap">
+            <div class="col-6 pl-0">
+              <app-input-text
+                [id]="'profileInputCourseImage1'"
+                [placeholder]="'Add image'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [required]="true"
+                [(value)]="newPhoto1">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseImage2'"
+                [placeholder]="'Add image'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newPhoto2">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseImage3'"
+                [placeholder]="'Add image'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newPhoto3">
+              </app-input-text>
+            </div>
+
+            <div class="col-6 pr-0">
+              <app-input-text
+                [id]="'profileInputCourseImage4'"
+                [placeholder]="'Add image'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newPhoto4">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseImage5'"
+                [placeholder]="'Add image'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newPhoto5">
+              </app-input-text>
+
+              <app-input-text
+                [id]="'profileInputCourseImage6'"
+                [placeholder]="'Add image'"
+                [icon]="'checkmark-square'"
+                [marginTop]="'mt-2'"
+                [(value)]="newPhoto6">
+              </app-input-text>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  (click)="createCourse()" data-dismiss="modal">Add course</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

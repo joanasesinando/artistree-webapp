@@ -3,6 +3,8 @@ export interface ReviewGiven {
   rate: number;
   description: string;
   timestamp: number;
+  type: string;
+  typeID: number;
 }
 
 export interface ReviewReceived {
@@ -10,4 +12,6 @@ export interface ReviewReceived {
   rate: number;
   description: string;
   timestamp: number;
+  type: string;
+  typeID: number;
 }

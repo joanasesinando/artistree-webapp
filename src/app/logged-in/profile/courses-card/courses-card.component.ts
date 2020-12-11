@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../../../_domain/User';
+import {Course} from '../../../_domain/Course';
+import {FirebaseService} from '../../../_services/firebase.service';
 
 @Component({
   selector: 'app-courses-card',
@@ -7,9 +10,132 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoursesCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() isCurrent: boolean;
+  @Input() user: User;
+
+  newCourse: Course = {duration: '', id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+
+  newPrice: string;
+
+  newListItem1: string;
+  newListItem2: string;
+  newListItem3: string;
+  newListItem4: string;
+  newListItem5: string;
+  newListItem6: string;
+
+  newPhoto1: string;
+  newPhoto2: string;
+  newPhoto3: string;
+  newPhoto4: string;
+  newPhoto5: string;
+  newPhoto6: string;
+
+  slideConfig = {
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    swipeToSlide: true,
+    centerMode: true,
+    autoplay: true,
+    infinite: true,
+    autoplaySpeed: 3000,
+    focusOnSelect: false,
+    arrows: true,
+    nextArrow: '<div *ngIf="this.user.gigs.length > 1" class="carousel-control-next"><div class="icon-wrapper"><i data-eva="arrow-forward-outline"></i></div></div>',
+    prevArrow: '<div *ngIf="this.user.gigs.length > 1" class="carousel-control-prev"><div class="icon-wrapper"><i data-eva="arrow-back-outline"></i></div></div>',
+    dots: false,
+    fade: false,
+    lazyLoad: 'progressive',
+    responsive: [
+      {
+        breakpoint: 900,
+        settings: {
+          mobileFirst: true,
+          slidesToShow: 1,
+          arrows: true,
+          lazyload: 'ondemand',
+        }
+      }
+    ]
+  };
+
+  constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
+  }
+
+  getNewID(): number {
+    let max = -1;
+    if (this.user.courses.length === 0) return 0;
+
+    for (const course of this.user.courses) {
+      if (max < course.id) max = course.id;
+    }
+    return max + 1;
+  }
+
+  createCourse(): void {
+    this.newCourse.price = parseFloat(this.newPrice);
+
+    if (this.newListItem1 && this.newListItem1 !== '') this.newCourse.list.push(this.newListItem1);
+    if (this.newListItem2 && this.newListItem2 !== '') this.newCourse.list.push(this.newListItem2);
+    if (this.newListItem3 && this.newListItem3 !== '') this.newCourse.list.push(this.newListItem3);
+    if (this.newListItem4 && this.newListItem4 !== '') this.newCourse.list.push(this.newListItem4);
+    if (this.newListItem5 && this.newListItem5 !== '') this.newCourse.list.push(this.newListItem5);
+    if (this.newListItem6 && this.newListItem6 !== '') this.newCourse.list.push(this.newListItem6);
+
+    this.newCourse.imagesURL.push(this.newPhoto1);
+    if (this.newPhoto2 && this.newPhoto2 !== '') this.newCourse.imagesURL.push(this.newPhoto2);
+    if (this.newPhoto3 && this.newPhoto3 !== '') this.newCourse.imagesURL.push(this.newPhoto3);
+    if (this.newPhoto4 && this.newPhoto4 !== '') this.newCourse.imagesURL.push(this.newPhoto4);
+    if (this.newPhoto5 && this.newPhoto5 !== '') this.newCourse.imagesURL.push(this.newPhoto5);
+    if (this.newPhoto6 && this.newPhoto6 !== '') this.newCourse.imagesURL.push(this.newPhoto6);
+
+    this.user.courses.push({
+      id: this.getNewID(),
+      name: this.newCourse.name,
+      pitch: this.newCourse.pitch,
+      description: this.newCourse.description,
+      duration: this.newCourse.duration,
+      list: this.newCourse.list.length !== 0 ? this.newCourse.list : [],
+      price: this.newCourse.price,
+      imagesURL: this.newCourse.imagesURL
+    });
+
+    this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
+      courses: this.user.courses
+    });
+
+    this.newCourse = {duration: '', id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+
+    this.newPrice = '';
+
+    this.newListItem1 = '';
+    this.newListItem2 = '';
+    this.newListItem3 = '';
+    this.newListItem4 = '';
+    this.newListItem5 = '';
+    this.newListItem6 = '';
+
+    this.newPhoto1 = '';
+    this.newPhoto2 = '';
+    this.newPhoto3 = '';
+    this.newPhoto4 = '';
+    this.newPhoto5 = '';
+    this.newPhoto6 = '';
+  }
+
+  deleteCourse(courseToDelete: Course): void {
+    for (let i = 0; i < this.user.courses.length; i++) {
+      const course = this.user.courses[i];
+
+      if (course.id === courseToDelete.id) {
+        this.user.courses.splice(i, 1);
+        this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
+          courses: this.user.courses
+        });
+      }
+    }
   }
 
 }
