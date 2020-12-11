@@ -13,7 +13,7 @@ export class GigsCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newGig: Gig = {id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newGig: Gig = {id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -64,14 +64,14 @@ export class GigsCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNewID(): number {
+  getNewID(): string {
     let max = -1;
-    if (this.user.gigs.length === 0) return 0;
+    if (this.user.gigs.length === 0) return '0';
 
     for (const gig of this.user.gigs) {
-      if (max < gig.id) max = gig.id;
+      if (max < parseInt(gig.id, 10)) max = parseInt(gig.id, 10);
     }
-    return max + 1;
+    return (max + 1).toString();
   }
 
   createGig(): void {
@@ -91,8 +91,9 @@ export class GigsCardComponent implements OnInit {
     if (this.newPhoto5 && this.newPhoto5 !== '') this.newGig.imagesURL.push(this.newPhoto5);
     if (this.newPhoto6 && this.newPhoto6 !== '') this.newGig.imagesURL.push(this.newPhoto6);
 
+    const gigID = this.getNewID();
     this.user.gigs.push({
-      id: this.getNewID(),
+      id: gigID,
       name: this.newGig.name,
       pitch: this.newGig.pitch,
       description: this.newGig.description,
@@ -105,7 +106,9 @@ export class GigsCardComponent implements OnInit {
       gigs: this.user.gigs
     });
 
-    this.newGig = {id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    this.firebaseService.setDatabaseData('gigs/' + gigID, this.newGig);
+
+    this.newGig = {id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 
@@ -135,6 +138,17 @@ export class GigsCardComponent implements OnInit {
         });
       }
     }
+
+    this.firebaseService.setDatabaseData('gigs/' + gigToDelete.id, {
+      id: null,
+      name: null,
+      pitch: null,
+      description: null,
+      list: [],
+      price: null,
+      imagesURL: [],
+      rate: null
+    });
   }
 
 }

@@ -13,7 +13,7 @@ export class CoursesCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newCourse: Course = {duration: '', id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newCourse: Course = {duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -64,14 +64,14 @@ export class CoursesCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getNewID(): number {
+  getNewID(): string {
     let max = -1;
-    if (this.user.courses.length === 0) return 0;
+    if (this.user.courses.length === 0) return '0';
 
     for (const course of this.user.courses) {
-      if (max < course.id) max = course.id;
+      if (max < parseInt(course.id, 10)) max = parseInt(course.id, 10);
     }
-    return max + 1;
+    return (max + 1).toString();
   }
 
   createCourse(): void {
@@ -91,8 +91,9 @@ export class CoursesCardComponent implements OnInit {
     if (this.newPhoto5 && this.newPhoto5 !== '') this.newCourse.imagesURL.push(this.newPhoto5);
     if (this.newPhoto6 && this.newPhoto6 !== '') this.newCourse.imagesURL.push(this.newPhoto6);
 
+    const courseID = this.getNewID();
     this.user.courses.push({
-      id: this.getNewID(),
+      id: courseID,
       name: this.newCourse.name,
       pitch: this.newCourse.pitch,
       description: this.newCourse.description,
@@ -106,7 +107,9 @@ export class CoursesCardComponent implements OnInit {
       courses: this.user.courses
     });
 
-    this.newCourse = {duration: '', id: -1, list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    this.firebaseService.setDatabaseData('courses/' + courseID, this.newCourse);
+
+    this.newCourse = {duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 
@@ -136,6 +139,18 @@ export class CoursesCardComponent implements OnInit {
         });
       }
     }
+
+    this.firebaseService.setDatabaseData('courses/' + courseToDelete.id, {
+      id: null,
+      name: null,
+      pitch: null,
+      description: null,
+      duration: null,
+      list: [],
+      price: null,
+      imagesURL: [],
+      rate: null
+    });
   }
 
 }

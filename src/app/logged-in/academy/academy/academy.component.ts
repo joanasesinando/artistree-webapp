@@ -1,8 +1,15 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
+
+import {FirebaseService} from '../../../_services/firebase.service';
+
 import * as eva from 'eva-icons';
+import _ from 'lodash';
 import {Course} from '../../../_domain/Course';
-const categories = require('src/assets/data/categories.json').categories;
+import {User} from '../../../_domain/User';
+
+
+const CATEGORY_DEFAULT = 'All Categories';
 
 @Component({
   selector: 'app-academy',
@@ -11,127 +18,224 @@ const categories = require('src/assets/data/categories.json').categories;
 })
 export class AcademyComponent implements OnInit, AfterViewInit {
 
+  currentUser: User = {handler: '', joiningTimestamp: 0, name: '', type: '', uid: '', interests: [], location: ''};
+
   search;
   @ViewChild('form', { static: false }) form: NgForm;
 
-  filterItemsCategories: {name: string, total: number}[] = [];
-  filterItemsDuration: {name: string, total: number}[] = [
-    {
-      name: 'A few hours',
-      total: 12
-    },
-    {
-      name: 'Less than 1 week',
-      total: 12
-    },
-    {
-      name: '1 week',
-      total: 12
-    },
-    {
-      name: '2 weeks',
-      total: 12
-    },
-    {
-      name: '3 weeks',
-      total: 12
-    },
-    {
-      name: 'Between 1 - 3 months',
-      total: 12
-    },
-    {
-      name: 'Between 3 - 6 months',
-      total: 12
-    },
-    {
-      name: 'Between 6 - 12 months',
-      total: 12
-    },
-    {
-      name: 'More than 1 year',
-      total: 12
-    },
-  ];
-  sortItems: string[] = ['Popularity', 'Best selling', 'Newest'];
+  coursesList: Course[] = [];
+  coursesToShow: Course[] = [];
+  coursesAfterSplit: Course[] = [];
 
-  coursesList: Course[] = [ // TODO: ir buscar todos os cursos
-    {
-      id: 1,
-      name: 'Lorem ipsum dolor',
-      pitch: 'sdfgd',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      id: 2,
-      name: 'Lorem ipsum dolor',
-      pitch: 'sdfgd',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-    {
-      id: 3,
-      name: 'Lorem ipsum dolor',
-      pitch: 'sdfgd',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      duration: '3 weeks',
-      price: 64.99,
-      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
-    },
-  ];
+  categoryFilters: { name: string, total: number }[] = [];
+  selectedCategory = CATEGORY_DEFAULT;
 
-  courses: Course[] = [];
+  selectedFilters: {name: string, type: string}[] = [];
+  sortItems: string[] = ['Rate', 'Popularity', 'Best matching', 'Newest'];
 
-  constructor() {
-    this.initializeFilterByCategory();
+  numberCoursesShowing = 20;
+  currentSorting = this.sortItems[0];
+  loading = true;
+
+  constructor(private firebaseService: FirebaseService) {
+    firebaseService.auth.onAuthStateChanged(user => {
+      this.firebaseService.getUserInfo(user.uid).then(userInfo => {
+        this.currentUser.interests = userInfo.interests;
+        if (userInfo.location) this.currentUser.location = userInfo.location;
+      });
+    });
   }
 
   ngOnInit(): void {
-    this.filterCourses(); // TODO: meter na função de load de cursos (no fim)
+    this.loadCourses();
   }
 
   ngAfterViewInit(): void {
     eva.replace();
   }
 
-  initializeFilterByCategory(): void {
-    this.filterItemsCategories.push({ name: 'All Categories', total: this.courses.length});
-    for (const category of categories) {
-      // TODO: get total for a specific category
-      const total = 12;
-      this.filterItemsCategories.push({ name: category, total});
+  loadCourses(): void {
+    this.getAllCourses().then(() => {
+      this.filterCourses();
+      this.loading = false;
+    });
+  }
+
+  getAllCourses(): Promise<void> {
+    return this.firebaseService.getDatabaseData('courses').then(courses => {
+      for (const key in courses) {
+        if (Object.prototype.hasOwnProperty.call(courses, key)) {
+          const course = courses[key] as Course;
+          this.coursesList.push(course);
+        }
+      }
+    });
+  }
+
+  splitCourses(max: number, courses: Course[]): void {
+    courses.splice(max, courses.length - max);
+  }
+
+  loadMoreCourses(): void {
+    this.numberCoursesShowing += 20;
+    this.coursesAfterSplit = _.cloneDeep(this.coursesToShow);
+    this.splitCourses(this.numberCoursesShowing, this.coursesAfterSplit);
+  }
+
+  doSearch(): void {
+    this.selectFilter(this.search, 'search');
+  }
+
+  doSort(type: string): void {
+    this.currentSorting = type;
+    switch (type) {
+      case 'Rate':
+        this.coursesToShow.sort((a, b) => b.rate - a.rate);
+        this.coursesAfterSplit = _.cloneDeep(this.coursesToShow);
+        this.splitCourses(this.numberCoursesShowing, this.coursesAfterSplit);
+        break;
+
+      case 'Popularity': // TODO
+        // this.artistsToShow.sort((a, b) => b.popularity - a.popularity);
+        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
+
+      case 'Best matching': // TODO
+        // this.artistsToShow.sort((a, b) => {
+        //   const aScore = this.getInterestsMatchingScore(a);
+        //   const bScore = this.getInterestsMatchingScore(b);
+        //
+        //   if (bScore - aScore === 0)
+        //     return this.getLocationMatchingScore(b) - this.getLocationMatchingScore(a);
+        //   return bScore - aScore;
+        // });
+        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
+
+      case 'Newest': // TODO
+        // this.artistsToShow.sort((a, b) => a.joiningTimestamp - b.joiningTimestamp);
+        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
+        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+        break;
     }
+  }
+
+  parseForSearching(query: string): string[] {
+    let res: string[];
+    let temp: string;
+
+    res = query.toLowerCase().split(' ');
+
+    temp = query.replace(' ', '').toLowerCase();
+    if (!res.includes(temp)) res.push(temp);
+
+    temp = query.toLowerCase();
+    if (!res.includes(temp)) res.push(temp);
+    return res;
+  }
+
+  parseForSearchingList(queries: string[]): string[] {
+    let res: string[] = [];
+    for (const query of queries) {
+      res = res.concat(this.parseForSearching(query));
+    }
+    return res;
+  }
+
+  isQueryTrueSearch(course: Course): boolean {
+    return !this.search ||
+      !!this.parseForSearching(course.name).find(a => a.includes(this.search.toLowerCase())) ||
+      !!this.parseForSearching(course.pitch).find(a => a.includes(this.search.toLowerCase())) ||
+      !!this.parseForSearching(course.description).find(a => a.includes(this.search.toLowerCase())) ||
+      // tslint:disable-next-line:max-line-length
+      (course.list && !!this.parseForSearchingList(course.list).find(a => a.includes(this.search.toLowerCase())));
+  }
+
+  filterCourses(): void {
+    this.coursesToShow = [];
+    for (const course of this.coursesList) {
+      if (this.isQueryTrueSearch(course))
+        this.coursesToShow.push(course);
+    }
+
+    this.doSort(this.currentSorting);
+
+    // this.getFiltersByCategory();
+    // this.getFiltersByLocation();
+  }
+
+  selectFilter(filter: string, type: string): void {
+    // tslint:disable-next-line:prefer-const
+    let index;
+
+    switch (type) {
+      case 'category': // TODO
+        // index = this.getFilterIndex(this.selectedCategory, this.selectedFilters, type);
+        // if (index !== -1) // one already selected
+        //   this.selectedFilters.splice(index, 1);
+        //
+        // if (filter !== CATEGORY_DEFAULT)
+        //   this.selectedFilters.push({ name: filter, type });
+        //
+        // this.selectedCategory = filter;
+        // this.filterArtists();
+        break;
+
+      case 'search':
+        for (const f of this.selectedFilters) {
+          if (f.type === 'search') // one already selected
+            this.selectedFilters.splice(0, 1);
+        }
+
+        if (filter !== '')
+          this.selectedFilters.push({ name: filter, type });
+
+        this.filterCourses();
+        break;
+
+      case 'budget':
+        // index = this.getFilterIndex(this.selectedLocation, this.selectedFilters, type);
+        // if (index !== -1) // one already selected
+        //   this.selectedFilters.splice(index, 1);
+        //
+        // if (filter !== LOCATION_DEFAULT)
+        //   this.selectedFilters.push({ name: filter, type });
+        //
+        // this.selectedLocation = filter;
+        // this.filterArtists();
+        break;
+    }
+  }
+
+  deleteFilter(filter: string, type: string): void {
+    switch (type) {
+      case 'category': // TODO
+        // this.selectedCategory = CATEGORY_DEFAULT;
+        break;
+
+      case 'search':
+        this.search = '';
+        break;
+
+      case 'budget': // TODO
+        // this.selectedLocation = LOCATION_DEFAULT;
+        break;
+    }
+
+    this.selectedFilters.splice(this.getFilterIndex(filter, this.selectedFilters, type), 1);
+    this.filterCourses();
+  }
+
+  getFilterIndex(filter: string, array: {name: string, type: string}[], type: string): number {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i].name === filter && array[i].type === type) return i;
+    }
+    return -1;
   }
 
   formatNumberWithCommas(n: number): string {
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-
-  loadMoreArtists(): void {
-    // TODO: load more 20 artists
-  }
-
-  doSearch(): void {
-    this.filterCourses();
-  }
-
-  isQueryTrue(course: Course): boolean {
-    return !this.search || !!course.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
-      !!course.description.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()));
-  }
-
-  filterCourses(): void {
-    this.courses = [];
-    for (const course of this.coursesList) {
-      if (this.isQueryTrue(course)) {
-        this.courses.push(course);
-      }
-    }
-  }
-
 }

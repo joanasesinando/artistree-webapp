@@ -18,51 +18,72 @@
       name="searchInputAcademy"
       placeholder="Search course"
       [(ngModel)]="search"
-      #inputSearch="ngModel"
-      (search)="doSearch()">
+      (ngModelChange)="doSearch()"
+      #inputSearch="ngModel">
     <i class="icon" data-eva="search"></i>
     <label for="searchInputAcademy">Search course</label>
   </div>
 
   <!-- Filters -->
   <div class="filters d-flex align-items-center mb-4">
-    <app-filter
-      [name]="'Category'"
-      [items]="filterItemsCategories"
-      [marginRight]="true"
-      [type]="'list'">
-    </app-filter>
+<!--    <app-filter-list-->
+<!--      [name]="'Category'"-->
+<!--      [items]="categoryFilters"-->
+<!--      [selectedItem]="selectedCategory"-->
+<!--      [marginRight]="true"-->
+<!--      (itemSelected)="selectFilter($event, 'category')">-->
+<!--    </app-filter-list>-->
 
-    <app-filter
-      [name]="'Budget'"
-      [marginRight]="true"
-      [type]="'budget'">
-    </app-filter>
+<!--    <app-filter-->
+<!--      [name]="'Budget'"-->
+<!--      [marginRight]="true"-->
+<!--      [type]="'budget'">-->
+<!--    </app-filter>-->
 
-    <app-filter
-      [name]="'Duration'"
-      [items]="filterItemsDuration"
-      [type]="'list'">
-    </app-filter>
+<!--    <app-filter-->
+<!--      [name]="'Duration'"-->
+<!--      [items]="filterItemsDuration"-->
+<!--      [type]="'list'">-->
+<!--    </app-filter>-->
+    <!-- TODO: category, budget, duration, rate -->
   </div>
 
-  <div class="d-flex align-items-center justify-content-between">
+  <!-- Pills -->
+  <div class="filter-pills w-100 d-flex align-items-center flex-wrap">
+    <app-filter-pill *ngFor="let filter of selectedFilters; let last = last"
+                     [label]="filter.name" [type]="filter.type" [marginRight]="!last"
+                     (deleteClicked)="deleteFilter($event, filter.type)">
+    </app-filter-pill>
+  </div>
+
+  <div *ngIf="this.coursesAfterSplit.length !== 0" class="d-flex align-items-center justify-content-between">
     <!-- Total -->
-    <span *ngIf="courses.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Courses found</span>
-    <span *ngIf="courses.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Course found</span>
+    <span *ngIf="coursesToShow.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesToShow.length)}} Courses found</span>
+    <span *ngIf="coursesToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesToShow.length)}} Courses found</span>
 
     <!-- Sort -->
-    <app-sort-by [items]="sortItems"></app-sort-by>
+    <app-sort-by
+      [items]="sortItems"
+      [selectedItem]="sortItems[0]"
+      (itemSelected)="doSort($event)">
+    </app-sort-by>
   </div>
 
   <!-- Courses -->
-  <div class="w-100 d-flex align-items-center flex-wrap mt-3">
-    <div *ngFor="let course of courses" class="col-lg-3 col-md-6 col-sm-12">
+  <div class="w-100 d-flex align-items-center flex-wrap mt-3 position-relative">
+
+    <div *ngIf="loading" class="center-x">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Finding courses...</span>
+      </div>
+    </div>
+
+    <div *ngFor="let course of coursesAfterSplit" class="col-lg-3 col-md-6 col-sm-12">
       <app-course-card  [course]="course"></app-course-card>
     </div>
   </div>
 
   <!-- Load more -->
-  <p *ngIf="courses.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
+  <p *ngIf="coursesToShow.length > 20 && coursesAfterSplit < coursesToShow" class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
 
 </section>
