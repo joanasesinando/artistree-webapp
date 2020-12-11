@@ -1,0 +1,82 @@
+
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$imgHeight: 10rem;
+$imgHeightMobile: 12rem;
+
+.portfolio-img {
+  height: $imgHeight;
+  @include media-breakpoint-down(md) {
+    height: $imgHeightMobile;
+  }
+
+  &:hover {
+    img {
+      opacity: .8;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: $imgHeight;
+    object-fit: cover;
+
+    @include media-breakpoint-down(md) {
+      height: $imgHeightMobile;
+    }
+  }
+}
+
+.carousel {
+  height: 21.5rem;
+  @include media-breakpoint-down(md) {
+    height: 25.5rem;
+  }
+  @include media-breakpoint-down(xs) {
+    height: 12.5rem;
+  }
+}
+
+.delete, .delete-close {
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+
+  svg {
+    fill: get-color(danger, 3);
+  }
+
+  &:hover {
+    svg {
+      fill: get-color(danger, 1);
+    }
+  }
+}
+
+.delete-img {
+  cursor: pointer;
+  height: 2rem;
+  width: calc(100% - .5rem);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: get-color(danger, 3);
+  transition: all 150ms ease-in-out;
+
+  svg {
+    fill: white;
+  }
+
+  &:hover {
+    background-color: darken(get-color(danger, 3), 5);
+    box-shadow: 0 .5rem 1rem 0 rgba(44, 51, 73, 0.1);
+  }
+}
+
+.pr-2.pl-2 {
+  .delete-img {
+    width: calc(100% - 1rem);
+  }
+}

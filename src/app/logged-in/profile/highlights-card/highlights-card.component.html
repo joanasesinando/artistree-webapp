@@ -2,11 +2,6 @@
 
   <div class="highlights">
 
-    <!-- Edit btn -->
-    <div data-toggle="modal" data-target="#edit-interests-card">
-      <i *ngIf="isCurrent" class="edit-icon" data-eva="edit"></i>
-    </div>
-
     <h6 class="subtitle">Highlights</h6>
     <span *ngIf="user.highlights.length === 0" class="text-grey font-size-3">No highlights to show</span>
 
@@ -17,8 +12,8 @@
         <span class="title d-block bold font-size-3 mb-1">{{highlight.title}}</span>
         <span class="description d-block font-size-3">{{highlight.description}}</span>
 
-        <div (click)="deleteHighlight(highlight)">
-          <i class="delete {{highlight.color}}" data-eva="close"></i>
+        <div class="delete {{highlight.color}}" (click)="deleteHighlight(highlight)">
+          <i data-eva="close"></i>
         </div>
       </div>
 
@@ -62,7 +57,7 @@
           <span class="d-block text-grey semibold mt-3">Description</span>
           <app-input-textarea
             [id]="'createHighlightDescription'"
-            [placeholder]="'What do you want to highligh?'"
+            [placeholder]="'What do you want to highlight?'"
             [rows]="5"
             [icon]="'menu-2-outline'"
             [(value)]="newHighlight.description"

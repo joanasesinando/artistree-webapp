@@ -1,0 +1,29 @@
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 1;
+
+  .icon-wrapper {
+    background-color: white;
+    padding: .4rem .8rem;
+    opacity: 1;
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0, 0, 0, 0.04);
+    border-radius: 16px;
+  }
+}
+
+.carousel-control-next .icon-wrapper {
+  position: absolute;
+  right: -15px;
+}
+
+.carousel-control-prev .icon-wrapper {
+  position: absolute;
+  left: -15px;
+}
+
+.carousel-control-next:focus,
+.carousel-control-next:hover,
+.carousel-control-prev:focus,
+.carousel-control-prev:hover {
+  opacity: 1;
+}

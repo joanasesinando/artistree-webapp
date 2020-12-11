@@ -13,6 +13,7 @@ import {SharedModule} from '../../shared/shared.module';
 import { ReviewsCardComponent } from './reviews-card/reviews-card.component';
 import { DescriptionCardComponent } from './description-card/description-card.component';
 import { HighlightsCardComponent } from './highlights-card/highlights-card.component';
+import { PortfolioComponent } from './portfolio/portfolio.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { HighlightsCardComponent } from './highlights-card/highlights-card.compo
       ProfileRegularComponent,
       ReviewsCardComponent,
       DescriptionCardComponent,
-      HighlightsCardComponent
+      HighlightsCardComponent,
+      PortfolioComponent
     ],
     exports: [
         PillComponent

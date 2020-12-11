@@ -1,0 +1,102 @@
+<div class="card-att mt-4 mt-md-0">
+
+  <div *ngIf="!deleteMode && this.user.portfolio.length > 0" class="delete" (click)="this.deleteMode = true">
+    <i *ngIf="isCurrent" data-eva="trash"></i>
+  </div>
+
+  <div *ngIf="deleteMode" class="delete-close" (click)="deleteMode = false">
+    <i *ngIf="isCurrent" data-eva="close"></i>
+  </div>
+
+  <h6 class="subtitle">Portfolio</h6>
+
+  <div class="portfolio position-relative">
+    <span *ngIf="!user.portfolio || user.portfolio.length === 0" class="text-grey font-size-3">No images to show</span>
+
+    <div *ngIf="user.portfolio && user.portfolio.length > 0"
+         id="portfolioCarousel" class="w-100 carousel slide position-relative" data-ride="carousel">
+
+      <div class="carousel-inner">
+
+        <div *ngFor="let portfolioSection of portfolioDivided; let first = first"
+             class="carousel-item" [ngClass]="{'active': first}">
+          <div class="d-flex align-items-center flex-wrap">
+
+            <div *ngFor="let imageURL of portfolioSection; let i = index"
+                 class="col-lg-4 col-md-6 col-sm-6 col-12 px-0 position-relative mb-3"
+                 [ngClass]="{ 'pr-2': getPadding(i, 'right'), 'pl-2': getPadding(i, 'left') }">
+
+              <a class="portfolio-img" href="{{imageURL}}" data-lightbox="portfolio">
+                <img src="{{imageURL}}" alt="portfolio image">
+              </a>
+
+              <div *ngIf="deleteMode" class="delete-img" (click)="deleteImage(imageURL)"
+                   [ngClass]="{ 'mr-2': getPadding(i, 'right'), 'ml-2': getPadding(i, 'left') }">
+                <i class="center-xy" data-eva="trash"></i>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <a *ngIf="this.portfolioDivided.length > 1" class="carousel-control-prev" href="#portfolioCarousel" role="button" data-slide="prev">
+        <div class="icon-wrapper">
+          <i data-eva="arrow-back-outline"></i>
+        </div>
+      </a>
+      <a *ngIf="this.portfolioDivided.length > 1" class="carousel-control-next" href="#portfolioCarousel" role="button" data-slide="next">
+        <div class="icon-wrapper">
+          <i data-eva="arrow-forward-outline"></i>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Add -->
+    <button *ngIf="isCurrent" class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
+            data-toggle="modal" data-target="#edit-portfolio-card">
+      <i class="icon mr-2" data-eva="plus-square-outline" style="fill: white"></i> Add image</button>
+
+  </div>
+
+</div> <!-- TODO: delete image on hover-->
+
+<div class="modal fade" id="edit-portfolio-card" tabindex="-1">
+
+  <div class="modal-dialog modal-sm-att">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Add Image'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <form (submit)="addImage()">
+          <span class="text-grey semibold">Portfolio Image URL</span>
+
+          <!-- Image -->
+          <app-input-text
+            [id]="'profileInputPortfolioImage'"
+            [placeholder]="'Portfolio image URL'"
+            [icon]="'image-outline'"
+            [marginTop]="'mt-2'"
+            [(value)]="newImage">
+          </app-input-text>
+
+          <button class="btn btn-primary btn-block btn-lg mt-3" type="submit"
+                  (click)="addImage()" data-dismiss="modal">Update</button>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
