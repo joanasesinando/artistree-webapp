@@ -1,0 +1,61 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+.main {
+  height: 15rem;
+  background-color: white;
+  box-shadow: 0 4.74764px 9.49528px rgba(17, 17, 17, 0.04);
+
+  &:hover, &:focus {
+    outline: none;
+  }
+
+  &.rounded, {
+    border-radius: 18.9906px !important;
+  }
+
+  .rounded-top-right {
+    border-top-right-radius: 18.9906px;
+  }
+
+  .rounded-top-left {
+    border-top-left-radius: 18.9906px;
+  }
+
+  .content {
+    height: 8rem;
+  }
+
+  .image {
+    width: 100%;
+
+    img {
+      height: 8rem;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .avatar {
+    height: 1.5rem;
+    width: 1.5rem;
+
+    img {
+      width: 100%;
+      height: 1.5rem;
+      object-fit: cover;
+    }
+  }
+
+  .title {
+    font-size: .8rem;
+  }
+
+  .job {
+    font-size: .65rem;
+    margin-left: 2.05rem;
+  }
+  .tags {
+    margin-left: 2rem;
+  }
+}

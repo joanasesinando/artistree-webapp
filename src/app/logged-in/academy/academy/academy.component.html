@@ -59,7 +59,7 @@
   <div *ngIf="this.coursesAfterSplit.length !== 0" class="d-flex align-items-center justify-content-between">
     <!-- Total -->
     <span *ngIf="coursesToShow.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesToShow.length)}} Courses found</span>
-    <span *ngIf="coursesToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesToShow.length)}} Courses found</span>
+    <span *ngIf="coursesToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesToShow.length)}} Course found</span>
 
     <!-- Sort -->
     <app-sort-by

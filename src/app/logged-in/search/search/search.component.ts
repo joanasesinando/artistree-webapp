@@ -27,8 +27,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
     sortItems: ['Popularity', 'Best selling', 'Newest']
   };
 
-  filterItemsCategory: {name: string, total: number}[] = [];
-  filterItemsDuration: {name: string, total: number}[] = [
+  filterItemsCategory: { name: string, total: number }[] = [];
+  filterItemsDuration: { name: string, total: number }[] = [
     {
       name: 'A few hours',
       total: 12
@@ -73,7 +73,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
 
   gigsList: Gig[] = [ // TODO: ir buscar todos os gigs
     {
-      id: 1,
+      id: '0',
       name: 'Ned gig',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
@@ -81,7 +81,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       pitch: 'sdfghfd'
     },
     {
-      id: 2,
+      id: '1',
       name: 'Ned gig',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
@@ -89,18 +89,18 @@ export class SearchComponent implements OnInit, AfterViewInit {
       pitch: 'sdfghfd'
     },
     {
-      id: 3,
+      id: '2',
       name: 'Ned gig',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'],
       pitch: 'sdfghfd'
-    },
+    }
   ];
 
   coursesList: Course[] = [ // TODO: ir buscar todos os courses
     {
-      id: 1,
+      id: '0',
       pitch: 'sdfgh',
       name: 'Lorem ipsum dolor',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
@@ -138,11 +138,11 @@ export class SearchComponent implements OnInit, AfterViewInit {
   }
 
   initializeFilterByCategory(): void {
-    this.filterItemsCategory.push({ name: 'All Categories', total: this.artists.length + this.gigs.length + this.courses.length});
+    this.filterItemsCategory.push({name: 'All Categories', total: this.artists.length + this.gigs.length + this.courses.length});
     for (const category of categories) {
       // TODO: get total for a specific category
       const total = 1200;
-      this.filterItemsCategory.push({ name: category, total});
+      this.filterItemsCategory.push({name: category, total});
     }
   }
 

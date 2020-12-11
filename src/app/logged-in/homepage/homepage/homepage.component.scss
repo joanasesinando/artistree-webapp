@@ -1,0 +1,20 @@
+$avatar-height: 2rem;
+
+.feed {
+  letter-spacing: 0.505197px;
+
+  .avatar {
+    width: $avatar-height;
+    height: $avatar-height;
+
+    img {
+      width: 100%;
+      height: $avatar-height;
+      object-fit: cover;
+    }
+  }
+
+  .text {
+    padding-left: calc(#{$avatar-height} + .5rem);
+  }
+}
