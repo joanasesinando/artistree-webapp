@@ -7,6 +7,7 @@ import * as eva from 'eva-icons';
 import _ from 'lodash';
 import {Gig} from '../../../_domain/Gig';
 import {User} from '../../../_domain/User';
+import {Course} from '../../../_domain/Course';
 
 const CATEGORY_DEFAULT = 'All Categories';
 const RATE_DEFAULT = 'All Rates';
@@ -98,6 +99,7 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
 
   getFiltersByRate(): void {
     const rates: { name: string, total: number }[] = [
+      { name: 'Unrated', total: 0 },
       { name: '5⭐', total: 0 },
       { name: '4⭐', total: 0 },
       { name: '3⭐', total: 0 },
@@ -116,13 +118,23 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
       if (gig.rate) {
         const rate = gig.rate.toString();
         dict[rate] ? dict[rate]++ : dict[rate] = 1;
+
+      } else {
+        const rate = 'Unrated';
+        dict[rate] ? dict[rate]++ : dict[rate] = 1;
       }
     }
 
     let total = 0;
     for (const rate of rates) {
-      rate.total = dict[rate.name[0]];
-      total += dict[rate.name[0]];
+      if (rate.name === 'Unrated') {
+        rate.total = dict[rate.name];
+        total += dict[rate.name];
+
+      } else {
+        rate.total = dict[rate.name[0]];
+        total += dict[rate.name[0]];
+      }
     }
 
     rates.unshift({ name: RATE_DEFAULT, total });
@@ -229,7 +241,8 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
 
   isQueryTrueRate(gig: Gig): boolean {
     return this.selectedRate === RATE_DEFAULT ||
-      (gig.rate && !!this.parseForSearching(this.getRate(gig.rate)).find(a => a.includes(this.selectedRate.toLowerCase())));
+      (gig.rate && !!this.parseForSearching(this.getRate(gig.rate)).find(a => a.includes(this.selectedRate.toLowerCase()))) ||
+      (!gig.rate && !!this.parseForSearching('Unrated').find(a => a.includes(this.selectedRate.toLowerCase())));
   }
 
   filterGigs(): void {
@@ -290,15 +303,15 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   deleteFilter(filter: string, type: string): void {
     switch (type) {
       case 'category':
-        // this.selectedCategory = CATEGORY_DEFAULT;
+        this.selectedCategory = CATEGORY_DEFAULT;
         break;
 
       case 'search':
         this.search = '';
         break;
 
-      case 'location':
-        // this.selectedLocation = LOCATION_DEFAULT;
+      case 'rate':
+        this.selectedRate = RATE_DEFAULT;
         break;
     }
 

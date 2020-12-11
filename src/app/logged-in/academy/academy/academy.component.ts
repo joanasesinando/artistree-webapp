@@ -7,9 +7,10 @@ import * as eva from 'eva-icons';
 import _ from 'lodash';
 import {Course} from '../../../_domain/Course';
 import {User} from '../../../_domain/User';
-
+import {Gig} from '../../../_domain/Gig';
 
 const CATEGORY_DEFAULT = 'All Categories';
+const RATE_DEFAULT = 'All Rates';
 
 @Component({
   selector: 'app-academy',
@@ -32,6 +33,9 @@ export class AcademyComponent implements OnInit, AfterViewInit {
 
   selectedFilters: {name: string, type: string}[] = [];
   sortItems: string[] = ['Rate', 'Popularity', 'Best matching', 'Newest'];
+
+  rateFilters: { name: string, total: number }[] = [];
+  selectedRate = RATE_DEFAULT;
 
   numberCoursesShowing = 20;
   currentSorting = this.sortItems[0];
@@ -70,6 +74,78 @@ export class AcademyComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  getFiltersByCategory(): void {
+    let categories: { name: string, total: number }[] = [];
+    const dict = {};
+
+    for (const course of this.coursesList) {
+      if (!this.existsInArrayWithObjects(categories, course.category))
+        categories.push({ name: course.category, total: 0 });
+      dict[course.category] ? dict[course.category]++ : dict[course.category] = 1;
+    }
+
+    let total = 0;
+    for (const category of categories) {
+      category.total = dict[category.name];
+      total += dict[category.name];
+    }
+
+    categories = categories.sort((a, b) => a.name <= b.name ? -1 : 1);
+    categories.unshift({ name: CATEGORY_DEFAULT, total });
+    this.categoryFilters = categories;
+  }
+
+  getFiltersByRate(): void {
+    const rates: { name: string, total: number }[] = [
+      { name: 'Unrated', total: 0 },
+      { name: '5⭐', total: 0 },
+      { name: '4⭐', total: 0 },
+      { name: '3⭐', total: 0 },
+      { name: '2⭐', total: 0 },
+      { name: '1⭐', total: 0 },
+    ];
+    const dict = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+
+    for (const course of this.coursesList) {
+      if (course.rate) {
+        const rate = course.rate.toString();
+        dict[rate] ? dict[rate]++ : dict[rate] = 1;
+
+      } else {
+        const rate = 'Unrated';
+        dict[rate] ? dict[rate]++ : dict[rate] = 1;
+      }
+    }
+
+    let total = 0;
+    for (const rate of rates) {
+      if (rate.name === 'Unrated') {
+        rate.total = dict[rate.name];
+        total += dict[rate.name];
+
+      } else {
+        rate.total = dict[rate.name[0]];
+        total += dict[rate.name[0]];
+      }
+    }
+
+    rates.unshift({ name: RATE_DEFAULT, total });
+    this.rateFilters = rates;
+  }
+
+  existsInArrayWithObjects(array: {name: string, total: number}[], name: string): boolean {
+    for (const item of array) {
+      if (item.name === name) return true;
+    }
+    return false;
   }
 
   splitCourses(max: number, courses: Course[]): void {
@@ -144,6 +220,10 @@ export class AcademyComponent implements OnInit, AfterViewInit {
     return res;
   }
 
+  getRate(rate: number): string {
+    return rate.toString() + '⭐';
+  }
+
   isQueryTrueSearch(course: Course): boolean {
     return !this.search ||
       !!this.parseForSearching(course.name).find(a => a.includes(this.search.toLowerCase())) ||
@@ -154,17 +234,28 @@ export class AcademyComponent implements OnInit, AfterViewInit {
       (course.list && !!this.parseForSearchingList(course.list).find(a => a.includes(this.search.toLowerCase())));
   }
 
+  isQueryTrueCategory(course: Course): boolean {
+    return this.selectedCategory === CATEGORY_DEFAULT ||
+      !!this.parseForSearching(course.category).find(a => a.includes(this.selectedCategory.toLowerCase()));
+  }
+
+  isQueryTrueRate(course: Course): boolean {
+    return this.selectedRate === RATE_DEFAULT ||
+      (course.rate && !!this.parseForSearching(this.getRate(course.rate)).find(a => a.includes(this.selectedRate.toLowerCase()))) ||
+      (!course.rate && !!this.parseForSearching('Unrated').find(a => a.includes(this.selectedRate.toLowerCase())));
+  }
+
   filterCourses(): void {
     this.coursesToShow = [];
     for (const course of this.coursesList) {
-      if (this.isQueryTrueSearch(course))
+      if (this.isQueryTrueSearch(course) && this.isQueryTrueCategory(course) && this.isQueryTrueRate(course))
         this.coursesToShow.push(course);
     }
 
     this.doSort(this.currentSorting);
 
-    // this.getFiltersByCategory();
-    // this.getFiltersByLocation();
+    this.getFiltersByCategory();
+    this.getFiltersByRate();
   }
 
   selectFilter(filter: string, type: string): void {
@@ -172,16 +263,16 @@ export class AcademyComponent implements OnInit, AfterViewInit {
     let index;
 
     switch (type) {
-      case 'category': // TODO
-        // index = this.getFilterIndex(this.selectedCategory, this.selectedFilters, type);
-        // if (index !== -1) // one already selected
-        //   this.selectedFilters.splice(index, 1);
-        //
-        // if (filter !== CATEGORY_DEFAULT)
-        //   this.selectedFilters.push({ name: filter, type });
-        //
-        // this.selectedCategory = filter;
-        // this.filterArtists();
+      case 'category':
+        index = this.getFilterIndex(this.selectedCategory, this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== CATEGORY_DEFAULT)
+          this.selectedFilters.push({ name: filter, type });
+
+        this.selectedCategory = filter;
+        this.filterCourses();
         break;
 
       case 'search':
@@ -196,32 +287,32 @@ export class AcademyComponent implements OnInit, AfterViewInit {
         this.filterCourses();
         break;
 
-      case 'budget':
-        // index = this.getFilterIndex(this.selectedLocation, this.selectedFilters, type);
-        // if (index !== -1) // one already selected
-        //   this.selectedFilters.splice(index, 1);
-        //
-        // if (filter !== LOCATION_DEFAULT)
-        //   this.selectedFilters.push({ name: filter, type });
-        //
-        // this.selectedLocation = filter;
-        // this.filterArtists();
+      case 'rate':
+        index = this.getFilterIndex(this.selectedRate, this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== RATE_DEFAULT)
+          this.selectedFilters.push({ name: filter, type });
+
+        this.selectedRate = filter;
+        this.filterCourses();
         break;
     }
   }
 
   deleteFilter(filter: string, type: string): void {
     switch (type) {
-      case 'category': // TODO
-        // this.selectedCategory = CATEGORY_DEFAULT;
+      case 'category':
+        this.selectedCategory = CATEGORY_DEFAULT;
         break;
 
       case 'search':
         this.search = '';
         break;
 
-      case 'budget': // TODO
-        // this.selectedLocation = LOCATION_DEFAULT;
+      case 'rate':
+        this.selectedRate = RATE_DEFAULT;
         break;
     }
 

@@ -26,13 +26,21 @@
 
   <!-- Filters -->
   <div class="filters d-flex align-items-center mb-4">
-<!--    <app-filter-list-->
-<!--      [name]="'Category'"-->
-<!--      [items]="categoryFilters"-->
-<!--      [selectedItem]="selectedCategory"-->
-<!--      [marginRight]="true"-->
-<!--      (itemSelected)="selectFilter($event, 'category')">-->
-<!--    </app-filter-list>-->
+    <app-filter-list
+      [name]="'Category'"
+      [items]="categoryFilters"
+      [selectedItem]="selectedCategory"
+      [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'category')">
+    </app-filter-list>
+
+    <app-filter-list
+      [name]="'Rate'"
+      [items]="rateFilters"
+      [selectedItem]="selectedRate"
+      [rate]="true"
+      (itemSelected)="selectFilter($event, 'rate')">
+    </app-filter-list>
 
 <!--    <app-filter-->
 <!--      [name]="'Budget'"-->
@@ -45,7 +53,7 @@
 <!--      [items]="filterItemsDuration"-->
 <!--      [type]="'list'">-->
 <!--    </app-filter>-->
-    <!-- TODO: category, budget, duration, rate -->
+    <!-- TODO: budget, duration, rate -->
   </div>
 
   <!-- Pills -->
