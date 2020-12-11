@@ -147,6 +147,7 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   isQueryTrueSearch(course: Course): boolean {
     return !this.search ||
       !!this.parseForSearching(course.name).find(a => a.includes(this.search.toLowerCase())) ||
+      !!this.parseForSearching(course.category).find(a => a.includes(this.search.toLowerCase())) ||
       !!this.parseForSearching(course.pitch).find(a => a.includes(this.search.toLowerCase())) ||
       !!this.parseForSearching(course.description).find(a => a.includes(this.search.toLowerCase())) ||
       // tslint:disable-next-line:max-line-length

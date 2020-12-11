@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 
 import {FirebaseService} from '../../../_services/firebase.service';
 
@@ -11,7 +11,7 @@ import {User} from '../../../_domain/User';
   templateUrl: './reviews-card.component.html',
   styleUrls: ['./reviews-card.component.scss']
 })
-export class ReviewsCardComponent implements OnInit {
+export class ReviewsCardComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
   @Input() user: User;
@@ -32,6 +32,10 @@ export class ReviewsCardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.loadReviews();
     this.doSort(this.currentSorting);
+  }
+
+  ngAfterViewInit(): void {
+    eva.replace();
   }
 
   async loadReviews(): Promise<void> {

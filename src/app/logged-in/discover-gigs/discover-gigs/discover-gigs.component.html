@@ -26,28 +26,31 @@
 
   <!-- Filters -->
   <div class="filters d-flex align-items-center mb-4">
-<!--    <app-filter-list-->
-<!--      [name]="'Category'"-->
-<!--      [items]="categoryFilters"-->
-<!--      [selectedItem]="selectedCategory"-->
-<!--      [marginRight]="true"-->
-<!--      (itemSelected)="selectFilter($event, 'category')">-->
-<!--    </app-filter-list>-->
+    <app-filter-list
+      [name]="'Category'"
+      [items]="categoryFilters"
+      [selectedItem]="selectedCategory"
+      [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'category')">
+    </app-filter-list>
 
-<!--    <app-filter-list-->
-<!--      [name]="'Location'"-->
-<!--      [items]="locationFilters"-->
-<!--      [selectedItem]="selectedLocation"-->
-<!--      (itemSelected)="selectFilter($event, 'location')">-->
-<!--    </app-filter-list>--> <!-- TODO: category, budget -->
+    <app-filter-list
+      [name]="'Rate'"
+      [items]="rateFilters"
+      [selectedItem]="selectedRate"
+      [rate]="true"
+      (itemSelected)="selectFilter($event, 'rate')">
+    </app-filter-list>
+
+    <!-- TODO: budget -->
 
   </div>
 
   <!-- Pills -->
   <div class="filter-pills w-100 d-flex align-items-center flex-wrap">
     <app-filter-pill *ngFor="let filter of selectedFilters; let last = last"
-                     [label]="filter.name" [type]="filter.type" [marginRight]="!last"
-                     (deleteClicked)="deleteFilter($event, filter.type)">
+       [label]="filter.name" [type]="filter.type" [marginRight]="!last"
+       (deleteClicked)="deleteFilter($event, filter.type)">
     </app-filter-pill>
   </div>
 

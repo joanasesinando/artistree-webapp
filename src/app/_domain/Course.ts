@@ -1,6 +1,7 @@
 export interface Course {
   id: string;
   name: string;
+  category: string;
   pitch: string;
   description: string;
   duration: string;

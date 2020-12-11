@@ -3,6 +3,8 @@ import {User} from '../../../_domain/User';
 import {Gig} from '../../../_domain/Gig';
 import {FirebaseService} from '../../../_services/firebase.service';
 
+const categories = require('src/assets/data/categories.json').categories;
+
 @Component({
   selector: 'app-gigs-card',
   templateUrl: './gigs-card.component.html',
@@ -13,7 +15,7 @@ export class GigsCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newGig: Gig = {id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newGig: Gig = {category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -59,6 +61,8 @@ export class GigsCardComponent implements OnInit {
     ]
   };
 
+  categories = categories;
+
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
@@ -95,6 +99,7 @@ export class GigsCardComponent implements OnInit {
     this.user.gigs.push({
       id: gigID,
       name: this.newGig.name,
+      category: this.newGig.category,
       pitch: this.newGig.pitch,
       description: this.newGig.description,
       list: this.newGig.list.length !== 0 ? this.newGig.list : [],
@@ -108,7 +113,7 @@ export class GigsCardComponent implements OnInit {
 
     this.firebaseService.setDatabaseData('gigs/' + gigID, this.newGig);
 
-    this.newGig = {id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    this.newGig = {category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 

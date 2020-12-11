@@ -3,6 +3,8 @@ import {User} from '../../../_domain/User';
 import {Course} from '../../../_domain/Course';
 import {FirebaseService} from '../../../_services/firebase.service';
 
+const categories = require('src/assets/data/categories.json').categories;
+
 @Component({
   selector: 'app-courses-card',
   templateUrl: './courses-card.component.html',
@@ -13,7 +15,7 @@ export class CoursesCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newCourse: Course = {duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newCourse: Course = {category: '', duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -59,6 +61,8 @@ export class CoursesCardComponent implements OnInit {
     ]
   };
 
+  categories = categories;
+
   constructor(private firebaseService: FirebaseService) { }
 
   ngOnInit(): void {
@@ -95,6 +99,7 @@ export class CoursesCardComponent implements OnInit {
     this.user.courses.push({
       id: courseID,
       name: this.newCourse.name,
+      category: this.newCourse.category,
       pitch: this.newCourse.pitch,
       description: this.newCourse.description,
       duration: this.newCourse.duration,
@@ -109,7 +114,7 @@ export class CoursesCardComponent implements OnInit {
 
     this.firebaseService.setDatabaseData('courses/' + courseID, this.newCourse);
 
-    this.newCourse = {duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    this.newCourse = {category: '', duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 

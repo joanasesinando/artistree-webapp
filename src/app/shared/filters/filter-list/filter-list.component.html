@@ -10,12 +10,17 @@
 
   <div class="dropdown-menu">
 
-    <div *ngFor="let item of items" id="{{item.name}}"
+    <div *ngFor="let item of items; let i = index" id="{{item.name}}"
          class="dropdown-item d-flex align-items-center justify-content-between px-3"
         [ngClass]="{'selected': item.name === selectedItem}"
         (click)="onItemSelected($event.target); this.arrowDown = !this.arrowDown">
 
-      <span class="text-dark">{{item.name}}</span>
+      <span *ngIf="!rate || (rate && i === 0)" class="text-dark">{{item.name}}</span>
+
+      <div *ngIf="rate && i !== 0" class="rate d-flex align-items-center">
+        <i *ngFor="let rate of getRateArray(parseInt(item.name, 10))" class="star" data-eva="star"></i>
+      </div>
+
       <span class="text-grey">({{formatNumberWithCommas(item.total)}})</span>
     </div>
 

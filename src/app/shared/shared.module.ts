@@ -10,7 +10,6 @@ import { SignInModalComponent } from './modals/sign-in-modal/sign-in-modal.compo
 import { NavbarComponent } from './navbars/navbar/navbar.component';
 import {RouterModule} from '@angular/router';
 import { BannerComponent } from './banners/banner/banner.component';
-import { FilterComponent } from './filter/filter.component';
 import { SortByComponent } from './sort-by/sort-by.component';
 import { SubNavbarComponent } from './sub-navbar/sub-navbar.component';
 import { ToggleComponent } from './toggle/toggle.component';
@@ -35,7 +34,6 @@ import { InputNumberComponent } from './inputs/input-number/input-number.compone
     SignInModalComponent,
     NavbarComponent,
     BannerComponent,
-    FilterComponent,
     SortByComponent,
     SubNavbarComponent,
     ToggleComponent,
@@ -56,7 +54,6 @@ import { InputNumberComponent } from './inputs/input-number/input-number.compone
         GoTopComponent,
         NavbarComponent,
         BannerComponent,
-        FilterComponent,
         SortByComponent,
         SubNavbarComponent,
         ToggleComponent,

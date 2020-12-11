@@ -75,6 +75,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     {
       id: '0',
       name: 'Ned gig',
+      category: '',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'],
@@ -83,6 +84,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     {
       id: '1',
       name: 'Ned gig',
+      category: '',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'],
@@ -91,6 +93,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     {
       id: '2',
       name: 'Ned gig',
+      category: '',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       price: 34.99,
       imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'],
@@ -102,6 +105,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     {
       id: '0',
       pitch: 'sdfgh',
+      category: '',
       name: 'Lorem ipsum dolor',
       description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
       duration: '3 weeks',

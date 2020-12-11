@@ -86,6 +86,18 @@
             [(value)]="newCourse.pitch">
           </app-input-text>
 
+          <!-- Category -->
+          <span class="text-grey semibold mt-3 d-block">Category</span>
+          <app-input-select
+            [id]="'profileInputCourseCategory'"
+            [placeholder]="'Pick a category...'"
+            [options]="categories"
+            [icon]="'color-palette-outline'"
+            [required]="true"
+            [marginTop]="'mt-2'"
+            (valueChange)="newCourse.category = $event">
+          </app-input-select>
+
           <!-- Duration -->
           <span class="text-grey semibold mt-3 d-block">Duration</span>
           <app-input-text

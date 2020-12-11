@@ -9,6 +9,7 @@ import {Gig} from '../../../_domain/Gig';
 import {User} from '../../../_domain/User';
 
 const CATEGORY_DEFAULT = 'All Categories';
+const RATE_DEFAULT = 'All Rates';
 
 @Component({
   selector: 'app-discover-gigs',
@@ -28,6 +29,9 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
 
   categoryFilters: { name: string, total: number }[] = [];
   selectedCategory = CATEGORY_DEFAULT;
+
+  rateFilters: { name: string, total: number }[] = [];
+  selectedRate = RATE_DEFAULT;
 
   selectedFilters: {name: string, type: string}[] = [];
   sortItems: string[] = ['Rate', 'Popularity', 'Best matching', 'Newest'];
@@ -69,6 +73,67 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
         }
       }
     });
+  }
+
+  getFiltersByCategory(): void {
+    let categories: { name: string, total: number }[] = [];
+    const dict = {};
+
+    for (const gig of this.gigsList) {
+      if (!this.existsInArrayWithObjects(categories, gig.category))
+        categories.push({ name: gig.category, total: 0 });
+      dict[gig.category] ? dict[gig.category]++ : dict[gig.category] = 1;
+    }
+
+    let total = 0;
+    for (const category of categories) {
+      category.total = dict[category.name];
+      total += dict[category.name];
+    }
+
+    categories = categories.sort((a, b) => a.name <= b.name ? -1 : 1);
+    categories.unshift({ name: CATEGORY_DEFAULT, total });
+    this.categoryFilters = categories;
+  }
+
+  getFiltersByRate(): void {
+    const rates: { name: string, total: number }[] = [
+      { name: '5⭐', total: 0 },
+      { name: '4⭐', total: 0 },
+      { name: '3⭐', total: 0 },
+      { name: '2⭐', total: 0 },
+      { name: '1⭐', total: 0 },
+    ];
+    const dict = {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+    };
+
+    for (const gig of this.gigsList) {
+      if (gig.rate) {
+        const rate = gig.rate.toString();
+        dict[rate] ? dict[rate]++ : dict[rate] = 1;
+      }
+    }
+
+    let total = 0;
+    for (const rate of rates) {
+      rate.total = dict[rate.name[0]];
+      total += dict[rate.name[0]];
+    }
+
+    rates.unshift({ name: RATE_DEFAULT, total });
+    this.rateFilters = rates;
+  }
+
+  existsInArrayWithObjects(array: {name: string, total: number}[], name: string): boolean {
+    for (const item of array) {
+      if (item.name === name) return true;
+    }
+    return false;
   }
 
   splitGigs(max: number, gigs: Gig[]): void {
@@ -143,43 +208,57 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
     return res;
   }
 
+  getRate(rate: number): string {
+    return rate.toString() + '⭐';
+  }
+
   isQueryTrueSearch(gig: Gig): boolean {
     return !this.search ||
       !!this.parseForSearching(gig.name).find(a => a.includes(this.search.toLowerCase())) ||
+      !!this.parseForSearching(gig.category).find(a => a.includes(this.search.toLowerCase())) ||
       !!this.parseForSearching(gig.pitch).find(a => a.includes(this.search.toLowerCase())) ||
       !!this.parseForSearching(gig.description).find(a => a.includes(this.search.toLowerCase())) ||
       // tslint:disable-next-line:max-line-length
       (gig.list && !!this.parseForSearchingList(gig.list).find(a => a.includes(this.search.toLowerCase())));
   }
 
+  isQueryTrueCategory(gig: Gig): boolean {
+    return this.selectedCategory === CATEGORY_DEFAULT ||
+      !!this.parseForSearching(gig.category).find(a => a.includes(this.selectedCategory.toLowerCase()));
+  }
+
+  isQueryTrueRate(gig: Gig): boolean {
+    return this.selectedRate === RATE_DEFAULT ||
+      (gig.rate && !!this.parseForSearching(this.getRate(gig.rate)).find(a => a.includes(this.selectedRate.toLowerCase())));
+  }
+
   filterGigs(): void {
     this.gigsToShow = [];
     for (const gig of this.gigsList) {
-      if (this.isQueryTrueSearch(gig))
+      if (this.isQueryTrueSearch(gig) && this.isQueryTrueCategory(gig) && this.isQueryTrueRate(gig))
         this.gigsToShow.push(gig);
     }
 
     this.doSort(this.currentSorting);
 
-    // this.getFiltersByCategory();
-    // this.getFiltersByLocation();
+    this.getFiltersByCategory();
+    this.getFiltersByRate();
   }
 
   selectFilter(filter: string, type: string): void {
-    // tslint:disable-next-line:prefer-const
     let index;
 
     switch (type) {
       case 'category':
-        // index = this.getFilterIndex(this.selectedCategory, this.selectedFilters, type);
-        // if (index !== -1) // one already selected
-        //   this.selectedFilters.splice(index, 1);
-        //
-        // if (filter !== CATEGORY_DEFAULT)
-        //   this.selectedFilters.push({ name: filter, type });
-        //
-        // this.selectedCategory = filter;
-        // this.filterArtists();
+        index = this.getFilterIndex(this.selectedCategory, this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== CATEGORY_DEFAULT)
+          this.selectedFilters.push({ name: filter, type });
+
+        this.selectedCategory = filter;
+        this.filterGigs();
         break;
 
       case 'search':
@@ -194,16 +273,16 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
         this.filterGigs();
         break;
 
-      case 'location':
-        // index = this.getFilterIndex(this.selectedLocation, this.selectedFilters, type);
-        // if (index !== -1) // one already selected
-        //   this.selectedFilters.splice(index, 1);
-        //
-        // if (filter !== LOCATION_DEFAULT)
-        //   this.selectedFilters.push({ name: filter, type });
-        //
-        // this.selectedLocation = filter;
-        // this.filterArtists();
+      case 'rate':
+        index = this.getFilterIndex(this.selectedRate, this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== RATE_DEFAULT)
+          this.selectedFilters.push({ name: filter, type });
+
+        this.selectedRate = filter;
+        this.filterGigs();
         break;
     }
   }

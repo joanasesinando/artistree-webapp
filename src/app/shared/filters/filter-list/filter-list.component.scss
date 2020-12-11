@@ -16,6 +16,12 @@
         font-size: .75rem;
       }
 
+      .rate {
+        svg {
+          fill: #F2C94C;
+        }
+      }
+
       &:hover, &:focus, &.selected {
         cursor: pointer;
         background-color: white;
@@ -23,6 +29,12 @@
 
         span{
           color: get-color(primary, 3) !important;
+        }
+
+        .rate {
+          svg {
+            fill: get-color(primary, 3) !important;
+          }
         }
       }
     }

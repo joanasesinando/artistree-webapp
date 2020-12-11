@@ -94,6 +94,19 @@
             [(value)]="newGig.pitch">
           </app-input-text>
 
+          <!-- Category -->
+          <span class="text-grey semibold mt-3 d-block">Category</span>
+          <app-input-select
+            [id]="'profileInputGigCategory'"
+            [placeholder]="'Pick a category...'"
+            [options]="categories"
+            [icon]="'color-palette-outline'"
+            [required]="true"
+            [marginTop]="'mt-2'"
+            (valueChange)="newGig.category = $event">
+          </app-input-select>
+
+
           <!-- Price -->
           <span class="text-grey semibold mt-3 d-block">Price</span>
           <app-input-number
