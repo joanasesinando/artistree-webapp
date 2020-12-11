@@ -1,15 +1,9 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import * as eva from 'eva-icons';
+import {Gig} from '../../../_domain/Gig';
 
 const categories = require('src/assets/data/categories.json').categories;
-
-export interface IGig {
-  name: string;
-  description: string;
-  price: number;
-  imagesSrc: string;
-}
 
 @Component({
   selector: 'app-discover-gigs',
@@ -24,130 +18,101 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   filterItemsCategories: {name: string, total: number}[] = [];
   sortItems: string[] = ['Popularity', 'Best selling', 'Newest'];
 
-  gigsList: IGig[] = [ // TODO: ir buscar todos os gigs
+  gigsList: Gig[] = [ // TODO: ir buscar todos os gigs
     {
       name: 'Gig',
       description: 'gigg',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
+    },
+    {
+      name: 'Lorem ipsum dolor Lorem ipsum dolor Lorem ipsum dolor',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
+      price: 34.99,
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     },
     {
       name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
+      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco',
       price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
-    },
-    {
-      name: 'Lorem ipsum dolor',
-      description: 'Lorem ipsum dolor sit amet, cons adipiscing eli amet gravida greco...',
-      price: 34.99,
-      imagesSrc: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80'
+      pitch: 'vbiuijop',
+      imagesURL: ['https://images.unsplash.com/photo-1439853949127-fa647821eba0?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80']
     }
   ];
 
-  gigs: IGig[] = [];
+  gigs: Gig[] = [];
 
   constructor() {
     this.initializeFilterByCategory();
@@ -182,7 +147,7 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
     this.filterGigs();
   }
 
-  isQueryTrue(gig: IGig): boolean {
+  isQueryTrue(gig: Gig): boolean {
     return !this.search || !!gig.name.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase())) ||
       !!gig.description.toLowerCase().split(' ').find(a => a.includes(this.search.toLowerCase()));
   }

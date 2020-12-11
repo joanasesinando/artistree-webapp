@@ -1,3 +1,8 @@
+textarea.form-control {
+  background-color: get-color(border, 1);
+  border: none;
+}
+
 .form-control:focus {
   box-shadow: none;
   border: 2px solid get-color(primary, 3)

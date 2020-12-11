@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 
-import {IUser} from '../../../_domain/User';
 import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as eva from 'eva-icons';
 import _ from 'lodash';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-reviews-card',
@@ -14,7 +14,7 @@ import _ from 'lodash';
 export class ReviewsCardComponent implements OnInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
   @Input() type: string;
   @Input() marginTop: boolean;
   @Input() marginTopOnMobile: boolean;

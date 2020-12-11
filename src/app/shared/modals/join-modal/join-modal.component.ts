@@ -6,7 +6,7 @@ import {AlertService} from '../../../_util/alert.service';
 
 import * as $ from 'jquery';
 import 'node_modules/bootstrap/js/dist/modal';
-import {IUser} from '../../../_domain/User';
+import {User} from '../../../_domain/User';
 
 const categories = require('src/assets/data/categories.json').categories;
 
@@ -20,7 +20,7 @@ export class JoinModalComponent implements OnInit {
   email: string;
   password: string;
 
-  user: IUser = {
+  user: User = {
     artisticAreas: [],
     avatar: '',
     balance: 0,

@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-
-import {IUser} from '../../../../_domain/User';
+import {User} from '../../../../_domain/User';
 
 @Component({
   selector: 'app-artist-card',
@@ -10,7 +9,7 @@ import {IUser} from '../../../../_domain/User';
 })
 export class ArtistCardComponent implements OnInit {
 
-  @Input() artist: IUser;
+  @Input() artist: User;
 
   constructor(private router: Router) { }
 

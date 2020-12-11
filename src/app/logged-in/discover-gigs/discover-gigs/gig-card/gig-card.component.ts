@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IGig} from '../discover-gigs.component';
+import {Gig} from '../../../../_domain/Gig';
 
 @Component({
   selector: 'app-gig-card',
@@ -8,11 +8,17 @@ import {IGig} from '../discover-gigs.component';
 })
 export class GigCardComponent implements OnInit {
 
-  @Input() gig: IGig;
+  @Input() gig: Gig;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  formatText(max: number, text: string): string {
+    if (text.length > max) return text.substr(0, max) + '...';
+    return text;
+  }
+
 
 }

@@ -5,6 +5,11 @@
   border-radius: 16.1663px;
   padding: 1rem 1.5rem;
 
+  &.card-filled {
+    background-color: get-color(border, 1);
+    box-shadow: none;
+  }
+
   .edit-icon {
     fill: get-color(typography, 3);
     cursor: pointer;
@@ -33,6 +38,7 @@
     font-size: .9rem;
     margin-top: 0;
     margin-bottom: .5rem;
+    letter-spacing: 1px;
   }
 
 }

@@ -28,7 +28,9 @@
     "jquery": "^3.5.1",
     "lightbox2": "^2.11.3",
     "lodash": "^4.17.20",
+    "ngx-slick-carousel": "^0.5.1",
     "rxjs": "~6.6.0",
+    "slick-carousel": "^1.8.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

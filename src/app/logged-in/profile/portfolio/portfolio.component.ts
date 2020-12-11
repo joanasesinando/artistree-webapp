@@ -1,9 +1,8 @@
 import {AfterViewInit, Component, HostListener, Input, OnInit} from '@angular/core';
-import {IUser} from '../../../_domain/User';
 import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as lightbox from 'lightbox2';
-import * as $ from 'jquery';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-portfolio',
@@ -13,7 +12,7 @@ import * as $ from 'jquery';
 export class PortfolioComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   newImage: string;
 
@@ -54,7 +53,7 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
     let count = 0;
     let temp: string[] = [];
 
-    for (let i = 0; i <= this.user.portfolio.length; i++) {
+    for (let i = 0; i < this.user.portfolio.length; i++) {
       const portfolioImg = this.user.portfolio[i];
 
       count++;
@@ -109,8 +108,8 @@ export class PortfolioComponent implements OnInit, AfterViewInit {
 
   @HostListener('window:resize', [])
   onWindowResize(): void {
-    this.gridView1x = window.innerWidth < this.MOBILE_WIDTH;
-    this.gridView4x = window.innerWidth > this.MOBILE_WIDTH && window.innerWidth < this.MD_WIDTH;
+    this.gridView1x = window.innerWidth <= this.MOBILE_WIDTH;
+    this.gridView4x = window.innerWidth > this.MOBILE_WIDTH && window.innerWidth <= this.MD_WIDTH;
     this.gridView6x = window.innerWidth > this.MD_WIDTH;
     this.divideIntoSections();
   }

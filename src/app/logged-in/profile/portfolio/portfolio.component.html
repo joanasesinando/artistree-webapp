@@ -14,7 +14,7 @@
     <span *ngIf="!user.portfolio || user.portfolio.length === 0" class="text-grey font-size-3">No images to show</span>
 
     <div *ngIf="user.portfolio && user.portfolio.length > 0"
-         id="portfolioCarousel" class="w-100 carousel slide position-relative" data-ride="carousel">
+         id="portfolioCarousel" class="w-100 carousel slide position-relative mb-3" data-ride="carousel">
 
       <div class="carousel-inner">
 
@@ -56,13 +56,15 @@
     </div>
 
     <!-- Add -->
-    <button *ngIf="isCurrent" class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
-            data-toggle="modal" data-target="#edit-portfolio-card">
-      <i class="icon mr-2" data-eva="plus-square-outline" style="fill: white"></i> Add image</button>
+    <div class="border-top">
+      <button *ngIf="isCurrent" class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
+              data-toggle="modal" data-target="#edit-portfolio-card">
+        <i class="icon mr-2" data-eva="plus-square-outline" style="fill: white"></i> Add image</button>
+    </div>
 
   </div>
 
-</div> <!-- TODO: delete image on hover-->
+</div>
 
 <div class="modal fade" id="edit-portfolio-card" tabindex="-1">
 

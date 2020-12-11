@@ -2,7 +2,7 @@ import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 
 import * as eva from 'eva-icons';
 import {FirebaseService} from '../../../_services/firebase.service';
-import {IUser} from '../../../_domain/User';
+import {User} from '../../../_domain/User';
 const categories = require('src/assets/data/categories.json').categories;
 
 @Component({
@@ -13,7 +13,7 @@ const categories = require('src/assets/data/categories.json').categories;
 export class InterestsCardComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   newInterest: string;
   newArtisticArea: string;

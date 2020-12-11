@@ -2,8 +2,13 @@
 @import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
 
 .main {
-  height: auto;
+  height: 20rem;
+  background-color: white;
   box-shadow: 0 4.74764px 9.49528px rgba(17, 17, 17, 0.04);
+
+  &:hover, &:focus {
+    outline: none;
+  }
 
   &.rounded, {
     border-radius: 18.9906px !important;
@@ -17,8 +22,11 @@
     border-top-left-radius: 18.9906px;
   }
 
+  .content {
+    height: 11rem;
+  }
+
   .image {
-    height: 100%;
     width: 100%;
 
     img {
@@ -30,13 +38,25 @@
 
   .title {
     font-size: .9rem;
+    position: relative;
+    top: 0;
   }
 
   .description {
     font-size: .75rem;
+    position: relative;
+    top: .1rem;
   }
 
   .price {
     font-size: .9rem;
+    position: absolute;
+    bottom: 2rem;
+    right: 0;
+  }
+
+  button {
+    position: absolute;
+    bottom: .2rem;
   }
 }

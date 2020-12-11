@@ -1,0 +1,19 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+.delete {
+  cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+
+  svg {
+    fill: get-color(danger, 3);
+  }
+
+  &:hover {
+    svg {
+      fill: get-color(danger, 1);
+    }
+  }
+}

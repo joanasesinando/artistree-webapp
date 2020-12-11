@@ -2,10 +2,10 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 
 import {FirebaseService} from '../../../_services/firebase.service';
-import {IUser} from '../../../_domain/User';
 
 import * as eva from 'eva-icons';
 import _ from 'lodash';
+import {User} from '../../../_domain/User';
 
 const CATEGORY_DEFAULT = 'All Categories';
 const LOCATION_DEFAULT = 'All Locations';
@@ -17,14 +17,14 @@ const LOCATION_DEFAULT = 'All Locations';
 })
 export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
 
-  currentUser: IUser = {handler: '', joiningTimestamp: 0, name: '', type: '', uid: '', interests: [], location: ''};
+  currentUser: User = {handler: '', joiningTimestamp: 0, name: '', type: '', uid: '', interests: [], location: ''};
 
   search;
   @ViewChild('form', { static: false }) form: NgForm;
 
-  artistsList: IUser[] = [];
-  artistsToShow: IUser[] = [];
-  artistsAfterSplit: IUser[] = [];
+  artistsList: User[] = [];
+  artistsToShow: User[] = [];
+  artistsAfterSplit: User[] = [];
 
   categoryFilters: { name: string, total: number }[] = [];
   selectedCategory = CATEGORY_DEFAULT;
@@ -67,7 +67,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     return this.firebaseService.getDatabaseData('users/artists').then(artists => {
       for (const key in artists) {
         if (Object.prototype.hasOwnProperty.call(artists, key)) {
-          const artist = artists[key] as IUser;
+          const artist = artists[key] as User;
           artist.uid = key;
           this.artistsList.push(artist);
         }
@@ -129,7 +129,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  splitArtists(max: number, artists: IUser[]): void {
+  splitArtists(max: number, artists: User[]): void {
     artists.splice(max, artists.length - max);
   }
 
@@ -179,7 +179,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  getInterestsMatchingScore(artist: IUser): number {
+  getInterestsMatchingScore(artist: User): number {
     let score = 0;
     for (const area of artist.artisticAreas) {
       if (this.currentUser.interests.includes(area)) score++;
@@ -187,7 +187,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     return score;
   }
 
-  getLocationMatchingScore(artist: IUser): number {
+  getLocationMatchingScore(artist: User): number {
     if (!artist.location || !this.currentUser.location) return 0;
     const aLocation = artist.location.replace(' ', '').split(',')[1];
     const uLocation = this.currentUser.location.replace(' ', '').split(',')[1];
@@ -216,7 +216,7 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
     return res;
   }
 
-  isQueryTrueSearch(artist: IUser): boolean {
+  isQueryTrueSearch(artist: User): boolean {
     return !this.search ||
       !!this.parseForSearching(artist.name).find(a => a.includes(this.search.toLowerCase())) ||
       !!this.parseForSearching(artist.title).find(a => a.includes(this.search.toLowerCase())) ||
@@ -227,13 +227,13 @@ export class DiscoverArtistsComponent implements OnInit, AfterViewInit {
       (artist.location && !!this.parseForSearching(artist.location.replace(',', ' ')).find(a => a.includes(this.search.toLowerCase())));
   }
 
-  isQueryTrueCategory(artist: IUser): boolean {
+  isQueryTrueCategory(artist: User): boolean {
     return this.selectedCategory === CATEGORY_DEFAULT ||
       // tslint:disable-next-line:max-line-length
       (artist.artisticAreas && !!this.parseForSearchingList(artist.artisticAreas).find(a => a.includes(this.selectedCategory.toLowerCase())));
   }
 
-  isQueryTrueLocation(artist: IUser): boolean {
+  isQueryTrueLocation(artist: User): boolean {
     return this.selectedLocation === LOCATION_DEFAULT ||
       // tslint:disable-next-line:max-line-length
       (artist.location && !!this.parseForSearching(artist.location.replace(',', ' ')).find(a => a.includes(this.selectedLocation.toLowerCase())));

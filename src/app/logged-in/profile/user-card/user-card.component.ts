@@ -3,7 +3,7 @@ import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as eva from 'eva-icons';
-import {IUser} from '../../../_domain/User';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-user-card',
@@ -13,7 +13,7 @@ import {IUser} from '../../../_domain/User';
 export class UserCardComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   form = {
     nameValid: true,

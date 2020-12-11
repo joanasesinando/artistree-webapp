@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {IUser} from '../../../_domain/User';
 import {FirebaseService} from '../../../_services/firebase.service';
 import * as eva from 'eva-icons';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-description-card',
@@ -11,7 +11,7 @@ import * as eva from 'eva-icons';
 export class DescriptionCardComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   newSkill: string;
 

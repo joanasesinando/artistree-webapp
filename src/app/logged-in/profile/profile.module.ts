@@ -14,6 +14,9 @@ import { ReviewsCardComponent } from './reviews-card/reviews-card.component';
 import { DescriptionCardComponent } from './description-card/description-card.component';
 import { HighlightsCardComponent } from './highlights-card/highlights-card.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
+import { GigsCardComponent } from './gigs-card/gigs-card.component';
+import {DiscoverGigsModule} from '../discover-gigs/discover-gigs.module';
+import {SlickCarouselModule} from 'ngx-slick-carousel';
 
 
 @NgModule({
@@ -27,16 +30,19 @@ import { PortfolioComponent } from './portfolio/portfolio.component';
       ReviewsCardComponent,
       DescriptionCardComponent,
       HighlightsCardComponent,
-      PortfolioComponent
+      PortfolioComponent,
+      GigsCardComponent
     ],
     exports: [
         PillComponent
     ],
-    imports: [
-        CommonModule,
-        ProfileRoutingModule,
-        FormsModule,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    ProfileRoutingModule,
+    FormsModule,
+    SharedModule,
+    DiscoverGigsModule,
+    SlickCarouselModule
+  ]
 })
 export class ProfileModule { }

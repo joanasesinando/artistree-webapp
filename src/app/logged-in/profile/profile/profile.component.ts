@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {FirebaseService} from '../../../_services/firebase.service';
-import {IUser} from '../../../_domain/User';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,7 @@ import {IUser} from '../../../_domain/User';
 })
 export class ProfileComponent implements OnInit {
 
-  user: IUser = {
+  user: User = {
     artisticAreas: [],
     avatar: '',
     balance: 0,

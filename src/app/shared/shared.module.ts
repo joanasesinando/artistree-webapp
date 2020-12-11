@@ -23,6 +23,7 @@ import { InputSelectComponent } from './inputs/input-select/input-select.compone
 import { FilterListComponent } from './filters/filter-list/filter-list.component';
 import { FilterPillComponent } from './filters/filter-pill/filter-pill.component';
 import { InputTextareaComponent } from './inputs/input-textarea/input-textarea.component';
+import { InputNumberComponent } from './inputs/input-number/input-number.component';
 
 
 @NgModule({
@@ -46,26 +47,28 @@ import { InputTextareaComponent } from './inputs/input-textarea/input-textarea.c
     InputSelectComponent,
     FilterListComponent,
     FilterPillComponent,
-    InputTextareaComponent
+    InputTextareaComponent,
+    InputNumberComponent
   ],
-  exports: [
-    FooterComponent,
-    NavbarHomepageComponent,
-    GoTopComponent,
-    NavbarComponent,
-    BannerComponent,
-    FilterComponent,
-    SortByComponent,
-    SubNavbarComponent,
-    ToggleComponent,
-    BannerCarouselComponent,
-    ModalHeaderComponent,
-    InputTextComponent,
-    InputSelectComponent,
-    FilterListComponent,
-    FilterPillComponent,
-    InputTextareaComponent
-  ],
+    exports: [
+        FooterComponent,
+        NavbarHomepageComponent,
+        GoTopComponent,
+        NavbarComponent,
+        BannerComponent,
+        FilterComponent,
+        SortByComponent,
+        SubNavbarComponent,
+        ToggleComponent,
+        BannerCarouselComponent,
+        ModalHeaderComponent,
+        InputTextComponent,
+        InputSelectComponent,
+        FilterListComponent,
+        FilterPillComponent,
+        InputTextareaComponent,
+        InputNumberComponent
+    ],
   imports: [
     CommonModule,
     FormsModule,

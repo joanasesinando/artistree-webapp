@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
-import {IUser} from '../../../_domain/User';
 import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as eva from 'eva-icons';
 import * as $ from 'jquery';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-highlights-card',
@@ -13,7 +13,7 @@ import * as $ from 'jquery';
 export class HighlightsCardComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   newHighlight: { title: string, description: string, color: string } = { title: '', description: '', color: '' };
 

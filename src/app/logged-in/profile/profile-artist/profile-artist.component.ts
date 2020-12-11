@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {IUser} from '../../../_domain/User';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-profile-artist',
@@ -9,7 +9,7 @@ import {IUser} from '../../../_domain/User';
 export class ProfileArtistComponent implements OnInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   constructor() { }
 

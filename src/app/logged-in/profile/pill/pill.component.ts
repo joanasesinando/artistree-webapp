@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 
 import * as eva from 'eva-icons';
-import {IUser} from '../../../_domain/User';
+import {User} from '../../../_domain/User';
 
 @Component({
   selector: 'app-pill',
@@ -11,7 +11,7 @@ import {IUser} from '../../../_domain/User';
 export class PillComponent implements OnInit, AfterViewInit {
 
   @Input() isCurrent: boolean;
-  @Input() user: IUser;
+  @Input() user: User;
 
   @Input() label: string;
   @Input() marginRight: boolean;
