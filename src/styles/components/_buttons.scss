@@ -232,3 +232,35 @@
   color: #7A7D85;
   background-color: #f6f6f8;
 }
+
+/*--------------------------------------------------------------
+# Outline: Grey
+--------------------------------------------------------------*/
+.btn-outline-grey {
+  padding: .7rem 1rem;
+  color: get-color(typography, 3);
+  background-color: transparent;
+  border-radius: 9.47556px;
+  border: 2px solid get-color(typography, 3);
+
+  svg {
+    fill: get-color(typography, 3);
+  }
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: get-color(typography, 3);
+    box-shadow: none;
+
+    svg {
+      fill: white;
+    }
+  }
+}
+
+.btn-grey:not(:disabled):not(.disabled).active,
+.btn-grey:not(:disabled):not(.disabled):active,
+.show>.btn-grey.dropdown-toggle {
+  color: white;
+  background-color: get-color(typography, 3);
+}

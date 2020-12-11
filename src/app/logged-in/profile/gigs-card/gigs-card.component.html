@@ -3,7 +3,7 @@
   <h6 class="subtitle">Book me</h6>
 
   <div class="profile-gigs position-relative">
-    <span *ngIf="!user.gigs || user.gigs.length === 0" class="text-grey font-size-3">No gigs to show</span>
+    <span *ngIf="!user.gigs || user.gigs.length === 0" class="d-block text-grey font-size-3 mb-3">No gigs to show</span>
 
     <div *ngIf="user.gigs && user.gigs.length > 2" class="mb-3">
 
@@ -39,10 +39,18 @@
     </div>
 
     <!-- Create -->
-    <div class="border-top">
-      <button *ngIf="isCurrent" class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
+    <div *ngIf="isCurrent" class="border-top-darker">
+      <button class="d-flex align-items-center justify-content-center btn btn-grey btn-block btn-lg mt-3"
               data-toggle="modal" data-target="#edit-gigs-card-step1">
         <i class="icon mr-2" data-eva="plus-square-outline" style="fill: white"></i>Create gig</button>
+    </div>
+
+    <div *ngIf="!isCurrent" class="d-flex align-items-center flex-wrap mt-2">
+      <a class="d-flex align-items-center justify-content-center btn btn-outline-grey btn-lg mr-2">
+        <i class="icon mr-2" data-eva="pantone-outline"></i>Custom gig</a>
+
+      <a class="d-flex align-items-center justify-content-center btn btn-outline-grey btn-lg">
+        <i class="icon mr-2" data-eva="person-add-outline"></i>Private tutoring</a>
     </div>
 
   </div>

@@ -31,6 +31,10 @@
     border-top: 1.5px solid get-color(border, 1) !important;
   }
 
+  .border-top-darker {
+    border-top: 1.5px solid #d2d7dc !important;
+  }
+
   .subtitle {
     color: get-color(typography, 1);
     @include font-family-att(base);
