@@ -14,6 +14,7 @@ export class ProfileArtistComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.isCurrent)
   }
 
 }

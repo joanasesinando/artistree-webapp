@@ -11,13 +11,19 @@
       [type]="'given'"
       [marginTop]="true"
     ></app-reviews-card>
+    <app-reviews-card *ngIf="!isCurrent"
+                      [isCurrent]="isCurrent"
+                      [user]="user"
+                      [type]="'received'"
+                      [marginTop]="true"
+    ></app-reviews-card>
   </div>
 
   <div class="col-12 col-md-8">
     <app-portfolio [isCurrent]="isCurrent" [user]="user"></app-portfolio>
     <app-gigs-card [isCurrent]="isCurrent" [user]="user"></app-gigs-card>
     <app-courses-card [isCurrent]="isCurrent" [user]="user"></app-courses-card>
-    <app-reviews-card
+    <app-reviews-card *ngIf="isCurrent"
       [isCurrent]="isCurrent"
       [user]="user"
       [type]="'received'"
