@@ -45,7 +45,7 @@
   transform: translateX(-50%);
 }
 
-.close {
+.close, .back {
   &:hover, &:focus {
     outline: none;
   }
@@ -54,4 +54,15 @@
     position: absolute;
     font-size: 1rem;
   }
+}
+
+.back {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
 }

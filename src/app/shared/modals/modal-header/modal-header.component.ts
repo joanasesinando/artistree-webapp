@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ModalHeaderComponent implements OnInit {
 
   @Input() header: string;
+  @Input() goBackTo: string;
 
   constructor() { }
 

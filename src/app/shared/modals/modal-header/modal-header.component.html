@@ -4,4 +4,9 @@
   <button type="button" class="close" data-dismiss="modal">
     <i class="lni lni-close"></i>
   </button>
+
+  <button *ngIf="goBackTo" type="button" class="close back"
+          data-toggle="modal" [attr.data-target]="'#' + goBackTo" data-dismiss="modal">
+    <i class="lni lni-arrow-left"></i>
+  </button>
 </div>
