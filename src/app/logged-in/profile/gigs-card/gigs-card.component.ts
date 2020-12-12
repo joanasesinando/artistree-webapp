@@ -15,7 +15,8 @@ export class GigsCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newGig: Gig = {category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  // tslint:disable-next-line:max-line-length
+  newGig: Gig = {timestamp: 0, timesSold: 0, category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -104,7 +105,9 @@ export class GigsCardComponent implements OnInit {
       description: this.newGig.description,
       list: this.newGig.list.length !== 0 ? this.newGig.list : [],
       price: this.newGig.price,
-      imagesURL: this.newGig.imagesURL
+      imagesURL: this.newGig.imagesURL,
+      timesSold: 0,
+      timestamp: Date.now()
     });
 
     this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
@@ -113,7 +116,8 @@ export class GigsCardComponent implements OnInit {
 
     this.firebaseService.setDatabaseData('gigs/' + gigID, this.newGig);
 
-    this.newGig = {category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    // tslint:disable-next-line:max-line-length
+    this.newGig = {timestamp: 0, timesSold: 0, category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 
@@ -147,12 +151,15 @@ export class GigsCardComponent implements OnInit {
     this.firebaseService.setDatabaseData('gigs/' + gigToDelete.id, {
       id: null,
       name: null,
+      category: null,
       pitch: null,
       description: null,
       list: [],
       price: null,
       imagesURL: [],
-      rate: null
+      rate: null,
+      timesSold: null,
+      timestamp: null
     });
   }
 

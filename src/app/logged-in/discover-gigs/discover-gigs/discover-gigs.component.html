@@ -34,6 +34,11 @@
       (itemSelected)="selectFilter($event, 'category')">
     </app-filter-list>
 
+    <app-filter-budget
+      [marginRight]="true"
+      (budgetApplied)="selectFilter($event, 'budget')">
+    </app-filter-budget>
+
     <app-filter-list
       [name]="'Rate'"
       [items]="rateFilters"
@@ -41,8 +46,6 @@
       [rate]="true"
       (itemSelected)="selectFilter($event, 'rate')">
     </app-filter-list>
-
-    <!-- TODO: budget -->
 
   </div>
 

@@ -15,7 +15,19 @@ export class CoursesCardComponent implements OnInit {
   @Input() isCurrent: boolean;
   @Input() user: User;
 
-  newCourse: Course = {category: '', duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newCourse: Course = {
+    timestamp: null,
+    timesSold: 0,
+    category: '',
+    duration: '',
+    id: '',
+    list: [],
+    pitch: '',
+    name: '',
+    description: '',
+    price: null,
+    imagesURL: []
+  };
 
   newPrice: string;
 
@@ -105,7 +117,9 @@ export class CoursesCardComponent implements OnInit {
       duration: this.newCourse.duration,
       list: this.newCourse.list.length !== 0 ? this.newCourse.list : [],
       price: this.newCourse.price,
-      imagesURL: this.newCourse.imagesURL
+      imagesURL: this.newCourse.imagesURL,
+      timesSold: 0,
+      timestamp: Date.now()
     });
 
     this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
@@ -114,7 +128,10 @@ export class CoursesCardComponent implements OnInit {
 
     this.firebaseService.setDatabaseData('courses/' + courseID, this.newCourse);
 
-    this.newCourse = {category: '', duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    this.newCourse = {
+      timestamp: 0,
+      timesSold: 0,
+      category: '', duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 
@@ -148,13 +165,16 @@ export class CoursesCardComponent implements OnInit {
     this.firebaseService.setDatabaseData('courses/' + courseToDelete.id, {
       id: null,
       name: null,
+      category: null,
       pitch: null,
       description: null,
       duration: null,
       list: [],
       price: null,
       imagesURL: [],
-      rate: null
+      rate: null,
+      timesSold: null,
+      timestamp: null
     });
   }
 

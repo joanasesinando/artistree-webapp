@@ -9,4 +9,6 @@ export interface Course {
   price: number;
   imagesURL: string[];
   rate?: number;
+  timesSold: number;
+  timestamp: number;
 }

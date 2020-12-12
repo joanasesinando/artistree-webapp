@@ -7,10 +7,10 @@ import * as eva from 'eva-icons';
 import _ from 'lodash';
 import {Gig} from '../../../_domain/Gig';
 import {User} from '../../../_domain/User';
-import {Course} from '../../../_domain/Course';
 
 const CATEGORY_DEFAULT = 'All Categories';
 const RATE_DEFAULT = 'All Rates';
+const BUDGET_DEFAULT = '-';
 
 @Component({
   selector: 'app-discover-gigs',
@@ -34,12 +34,17 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   rateFilters: { name: string, total: number }[] = [];
   selectedRate = RATE_DEFAULT;
 
+  selectedBudget = BUDGET_DEFAULT;
+
   selectedFilters: {name: string, type: string}[] = [];
-  sortItems: string[] = ['Rate', 'Popularity', 'Best matching', 'Newest'];
+  sortItems: string[] = ['Best selling', 'Rate', 'Newest'];
 
   numberGigsShowing = 20;
   currentSorting = this.sortItems[0];
   loading = true;
+
+  minValue: string;
+  maxValue: string;
 
   constructor(private firebaseService: FirebaseService) {
     firebaseService.auth.onAuthStateChanged(user => {
@@ -165,37 +170,21 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   doSort(type: string): void {
     this.currentSorting = type;
     switch (type) {
-      case 'Rate': // TODO
+      case 'Best selling':
+        this.gigsToShow.sort((a, b) => b.timesSold - a.timesSold);
+        break;
+
+      case 'Rate':
         this.gigsToShow.sort((a, b) => b.rate - a.rate);
-        this.gigsAfterSplit = _.cloneDeep(this.gigsToShow);
-        this.splitGigs(this.numberGigsShowing, this.gigsAfterSplit);
         break;
 
-      case 'Popularity': // TODO
-        // this.artistsToShow.sort((a, b) => b.popularity - a.popularity);
-        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
-        break;
-
-      case 'Best matching': // TODO
-        // this.artistsToShow.sort((a, b) => {
-        //   const aScore = this.getInterestsMatchingScore(a);
-        //   const bScore = this.getInterestsMatchingScore(b);
-        //
-        //   if (bScore - aScore === 0)
-        //     return this.getLocationMatchingScore(b) - this.getLocationMatchingScore(a);
-        //   return bScore - aScore;
-        // });
-        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
-        break;
-
-      case 'Newest': // TODO
-        // this.artistsToShow.sort((a, b) => a.joiningTimestamp - b.joiningTimestamp);
-        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+      case 'Newest':
+        this.gigsToShow.sort((a, b) => b.timestamp - a.timestamp);
         break;
     }
+
+    this.gigsAfterSplit = _.cloneDeep(this.gigsToShow);
+    this.splitGigs(this.numberGigsShowing, this.gigsAfterSplit);
   }
 
   parseForSearching(query: string): string[] {
@@ -239,6 +228,17 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
       !!this.parseForSearching(gig.category).find(a => a.includes(this.selectedCategory.toLowerCase()));
   }
 
+  isQueryTrueBudget(gig: Gig): boolean {
+    // tslint:disable-next-line:no-shadowed-variable
+    const min = this.selectedBudget.split('-')[0];
+    const max = this.selectedBudget.split('-')[1];
+
+    return this.selectedBudget === BUDGET_DEFAULT ||
+      (min !== '' && max !== '' && gig.price >= parseFloat(min) && gig.price <= parseFloat(max)) ||
+      (min !== '' && gig.price >= parseFloat(min)) ||
+      (max !== '' && gig.price <= parseFloat(max));
+  }
+
   isQueryTrueRate(gig: Gig): boolean {
     return this.selectedRate === RATE_DEFAULT ||
       (gig.rate && !!this.parseForSearching(this.getRate(gig.rate)).find(a => a.includes(this.selectedRate.toLowerCase()))) ||
@@ -248,7 +248,7 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   filterGigs(): void {
     this.gigsToShow = [];
     for (const gig of this.gigsList) {
-      if (this.isQueryTrueSearch(gig) && this.isQueryTrueCategory(gig) && this.isQueryTrueRate(gig))
+      if (this.isQueryTrueSearch(gig) && this.isQueryTrueCategory(gig) && this.isQueryTrueBudget(gig) && this.isQueryTrueRate(gig))
         this.gigsToShow.push(gig);
     }
 
@@ -286,6 +286,18 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
         this.filterGigs();
         break;
 
+      case 'budget':
+        index = this.getFilterIndex(this.formatBudget(this.selectedBudget), this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== BUDGET_DEFAULT)
+          this.selectedFilters.push({ name: this.formatBudget(filter), type });
+
+        this.selectedBudget = filter;
+        this.filterGigs();
+        break;
+
       case 'rate':
         index = this.getFilterIndex(this.selectedRate, this.selectedFilters, type);
         if (index !== -1) // one already selected
@@ -310,6 +322,10 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
         this.search = '';
         break;
 
+      case 'budget':
+        this.selectedBudget = BUDGET_DEFAULT;
+        break;
+
       case 'rate':
         this.selectedRate = RATE_DEFAULT;
         break;
@@ -324,6 +340,16 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
       if (array[i].name === filter && array[i].type === type) return i;
     }
     return -1;
+  }
+
+  formatBudget(filter: string): string {
+    // tslint:disable-next-line:no-shadowed-variable
+    const min = filter.split('-')[0];
+    const max = filter.split('-')[1];
+
+    if (min !== '' && max !== '') return min + '€ - ' + max + '€';
+    if (min !== '') return '>= ' + min + '€';
+    if (max !== '') return '<= ' + max + '€';
   }
 
   formatNumberWithCommas(n: number): string {

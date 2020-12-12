@@ -1,0 +1,41 @@
+<div class="filter filter-budget dropdown position-relative" [ngClass]="{'mr-2': marginRight}">
+
+  <button class="btn btn-filter dropdown-toggle d-flex align-items-center" type="button"
+          (click)="toggleMenu(); this.arrowDown = !this.arrowDown;">
+    Budget
+
+    <div [ngClass]="{ 'd-none': !arrowDown }"><i class="arrow-down" data-eva="chevron-down"></i></div>
+    <div [ngClass]="{ 'd-none': arrowDown }"><i class="arrow-up" data-eva="chevron-up"></i></div>
+  </button>
+
+  <div class="dropdown-menu">
+
+    <div class="dropdown-item px-3">
+
+      <app-input-number
+        [id]="'filterBudgetMin'"
+        [placeholder]="'Min.'"
+        [icon]="'euro'"
+        [iconType]="'line-icons'"
+        [(value)]="minValue">
+      </app-input-number>
+
+      <app-input-number
+        [id]="'filterBudgetMax'"
+        [placeholder]="'Max.'"
+        [icon]="'euro'"
+        [iconType]="'line-icons'"
+        [marginTop]="'mt-2'"
+        [(value)]="maxValue">
+      </app-input-number>
+
+      <div id="minMax" class="text-danger font-size-4 mt-1">Min value must be smaller than<br> max value</div>
+
+      <button class="btn btn-primary btn-block mt-2" type="button"
+              (click)="onBudgetApplied()">Apply</button>
+
+    </div>
+
+  </div>
+
+</div>

@@ -67,6 +67,11 @@ textarea.form-control {
   padding: .55rem 2.5rem;
 }
 
+.filter-budget .form-label-group>input,
+.filter-budget.form-label-group>label {
+  padding-right: 1rem;
+}
+
 .search-navbar.form-label-group>input,
 .search-navbar.form-label-group>label {
   padding: .2rem 2rem;
@@ -225,13 +230,6 @@ textarea.form-control {
     background-color: get-color(border, 1);
     border: none;
   }
-}
-
-.budget-min.form-label-group > input,
-.budget-min.form-label-group > label,
-.budget-max.form-label-group > input,
-.budget-max.form-label-group > label{
-  padding: .55rem 1rem;
 }
 
 .input-group>.custom-file,

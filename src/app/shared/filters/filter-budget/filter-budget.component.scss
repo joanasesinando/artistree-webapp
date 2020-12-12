@@ -1,0 +1,21 @@
+#minMax {
+  display: none;
+}
+
+.dropdown-menu {
+  height: auto;
+  max-height: 15rem;
+  width: 13rem;
+  overflow-y: auto;
+  top: 110%;
+
+  .dropdown-item {
+    user-select: none;
+
+    &:hover, &:focus, &.selected {
+      cursor: pointer;
+      background-color: white;
+    }
+  }
+
+}

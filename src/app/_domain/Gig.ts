@@ -8,4 +8,6 @@ export interface Gig {
   price: number;
   imagesURL: string[];
   rate?: number;
+  timesSold: number;
+  timestamp: number;
 }
