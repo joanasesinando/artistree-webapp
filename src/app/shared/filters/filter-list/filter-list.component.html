@@ -15,7 +15,7 @@
         [ngClass]="{'selected': item.name === selectedItem}"
         (click)="onItemSelected($event.target); this.arrowDown = !this.arrowDown">
 
-      <span *ngIf="!rate || (rate && i < 2)" class="text-dark">{{item.name}}</span>
+      <span *ngIf="!rate || (rate && (i === 0 || i === items.length - 1))" class="text-dark">{{item.name}}</span>
 
       <div *ngIf="rate && i !== 0" class="rate d-flex align-items-center">
         <i *ngFor="let rate of getRateArray(parseInt(item.name, 10))" class="star" data-eva="star"></i>

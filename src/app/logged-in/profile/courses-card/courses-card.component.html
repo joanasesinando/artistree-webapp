@@ -100,14 +100,15 @@
 
           <!-- Duration -->
           <span class="text-grey semibold mt-3 d-block">Duration</span>
-          <app-input-text
+          <app-input-select
             [id]="'profileInputCourseDuration'"
-            [placeholder]="'Your course duration'"
+            [placeholder]="'Pick your course duration...'"
+            [options]="durations"
             [icon]="'clock-outline'"
-            [marginTop]="'mt-2'"
             [required]="true"
-            [(value)]="newCourse.duration">
-          </app-input-text>
+            [marginTop]="'mt-2'"
+            (valueChange)="newCourse.duration = $event">
+          </app-input-select>
 
           <!-- Price -->
           <span class="text-grey semibold mt-3 d-block">Price</span>

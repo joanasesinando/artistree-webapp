@@ -43,9 +43,6 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
   currentSorting = this.sortItems[0];
   loading = true;
 
-  minValue: string;
-  maxValue: string;
-
   constructor(private firebaseService: FirebaseService) {
     firebaseService.auth.onAuthStateChanged(user => {
       this.firebaseService.getUserInfo(user.uid).then(userInfo => {
@@ -104,12 +101,12 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
 
   getFiltersByRate(): void {
     const rates: { name: string, total: number }[] = [
-      { name: 'Unrated', total: 0 },
       { name: '5⭐', total: 0 },
       { name: '4⭐', total: 0 },
       { name: '3⭐', total: 0 },
       { name: '2⭐', total: 0 },
       { name: '1⭐', total: 0 },
+      { name: 'Unrated', total: 0 }
     ];
     const dict = {
       1: 0,
@@ -120,14 +117,10 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
     };
 
     for (const gig of this.gigsList) {
-      if (gig.rate) {
-        const rate = gig.rate.toString();
-        dict[rate] ? dict[rate]++ : dict[rate] = 1;
-
-      } else {
-        const rate = 'Unrated';
-        dict[rate] ? dict[rate]++ : dict[rate] = 1;
-      }
+      let rate: string;
+      if (gig.rate) rate = gig.rate.toString();
+      else rate = 'Unrated';
+      dict[rate] ? dict[rate]++ : dict[rate] = 1;
     }
 
     let total = 0;
@@ -235,8 +228,8 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
 
     return this.selectedBudget === BUDGET_DEFAULT ||
       (min !== '' && max !== '' && gig.price >= parseFloat(min) && gig.price <= parseFloat(max)) ||
-      (min !== '' && gig.price >= parseFloat(min)) ||
-      (max !== '' && gig.price <= parseFloat(max));
+      (min !== '' && max === '' && gig.price >= parseFloat(min)) ||
+      (min === '' && max !== '' && gig.price <= parseFloat(max));
   }
 
   isQueryTrueRate(gig: Gig): boolean {

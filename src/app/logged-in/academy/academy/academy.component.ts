@@ -11,6 +11,8 @@ import {Gig} from '../../../_domain/Gig';
 
 const CATEGORY_DEFAULT = 'All Categories';
 const RATE_DEFAULT = 'All Rates';
+const BUDGET_DEFAULT = '-';
+const DURATION_DEFAULT = 'All Durations';
 
 @Component({
   selector: 'app-academy',
@@ -32,10 +34,15 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   selectedCategory = CATEGORY_DEFAULT;
 
   selectedFilters: {name: string, type: string}[] = [];
-  sortItems: string[] = ['Rate', 'Popularity', 'Best matching', 'Newest'];
+  sortItems: string[] = ['Best selling', 'Rate', 'Newest'];
 
   rateFilters: { name: string, total: number }[] = [];
   selectedRate = RATE_DEFAULT;
+
+  durationFilters: { name: string, total: number }[] = [];
+  selectedDuration = DURATION_DEFAULT;
+
+  selectedBudget = BUDGET_DEFAULT;
 
   numberCoursesShowing = 20;
   currentSorting = this.sortItems[0];
@@ -99,12 +106,12 @@ export class AcademyComponent implements OnInit, AfterViewInit {
 
   getFiltersByRate(): void {
     const rates: { name: string, total: number }[] = [
-      { name: 'Unrated', total: 0 },
       { name: '5⭐', total: 0 },
       { name: '4⭐', total: 0 },
       { name: '3⭐', total: 0 },
       { name: '2⭐', total: 0 },
       { name: '1⭐', total: 0 },
+      { name: 'Unrated', total: 0 }
     ];
     const dict = {
       1: 0,
@@ -115,14 +122,10 @@ export class AcademyComponent implements OnInit, AfterViewInit {
     };
 
     for (const course of this.coursesList) {
-      if (course.rate) {
-        const rate = course.rate.toString();
-        dict[rate] ? dict[rate]++ : dict[rate] = 1;
-
-      } else {
-        const rate = 'Unrated';
-        dict[rate] ? dict[rate]++ : dict[rate] = 1;
-      }
+      let rate: string;
+      if (course.rate) rate = course.rate.toString();
+      else rate = 'Unrated';
+      dict[rate] ? dict[rate]++ : dict[rate] = 1;
     }
 
     let total = 0;
@@ -139,6 +142,27 @@ export class AcademyComponent implements OnInit, AfterViewInit {
 
     rates.unshift({ name: RATE_DEFAULT, total });
     this.rateFilters = rates;
+  }
+
+  getFiltersByDuration(): void {
+    let durations: { name: string, total: number }[] = [];
+    const dict = {};
+
+    for (const course of this.coursesList) {
+      if (!this.existsInArrayWithObjects(durations, course.duration))
+        durations.push({ name: course.duration, total: 0 });
+      dict[course.duration] ? dict[course.duration]++ : dict[course.duration] = 1;
+    }
+
+    let total = 0;
+    for (const duration of durations) {
+      duration.total = dict[duration.name];
+      total += dict[duration.name];
+    }
+
+    durations = durations.sort((a, b) => a.name <= b.name ? -1 : 1);
+    durations.unshift({ name: DURATION_DEFAULT, total });
+    this.durationFilters = durations;
   }
 
   existsInArrayWithObjects(array: {name: string, total: number}[], name: string): boolean {
@@ -165,37 +189,21 @@ export class AcademyComponent implements OnInit, AfterViewInit {
   doSort(type: string): void {
     this.currentSorting = type;
     switch (type) {
+      case 'Best selling':
+        this.coursesToShow.sort((a, b) => b.timesSold - a.timesSold);
+        break;
+
       case 'Rate':
         this.coursesToShow.sort((a, b) => b.rate - a.rate);
-        this.coursesAfterSplit = _.cloneDeep(this.coursesToShow);
-        this.splitCourses(this.numberCoursesShowing, this.coursesAfterSplit);
         break;
 
-      case 'Popularity': // TODO
-        // this.artistsToShow.sort((a, b) => b.popularity - a.popularity);
-        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
-        break;
-
-      case 'Best matching': // TODO
-        // this.artistsToShow.sort((a, b) => {
-        //   const aScore = this.getInterestsMatchingScore(a);
-        //   const bScore = this.getInterestsMatchingScore(b);
-        //
-        //   if (bScore - aScore === 0)
-        //     return this.getLocationMatchingScore(b) - this.getLocationMatchingScore(a);
-        //   return bScore - aScore;
-        // });
-        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
-        break;
-
-      case 'Newest': // TODO
-        // this.artistsToShow.sort((a, b) => a.joiningTimestamp - b.joiningTimestamp);
-        // this.artistsAfterSplit = _.cloneDeep(this.artistsToShow);
-        // this.splitArtists(this.numberArtistsShowing, this.artistsAfterSplit);
+      case 'Newest':
+        this.coursesToShow.sort((a, b) => b.timestamp - a.timestamp);
         break;
     }
+
+    this.coursesAfterSplit = _.cloneDeep(this.coursesToShow);
+    this.splitCourses(this.numberCoursesShowing, this.coursesAfterSplit);
   }
 
   parseForSearching(query: string): string[] {
@@ -239,16 +247,33 @@ export class AcademyComponent implements OnInit, AfterViewInit {
       !!this.parseForSearching(course.category).find(a => a.includes(this.selectedCategory.toLowerCase()));
   }
 
+  isQueryTrueBudget(gig: Gig): boolean {
+    // tslint:disable-next-line:no-shadowed-variable
+    const min = this.selectedBudget.split('-')[0];
+    const max = this.selectedBudget.split('-')[1];
+
+    return this.selectedBudget === BUDGET_DEFAULT ||
+      (min !== '' && max !== '' && gig.price >= parseFloat(min) && gig.price <= parseFloat(max)) ||
+      (min !== '' && max === '' && gig.price >= parseFloat(min)) ||
+      (min === '' && max !== '' && gig.price <= parseFloat(max));
+  }
+
   isQueryTrueRate(course: Course): boolean {
     return this.selectedRate === RATE_DEFAULT ||
       (course.rate && !!this.parseForSearching(this.getRate(course.rate)).find(a => a.includes(this.selectedRate.toLowerCase()))) ||
       (!course.rate && !!this.parseForSearching('Unrated').find(a => a.includes(this.selectedRate.toLowerCase())));
   }
 
+  isQueryTrueDuration(course: Course): boolean {
+    return this.selectedDuration === DURATION_DEFAULT ||
+      !!this.parseForSearching(course.duration).find(a => a.includes(this.selectedDuration.toLowerCase()));
+  }
+
   filterCourses(): void {
     this.coursesToShow = [];
     for (const course of this.coursesList) {
-      if (this.isQueryTrueSearch(course) && this.isQueryTrueCategory(course) && this.isQueryTrueRate(course))
+      if (this.isQueryTrueSearch(course) && this.isQueryTrueCategory(course) && this.isQueryTrueBudget(course)
+        && this.isQueryTrueRate(course) && this.isQueryTrueDuration(course))
         this.coursesToShow.push(course);
     }
 
@@ -256,6 +281,7 @@ export class AcademyComponent implements OnInit, AfterViewInit {
 
     this.getFiltersByCategory();
     this.getFiltersByRate();
+    this.getFiltersByDuration();
   }
 
   selectFilter(filter: string, type: string): void {
@@ -287,6 +313,18 @@ export class AcademyComponent implements OnInit, AfterViewInit {
         this.filterCourses();
         break;
 
+      case 'budget':
+        index = this.getFilterIndex(this.formatBudget(this.selectedBudget), this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== BUDGET_DEFAULT)
+          this.selectedFilters.push({ name: this.formatBudget(filter), type });
+
+        this.selectedBudget = filter;
+        this.filterCourses();
+        break;
+
       case 'rate':
         index = this.getFilterIndex(this.selectedRate, this.selectedFilters, type);
         if (index !== -1) // one already selected
@@ -296,6 +334,18 @@ export class AcademyComponent implements OnInit, AfterViewInit {
           this.selectedFilters.push({ name: filter, type });
 
         this.selectedRate = filter;
+        this.filterCourses();
+        break;
+
+      case 'duration':
+        index = this.getFilterIndex(this.selectedDuration, this.selectedFilters, type);
+        if (index !== -1) // one already selected
+          this.selectedFilters.splice(index, 1);
+
+        if (filter !== DURATION_DEFAULT)
+          this.selectedFilters.push({ name: filter, type });
+
+        this.selectedDuration = filter;
         this.filterCourses();
         break;
     }
@@ -311,8 +361,16 @@ export class AcademyComponent implements OnInit, AfterViewInit {
         this.search = '';
         break;
 
+      case 'budget':
+        this.selectedBudget = BUDGET_DEFAULT;
+        break;
+
       case 'rate':
         this.selectedRate = RATE_DEFAULT;
+        break;
+
+      case 'duration':
+        this.selectedDuration = DURATION_DEFAULT;
         break;
     }
 
@@ -325,6 +383,16 @@ export class AcademyComponent implements OnInit, AfterViewInit {
       if (array[i].name === filter && array[i].type === type) return i;
     }
     return -1;
+  }
+
+  formatBudget(filter: string): string {
+    // tslint:disable-next-line:no-shadowed-variable
+    const min = filter.split('-')[0];
+    const max = filter.split('-')[1];
+
+    if (min !== '' && max !== '') return min + '€ - ' + max + '€';
+    if (min !== '') return '>= ' + min + '€';
+    if (max !== '') return '<= ' + max + '€';
   }
 
   formatNumberWithCommas(n: number): string {

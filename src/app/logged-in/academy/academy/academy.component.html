@@ -34,26 +34,27 @@
       (itemSelected)="selectFilter($event, 'category')">
     </app-filter-list>
 
+    <app-filter-budget
+      [marginRight]="true"
+      (budgetApplied)="selectFilter($event, 'budget')">
+    </app-filter-budget>
+
     <app-filter-list
       [name]="'Rate'"
       [items]="rateFilters"
       [selectedItem]="selectedRate"
       [rate]="true"
+      [marginRight]="true"
       (itemSelected)="selectFilter($event, 'rate')">
     </app-filter-list>
 
-<!--    <app-filter-->
-<!--      [name]="'Budget'"-->
-<!--      [marginRight]="true"-->
-<!--      [type]="'budget'">-->
-<!--    </app-filter>-->
-
-<!--    <app-filter-->
-<!--      [name]="'Duration'"-->
-<!--      [items]="filterItemsDuration"-->
-<!--      [type]="'list'">-->
-<!--    </app-filter>-->
-    <!-- TODO: budget, duration, rate -->
+    <app-filter-list
+      [name]="'Duration'"
+      [items]="durationFilters"
+      [selectedItem]="selectedDuration"
+      [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'duration')">
+    </app-filter-list>
   </div>
 
   <!-- Pills -->
