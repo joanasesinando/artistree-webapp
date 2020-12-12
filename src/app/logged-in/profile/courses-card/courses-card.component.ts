@@ -113,6 +113,7 @@ export class CoursesCardComponent implements OnInit {
     if (this.newPhoto6 && this.newPhoto6 !== '') this.newCourse.imagesURL.push(this.newPhoto6);
 
     const courseID = this.getNewID();
+    this.newCourse.id = courseID;
     this.user.courses.push({
       id: courseID,
       name: this.newCourse.name,

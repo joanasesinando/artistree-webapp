@@ -64,6 +64,7 @@ export class DiscoverGigsComponent implements OnInit, AfterViewInit {
     this.getAllGigs().then(() => {
       this.filterGigs();
       this.loading = false;
+      console.log(this.gigsAfterSplit)
     });
   }
 

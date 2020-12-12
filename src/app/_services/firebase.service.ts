@@ -212,6 +212,18 @@ export class FirebaseService {
     });
   }
 
+  getGigInfo(gid: string): Promise<any> {
+    return this.getDatabaseData('gigs/' + gid).then(gig => {
+      if (gig) return gig;
+    });
+  }
+
+  getCourseInfo(cid: string): Promise<any> {
+    return this.getDatabaseData('courses/' + cid).then(course => {
+      if (course) return course;
+    });
+  }
+
   /*** --------------------------------------------- ***/
   /*** ------------------ Reviews ------------------ ***/
   /*** --------------------------------------------- ***/

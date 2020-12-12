@@ -97,8 +97,9 @@ export class GigsCardComponent implements OnInit {
     if (this.newPhoto6 && this.newPhoto6 !== '') this.newGig.imagesURL.push(this.newPhoto6);
 
     const gigID = this.getNewID();
+    this.newGig.id = gigID;
     this.user.gigs.push({
-      id: gigID,
+      id: this.newGig.id,
       name: this.newGig.name,
       category: this.newGig.category,
       pitch: this.newGig.pitch,
@@ -109,6 +110,8 @@ export class GigsCardComponent implements OnInit {
       timesSold: 0,
       timestamp: Date.now()
     });
+
+    console.log(this.user.gigs);
 
     this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
       gigs: this.user.gigs

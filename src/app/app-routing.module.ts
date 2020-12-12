@@ -3,6 +3,18 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: 'streaming/:id',
+    loadChildren: () => import('./logged-in/streaming/streaming.module').then(mod => mod.StreamingModule)
+  },
+  {
+    path: 'course/:cid',
+    loadChildren: () => import('./logged-in/course/course.module').then(mod => mod.CourseModule)
+  },
+  {
+    path: 'gig/:gid',
+    loadChildren: () => import('./logged-in/gig/gig.module').then(mod => mod.GigModule)
+  },
+  {
     path: 'profile/:uid',
     loadChildren: () => import('./logged-in/profile/profile.module').then(mod => mod.ProfileModule)
   },

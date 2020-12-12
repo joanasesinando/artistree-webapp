@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Gig} from '../../../../_domain/Gig';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-gig-card',
@@ -10,7 +11,7 @@ export class GigCardComponent implements OnInit {
 
   @Input() gig: Gig;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -20,5 +21,8 @@ export class GigCardComponent implements OnInit {
     return text;
   }
 
+  goToGig(): void {
+    this.router.navigate(['/gigs', this.gig.id]);
+  }
 
 }
