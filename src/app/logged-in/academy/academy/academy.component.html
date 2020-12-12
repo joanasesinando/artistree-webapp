@@ -52,7 +52,6 @@
       [name]="'Duration'"
       [items]="durationFilters"
       [selectedItem]="selectedDuration"
-      [marginRight]="true"
       (itemSelected)="selectFilter($event, 'duration')">
     </app-filter-list>
   </div>
@@ -93,6 +92,7 @@
   </div>
 
   <!-- Load more -->
-  <p *ngIf="coursesToShow.length > 20 && coursesAfterSplit < coursesToShow" class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
+  <p *ngIf="coursesToShow.length > 20 && coursesAfterSplit < coursesToShow"
+     class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
 
 </section>

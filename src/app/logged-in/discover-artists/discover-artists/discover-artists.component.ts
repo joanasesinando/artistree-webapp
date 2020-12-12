@@ -5,6 +5,7 @@ import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as eva from 'eva-icons';
 import _ from 'lodash';
+
 import {User} from '../../../_domain/User';
 
 const CATEGORY_DEFAULT = 'All Categories';

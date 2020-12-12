@@ -44,6 +44,7 @@
       [items]="rateFilters"
       [selectedItem]="selectedRate"
       [rate]="true"
+      [marginRight]="true"
       (itemSelected)="selectFilter($event, 'rate')">
     </app-filter-list>
 
@@ -85,6 +86,7 @@
   </div>
 
   <!-- Load more -->
-  <p *ngIf="gigsToShow.length > 20 && gigsAfterSplit < gigsToShow" class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
+  <p *ngIf="gigsToShow.length > 20 && gigsAfterSplit < gigsToShow"
+     class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
 
 </section>

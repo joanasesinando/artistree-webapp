@@ -25,94 +25,156 @@
     </app-toggle>
   </div>
 
-  <!-- Filters // TODO: change to app-filter-list etc -->
+  <!-- Filters -->
   <div class="filters d-flex align-items-center mt-3 mb-4">
-<!--    <app-filter-->
-<!--      [name]="'Category'"-->
-<!--      [items]="filterItemsCategory"-->
-<!--      [marginRight]="true"-->
-<!--      [type]="'list'">-->
-<!--    </app-filter>-->
+    <app-filter-list *ngIf="toggles.artists || toggles.gigs || toggles.courses"
+      [name]="'Category'"
+      [items]="categoryFilters"
+      [selectedItem]="selectedCategory"
+      [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'category')">
+    </app-filter-list>
 
-<!--    <app-filter-->
-<!--      [name]="'Budget'"-->
-<!--      [type]="'budget'"-->
-<!--      [marginRight]="true">-->
-<!--    </app-filter>-->
+    <app-filter-list *ngIf="toggles.artists"
+      [name]="'Location'"
+      [items]="locationFilters"
+      [selectedItem]="selectedLocation"
+                     [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'location')">
+    </app-filter-list>
 
-<!--    <app-filter-->
-<!--      [name]="'Duration'"-->
-<!--      [items]="filterItemsDuration"-->
-<!--      [type]="'list'">-->
-<!--    </app-filter>-->
+    <app-filter-budget *ngIf="toggles.gigs || toggles.courses"
+      [marginRight]="true"
+      (budgetApplied)="selectFilter($event, 'budget')">
+    </app-filter-budget>
+
+    <app-filter-list *ngIf="toggles.gigs || toggles.courses"
+      [name]="'Rate'"
+      [items]="rateFilters"
+      [selectedItem]="selectedRate"
+      [rate]="true"
+                     [marginRight]="true"
+      (itemSelected)="selectFilter($event, 'rate')">
+    </app-filter-list>
+
+    <app-filter-list *ngIf="toggles.courses"
+      [name]="'Duration'"
+      [items]="durationFilters"
+      [selectedItem]="selectedDuration"
+      (itemSelected)="selectFilter($event, 'duration')">
+    </app-filter-list>
+  </div>
+
+  <!-- Pills -->
+  <div class="filter-pills w-100 d-flex align-items-center flex-wrap">
+    <app-filter-pill *ngFor="let filter of selectedFilters; let last = last"
+                     [label]="filter.name" [type]="filter.type" [marginRight]="!last"
+                     (deleteClicked)="deleteFilter($event, filter.type)">
+    </app-filter-pill>
   </div>
 
   <!-- Artists -->
-  <div *ngIf="toggles.artists" class="artists">
+  <div *ngIf="toggles.artists && this.artistsInfo.artistsAfterSplit.length !== 0" class="artists">
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
-      <span *ngIf="artists.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artists.length)}} Artists found</span>
-      <span *ngIf="artists.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artists.length)}} Artist found</span>
+      <span *ngIf="artistsInfo.artistsToShow.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artistsInfo.artistsToShow.length)}} Artists found</span>
+      <span *ngIf="artistsInfo.artistsToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(artistsInfo.artistsToShow.length)}} Artist found</span>
 
       <!-- Sort -->
-      <app-sort-by [items]="artistInfo.sortItems"></app-sort-by>
+      <app-sort-by
+        [items]="artistsInfo.sortItems"
+        [selectedItem]="artistsInfo.sortItems[0]"
+        (itemSelected)="doSortArtists($event)">
+      </app-sort-by>
     </div>
 
-    <div class="w-100 d-flex align-items-center flex-wrap mt-3">
-      <div *ngFor="let artist of artists" class="col-lg-3 col-md-6 col-sm-12">
+    <div class="w-100 d-flex align-items-center flex-wrap mt-3 position-relative">
+
+      <div *ngIf="artistsInfo.loading" class="center-x">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Finding artists...</span>
+        </div>
+      </div>
+
+      <div *ngFor="let artist of artistsInfo.artistsAfterSplit" class="col-lg-3 col-md-6 col-sm-12">
         <app-artist-card  [artist]="artist"></app-artist-card>
       </div>
     </div>
 
     <!-- Load more -->
-    <p *ngIf="artists.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
+    <p *ngIf="artistsInfo.artistsToShow.length > 20 && artistsInfo.artistsAfterSplit < artistsInfo.artistsToShow"
+       class="link regular text-grey text-center font-size-2" (click)="loadMoreArtists()">Load more</p>
 
   </div> <!-- ./artists -->
 
   <!-- Gigs -->
-  <div *ngIf="toggles.gigs" class="gigs">
+  <div *ngIf="toggles.gigs && this.gigsInfo.gigsAfterSplit.length !== 0" class="gigs mt-5">
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
-      <span *ngIf="gigs.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigs.length)}} Gigs found</span>
-      <span *ngIf="gigs.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigs.length)}} Gig found</span>
+      <span *ngIf="gigsInfo.gigsToShow.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigsInfo.gigsToShow.length)}} Gigs found</span>
+      <span *ngIf="gigsInfo.gigsToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(gigsInfo.gigsToShow.length)}} Gig found</span>
 
       <!-- Sort -->
-      <app-sort-by [items]="gigsInfo.sortItems"></app-sort-by>
+      <app-sort-by
+        [items]="gigsInfo.sortItems"
+        [selectedItem]="gigsInfo.sortItems[0]"
+        (itemSelected)="doSortGigs($event)">
+      </app-sort-by>
     </div>
 
-    <div class="w-100 d-flex align-items-center flex-wrap mt-3">
-      <div *ngFor="let gig of gigs" class="col-lg-3 col-md-6 col-sm-12">
+    <div class="w-100 d-flex align-items-center flex-wrap mt-3 position-relative">
+
+      <div *ngIf="gigsInfo.loading" class="center-x">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Finding gigs...</span>
+        </div>
+      </div>
+
+      <div *ngFor="let gig of gigsInfo.gigsAfterSplit" class="col-lg-3 col-md-6 col-sm-12">
         <app-gig-card  [gig]="gig"></app-gig-card>
       </div>
     </div>
 
     <!-- Load more -->
-    <p *ngIf="gigs.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
+    <p *ngIf="gigsInfo.gigsToShow.length > 20 && gigsInfo.gigsAfterSplit < gigsInfo.gigsToShow"
+       class="link regular text-grey text-center font-size-2" (click)="loadMoreGigs()">Load more</p>
 
   </div> <!-- ./gigs -->
 
   <!-- Courses -->
-  <div *ngIf="toggles.courses" class="courses">
+  <div *ngIf="toggles.courses && this.coursesInfo.coursesAfterSplit.length !== 0" class="courses mt-5">
 
     <div class="d-flex align-items-center justify-content-between">
       <!-- Total -->
-      <span *ngIf="courses.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Courses found</span>
-      <span *ngIf="courses.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(courses.length)}} Course found</span>
+      <span *ngIf="coursesInfo.coursesToShow.length !== 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesInfo.coursesToShow.length)}} Courses found</span>
+      <span *ngIf="coursesInfo.coursesToShow.length === 1" class="text-light-grey regular font-size-1">{{formatNumberWithCommas(coursesInfo.coursesToShow.length)}} Course found</span>
 
       <!-- Sort -->
-      <app-sort-by [items]="coursesInfo.sortItems"></app-sort-by>
+      <app-sort-by
+        [items]="coursesInfo.sortItems"
+        [selectedItem]="coursesInfo.sortItems[0]"
+        (itemSelected)="doSortCourses($event)">
+      </app-sort-by>
     </div>
 
-    <div class="w-100 d-flex align-items-center flex-wrap mt-3">
-      <div *ngFor="let course of courses" class="col-lg-3 col-md-6 col-sm-12">
+    <div class="w-100 d-flex align-items-center flex-wrap mt-3 position-relative">
+
+      <div *ngIf="coursesInfo.loading" class="center-x">
+        <div class="spinner-border text-primary" role="status">
+          <span class="sr-only">Finding courses...</span>
+        </div>
+      </div>
+
+      <div *ngFor="let course of coursesInfo.coursesAfterSplit" class="col-lg-3 col-md-6 col-sm-12">
         <app-course-card  [course]="course"></app-course-card>
       </div>
     </div>
 
     <!-- Load more -->
-    <p *ngIf="courses.length > 20" class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
+    <p *ngIf="coursesInfo.coursesToShow.length > 20 && coursesInfo.coursesAfterSplit < coursesInfo.coursesToShow"
+       class="link regular text-grey text-center font-size-2" (click)="loadMoreCourses()">Load more</p>
 
   </div> <!-- ./courses -->
 
