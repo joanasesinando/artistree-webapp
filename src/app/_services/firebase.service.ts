@@ -7,6 +7,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 
 import {AlertService} from '../_util/alert.service';
 import {Live} from '../_domain/Live';
+import {LivePost} from '../_domain/LivePost';
 
 
 @Injectable({
@@ -225,6 +226,10 @@ export class FirebaseService {
     });
   }
 
+  getAllLives(): Promise<Live[]> {
+    return this.getDatabaseData('lives/');
+  }
+
   getLiveInfo(id: string): Promise<Live> {
     return this.getDatabaseData('lives/' + id);
   }
@@ -232,6 +237,18 @@ export class FirebaseService {
   setLiveInfo(live: Live): Promise<void> {
     return this.setDatabaseData('lives/' + live.id, live);
   }
+
+  // postToLive(liveId: string, post: LivePost): Promise<void> {
+  //   return this.getLiveInfo(liveId).then(live => {
+  //     if (live.posts) {
+  //       live.posts.push(post);
+  //     } else {
+  //       live.posts = [post]
+  //     }
+  //
+  //     return this.setLiveInfo(live);
+  //   });
+  // }
 
   /*** --------------------------------------------- ***/
   /*** ------------------ Reviews ------------------ ***/

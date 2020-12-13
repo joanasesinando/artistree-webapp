@@ -1,4 +1,4 @@
-<div class="main live rounded mb-3" style="width: 14rem">
+<div *ngIf="artist.name" class="main live rounded mb-3" style="width: 14rem" (click)="goToLive()">
 
   <div class="image">
     <img class="rounded-top-right rounded-top-left" src="{{live.thumbnail}}" alt="thumbnail">

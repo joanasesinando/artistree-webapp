@@ -5,6 +5,7 @@ import {Live} from '../../../_domain/Live';
 import {User} from '../../../_domain/User';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import * as eva from 'eva-icons';
+import {LivePost} from '../../../_domain/LivePost';
 
 @Component({
   selector: 'app-streaming',
@@ -17,41 +18,28 @@ export class StreamingComponent implements OnInit {
   showControls = false;
 
 
-
-
-  loading: boolean = true;
   loadingIframe: boolean = true;
+
+  postText: string = "";
 
   live: Live;
 
   artist: User = {handler: '', interests: [], joiningTimestamp: 0, name: '', type: '', uid: ''};
+  user: User = {} as User;
 
-  //  free: boolean;
-  //   artistID: string;
-  //   name: string;
-  //   tags: string[];
-  //   thumbnail: string;
   url: SafeResourceUrl;
   private liveVideo: HTMLElement;
   private liveVideoDiv: HTMLElement;
   private liveVideoBar: HTMLElement;
   private liveVideoOverlay: HTMLElement;
-  private liveVideoJ: HTMLElement;
 
   constructor(private router: ActivatedRoute, private firebaseService: FirebaseService, private sanitizer: DomSanitizer) {
-    let l: Live = {
-      id: "0",
-      free: true,
-      artistID: "32xBShZg1oMMj7bANbz8NgyfZYy2",
-      name: "Live 123",
-      tags: ["fun", "free", "tag2"],
-      thumbnail: "https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
-    }
 
-    // this.firebaseService.setLiveInfo(l).then(r=>r);
     this.router.params.subscribe(params => {
       this.getLiveInfo(params.id);
     });
+
+    this.firebaseService.getUserInfo(this.firebaseService.currentUser.uid).then(user => this.user = user as User)
   }
 
   getSanitizedLink() {
@@ -63,16 +51,15 @@ export class StreamingComponent implements OnInit {
   getLiveInfo(id: string): void {
     this.firebaseService.getLiveInfo(id).then(live => {
       this.live = live;
+      if (!live.posts) live.posts = [];
       this.getSanitizedLink()
       this.getArtist();
-
     })
   }
 
   getArtist(): void {
     this.firebaseService.getDatabaseData('users/artists/' + this.live.artistID).then(artist => {
       this.artist = artist as User;
-      this.loading = false;
     });
   }
 
@@ -102,6 +89,7 @@ export class StreamingComponent implements OnInit {
   }
 
   resizeIframe() {
+    this.loadingIframe = false;
     if (!this.liveVideo) {
       this.getObjs()
     }
@@ -115,4 +103,25 @@ export class StreamingComponent implements OnInit {
     this.liveVideoBar.style.width = w+0.5 + "px";
   }
 
+  getCurrentTime() {
+    let date = new Date()
+    return date.toISOString().substr(11, 5);
+  }
+
+  makePost(avatar: string, name: string, text: string) {
+    this.live.posts.push({avatar: avatar, name: name, text: text, time: this.getCurrentTime()});
+
+    this.firebaseService.setLiveInfo(this.live);
+  }
+
+  sendPost() {
+    if (!this.postText) return;
+    this.makePost(this.user.avatar, this.user.name, this.postText);
+    this.postText = "";
+  }
+
+  cheer() {
+    // A imagem ta no firebase storage, tirada do figma
+    this.makePost("https://firebasestorage.googleapis.com/v0/b/artistree-78c6a.appspot.com/o/heart.png?alt=media&token=7d6547d7-43d3-4797-ae44-a2d214c5ceab", this.user.name + " sent a cheer!", "")
+  }
 }

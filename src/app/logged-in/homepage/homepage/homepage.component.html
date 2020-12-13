@@ -10,7 +10,7 @@
 
   <div class="w-100 live-now position-relative">
 
-    <ngx-slick-carousel class="carousel"
+    <ngx-slick-carousel *ngIf="lives" class="carousel"
                         id="liveCarousel"
                         [config]="slideConfig"
                         #slickModal='slick-carousel'>
