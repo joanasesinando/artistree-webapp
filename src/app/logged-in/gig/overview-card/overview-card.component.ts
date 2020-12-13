@@ -45,4 +45,8 @@ export class OverviewCardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  loadIcons(): void {
+    eva.replace();
+  }
+
 }

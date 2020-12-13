@@ -36,7 +36,7 @@
 
     <div *ngFor="let checkItem of item.list; let last = last"
          class="item d-flex align-items-center" [ngClass]="{'mb-2': !last}">
-      <i data-eva="checkmark-circle-outline"></i>
+      <i data-eva="checkmark-circle-outline" (ngInit)="loadIcons()"></i>
       <span class="text-dark ml-2">{{checkItem}}</span>
     </div>
 
