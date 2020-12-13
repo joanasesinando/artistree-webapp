@@ -6,6 +6,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 
 import {AlertService} from '../_util/alert.service';
+import {Live} from '../_domain/Live';
 
 
 @Injectable({
@@ -224,6 +225,14 @@ export class FirebaseService {
     });
   }
 
+  getLiveInfo(id: string): Promise<Live> {
+    return this.getDatabaseData('lives/' + id);
+  }
+
+  setLiveInfo(live: Live): Promise<void> {
+    return this.setDatabaseData('lives/' + live.id, live);
+  }
+
   /*** --------------------------------------------- ***/
   /*** ------------------ Reviews ------------------ ***/
   /*** --------------------------------------------- ***/
@@ -262,3 +271,5 @@ export class FirebaseService {
     });
   }
 }
+
+

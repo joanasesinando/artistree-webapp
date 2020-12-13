@@ -1,5 +1,35 @@
-<section class="container-fluid py-4" id="streaming-section">
+<section [ngClass]="{'d-none': loading, 'd-block': !loading}" class="container-fluid py-4" id="streaming-section">
 
-  <h4>Hello World</h4>
+  <h4>{{live.name}}</h4>
+
+  <div class="top d-flex align-items-center">
+
+    <div class="avatar mr-2">
+      <img class="rounded-circle" src="{{artist.avatar}}" alt="avatar">
+    </div>
+
+    <span class="text-muted">{{artist.name}}</span>
+
+  </div>
+
+  <div class="row mt-3">
+    <div id="liveVideoDiv" class="col-7 p-0" (window:resize)="resizeIframe()">
+      <div id="liveVideoO" [ngClass]="{'overlay': !allowClicksInVideo}">
+        <iframe id="liveVideo" (load)='resizeIframe()' width="840" height="472,5" [src]="url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div id="liveVideoBar" class="d-flex flex-row-reverse">
+        <div style="border-radius: 50%; background: white; height: 1.5rem; width: 1.5rem; margin: 0.25rem; position: relative" (click)="fullscreen()">
+          <i class="icon center-xy" data-eva="expand"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-5">
+
+
+    </div>
+
+  </div>
+
+
 
 </section>
