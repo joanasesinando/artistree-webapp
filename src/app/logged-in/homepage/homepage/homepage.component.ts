@@ -69,114 +69,36 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   artists: User[] = [];
   lives: Live[] = [];
-  // lives: Live[] = [{
-  //     free: false,
-  //     artistID: '32xBShZg1oMMj7bANbz8NgyfZYy2',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: '4ZQfkGnFvZdSZDKx9pYSGtla9Sw2',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: '8CCfmxvGbhZz6Rl2T3bejmimGf53',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: '8M21g7mFsOPfXzHVqOIi9UhKKuu2',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: 'Aciq4JOLk6hqSLekTlgHlroxZ9m1',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: 'DBz9f0xfUEMxYCa0a0ijcpYGwOt1',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: 'Dq7iLW3x2NSE0NlG52HoA7raxr63',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: 'IlDV2dDEfTa49ncrQHycGwmamdt2',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: 'IlDV2dDEfTa49ncrQHycGwmamdt2',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   },
-  //   {
-  //     free: true,
-  //     artistID: 'RdJFySIWaZWNshH3Ca9FOP5AQZI2',
-  //     name: 'Lorem ipsum dolor sit amet',
-  //     tags: ['lorem', 'ipsum'],
-  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-  //   }
-  // ];
 
   feeds = [
     {
       avatar: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
       name: 'Zaynah Gilmore',
+      title: 'Phootgrapher',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
-      timestamp: '1607681253843',
+      timestamp: 1607681253843,
+      imgsURL: [
+        'https://images.unsplash.com/photo-1607825143721-88249c959196?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+        'https://images.unsplash.com/photo-1607825143721-88249c959196?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+        'https://images.unsplash.com/photo-1607825143721-88249c959196?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+      ],
+      likes: {
+        liked: true,
+        total: 27
+      },
+      commentsTotal: 5
     },
     {
-      avatar: 'https://images.unsplash.com/photo-1526510747491-58f928ec870f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Stella Lam',
+      avatar: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      name: 'Zaynah Gilmore',
+      title: 'Phootgrapher',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
-      timestamp: '1607681253843',
-    },
-    {
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Arabella Mueller',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
-      timestamp: '1607681253843',
-    },
-    {
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Arabella Mueller',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
-      timestamp: '1607681253843',
-    },
-    {
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Arabella Mueller',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
-      timestamp: '1607681253843',
-    },
-    {
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Arabella Mueller',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
-      timestamp: '1607681253843',
+      timestamp: 1607681253843,
+      likes: {
+        liked: true,
+        total: 27
+      },
+      commentsTotal: 5
     }
   ];
 
@@ -206,19 +128,9 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       this.artists.push(user as User);
     });
 
-    this.firebase.getDatabaseData('users/artists/' + 'IlDV2dDEfTa49ncrQHycGwmamdt2').then(user => {
-      this.artists.push(user as User);
-    });
-
     this.firebase.getDatabaseData('users/artists/' + 'DBz9f0xfUEMxYCa0a0ijcpYGwOt1').then(user => {
       this.artists.push(user as User);
-      this.artists.push(user as User);
     });
-  }
-
-  getTime(timestamp: number): string {
-    const date = new Date(timestamp);
-    return date.toLocaleDateString();
   }
 
 }

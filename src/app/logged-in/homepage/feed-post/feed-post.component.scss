@@ -1,0 +1,53 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$avatar-height: 2rem;
+$img-height: 13rem;
+
+.feed {
+  letter-spacing: 0.505197px;
+
+  .avatar {
+    width: $avatar-height;
+    height: $avatar-height;
+
+    img {
+      width: 100%;
+      height: $avatar-height;
+      object-fit: cover;
+    }
+  }
+
+  .description, .imgs, .actions {
+    padding-left: calc(#{$avatar-height} + .5rem);
+  }
+
+  .img-wrapper {
+    height: $img-height;
+    width: calc((100% - (2 * 1rem)) / 3);
+
+    img {
+      width: 100%;
+      height: $img-height;
+      object-fit: cover;
+    }
+  }
+
+  .actions {
+    cursor: pointer;
+    span {
+      font-size: .7rem;
+    }
+    svg {
+      height: 1rem;
+      margin-right: .2rem;
+      fill: get-color(danger, 1);
+    }
+
+    .comments, .share {
+      svg {
+        fill: get-color(typography, 2);
+      }
+    }
+  }
+}

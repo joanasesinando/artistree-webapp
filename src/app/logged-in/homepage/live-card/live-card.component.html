@@ -1,11 +1,11 @@
-<div *ngIf="artist.name" class="main live rounded mb-3" style="width: 14rem" (click)="goToLive()">
+<div *ngIf="artist.name" class="main live rounded cursor-pointer mb-3" style="width: 14rem" (click)="goToLive()">
 
   <div class="image">
     <img class="rounded-top-right rounded-top-left" src="{{live.thumbnail}}" alt="thumbnail">
   </div>
 
   <div class="content mx-3 my-2 position-relative">
-    <div class="d-flex align-items-center">
+    <div class="d-flex">
       <div class="avatar mr-2">
         <img class="rounded-circle" src="{{artist.avatar}}" alt="avatar">
       </div>
@@ -16,7 +16,7 @@
     <p class="job text-grey regular mb-3">{{formatText(70, artist.title)}}</p>
 
     <div class="tags d-flex align-items-center">
-      <app-pill *ngFor="let tag of live.tags" [label]="tag" [marginRight]="true"></app-pill>
+      <app-pill *ngFor="let tag of live.tags" [label]="tag" [marginRight]="true" [small]="true"></app-pill>
     </div>
   </div>
 

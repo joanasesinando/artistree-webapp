@@ -16,6 +16,8 @@ export class PillComponent implements OnInit, AfterViewInit {
   @Input() label: string;
   @Input() marginRight: boolean;
 
+  @Input() small: boolean;
+
   @Output() deleteClicked = new EventEmitter<string>();
 
   constructor() { }

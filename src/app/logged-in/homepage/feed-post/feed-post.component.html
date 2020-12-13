@@ -1,0 +1,49 @@
+<div class="feed card-att" [ngClass]="{'mb-3': marginBottom}">
+
+  <div class="top d-flex align-items-center">
+
+    <div class="avatar mr-2">
+      <img class="rounded-circle" src="{{feed.avatar}}" alt="avatar">
+    </div>
+
+    <div>
+      <div class="d-flex align-items-center">
+        <span class="text-dark bold">{{feed.name}}</span>
+        <span class="text-light-grey light font-size-4 ml-2"> | {{getTime(feed.timestamp)}}</span>
+      </div>
+      <span class="d-block text-grey regular mb-1" style="font-size: .7rem">{{feed.title}}</span>
+    </div>
+
+  </div>
+
+  <p class="description text-dark font-size-3 mb-2 mt-2">{{feed.description}}</p>
+
+  <div *ngIf="feed.imgsURL" class="imgs d-flex align-items-center justify-content-between mt-2">
+
+    <div *ngFor="let img of feed.imgsURL" class="img-wrapper">
+      <img src="{{img}}" alt="feed image">
+    </div>
+
+  </div>
+
+  <div class="actions d-flex align-items-center mt-3">
+
+    <div class="d-flex align-items-center mr-3">
+      <i *ngIf="feed.likes.liked" data-eva="heart"></i>
+      <i *ngIf="!feed.likes.liked" data-eva="heart-outline"></i>
+      <span class="text-grey semibold">{{feed.likes.total}}</span>
+    </div>
+
+    <div class="d-flex align-items-center comments mr-3">
+      <i data-eva="message-square-outline"></i>
+      <span class="text-grey semibold">{{feed.commentsTotal}}</span>
+    </div>
+
+    <div class="d-flex align-items-center share">
+      <i data-eva="share-outline"></i>
+      <span class="text-grey semibold">Share</span>
+    </div>
+
+  </div>
+
+</div>

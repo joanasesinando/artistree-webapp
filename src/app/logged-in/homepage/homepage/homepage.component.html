@@ -28,31 +28,13 @@
     <div class="col-9 mr-3">
 
       <!-- Feed -->
-      <div *ngFor="let feed of feeds" class="w-100 mb-3 card-att">
-
-        <div class="feed">
-
-          <div class="top d-flex align-items-center">
-
-            <div class="avatar mr-2">
-              <img class="rounded-circle" src="{{feed.avatar}}" alt="avatar">
-            </div>
-
-            <span class="text-dark bold">{{feed.name}}</span>
-
-          </div>
-
-          <div class="text">
-            <p class="description text-dark font-size-3 mb-2 mt-1">{{feed.description}}</p>
-            <p class="when text-grey font-size-4">Reviewed on {{getTime(feed.timestamp)}}</p>
-          </div>
-
-        </div>
-
-      </div>
+      <app-feed-post *ngFor="let feed of feeds; let last = last"
+                     [feed]="feed"
+                      [marginBottom]="!last">
+      </app-feed-post>
 
       <!-- Load more -->
-      <p class="link regular text-grey text-center font-size-2">Load more</p>
+      <p class="link regular text-grey text-center font-size-2 mt-3">Load more</p>
 
     </div>
 

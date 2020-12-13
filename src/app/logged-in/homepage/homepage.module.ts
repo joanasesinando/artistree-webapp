@@ -8,10 +8,11 @@ import {SlickCarouselModule} from 'ngx-slick-carousel';
 import { LiveCardComponent } from './live-card/live-card.component';
 import {ProfileModule} from '../profile/profile.module';
 import {DiscoverArtistsModule} from '../discover-artists/discover-artists.module';
+import { FeedPostComponent } from './feed-post/feed-post.component';
 
 
 @NgModule({
-  declarations: [HomepageComponent, LiveCardComponent],
+  declarations: [HomepageComponent, LiveCardComponent, FeedPostComponent],
   imports: [
     CommonModule,
     HomepageRoutingModule,
