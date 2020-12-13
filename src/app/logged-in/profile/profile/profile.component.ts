@@ -54,8 +54,8 @@ export class ProfileComponent implements OnInit {
         this.user.joiningTimestamp = userInfo.joiningTimestamp;
         if (userInfo.avatar) this.user.avatar = userInfo.avatar;
 
-        if (userInfo.following) this.user.following = userInfo.following.length;
-        if (userInfo.followers) this.user.followers = userInfo.followers.length;
+        if (userInfo.following) this.user.following = userInfo.following;
+        if (userInfo.followers) this.user.followers = userInfo.followers;
 
         if (userInfo.title) this.user.title = userInfo.title;
         if (userInfo.location) this.user.location = userInfo.location;

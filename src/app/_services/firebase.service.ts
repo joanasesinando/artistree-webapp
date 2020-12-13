@@ -234,6 +234,10 @@ export class FirebaseService {
     return this.getDatabaseData('lives/' + id);
   }
 
+  /*** --------------------------------------------- ***/
+  /*** -------------------- Lives ------------------ ***/
+  /*** --------------------------------------------- ***/
+
   setLiveInfo(live: Live): Promise<void> {
     return this.setDatabaseData('lives/' + live.id, live);
   }

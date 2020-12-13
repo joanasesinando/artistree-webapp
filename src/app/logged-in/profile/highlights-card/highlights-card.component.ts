@@ -48,6 +48,10 @@ export class HighlightsCardComponent implements OnInit, AfterViewInit {
       this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
         highlights: this.user.highlights
       });
+
+      this.newHighlight.title = '';
+      this.newHighlight.description = '';
+      this.newHighlight.color = '';
     }
   }
 
