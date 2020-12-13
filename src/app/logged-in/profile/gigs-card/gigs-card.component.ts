@@ -16,7 +16,9 @@ export class GigsCardComponent implements OnInit {
   @Input() user: User;
 
   // tslint:disable-next-line:max-line-length
-  newGig: Gig = {timestamp: 0, timesSold: 0, category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+  newGig: Gig = {
+    artistID: '',
+    timestamp: 0, timesSold: 0, category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
   newPrice: string;
 
@@ -98,6 +100,7 @@ export class GigsCardComponent implements OnInit {
 
     const gigID = this.getNewID();
     this.newGig.id = gigID;
+    this.newGig.artistID = this.user.uid;
     this.user.gigs.push({
       id: this.newGig.id,
       name: this.newGig.name,
@@ -108,10 +111,9 @@ export class GigsCardComponent implements OnInit {
       price: this.newGig.price,
       imagesURL: this.newGig.imagesURL,
       timesSold: 0,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      artistID: this.newGig.artistID
     });
-
-    console.log(this.user.gigs);
 
     this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
       gigs: this.user.gigs
@@ -120,7 +122,9 @@ export class GigsCardComponent implements OnInit {
     this.firebaseService.setDatabaseData('gigs/' + gigID, this.newGig);
 
     // tslint:disable-next-line:max-line-length
-    this.newGig = {timestamp: 0, timesSold: 0, category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
+    this.newGig = {
+      artistID: '',
+      timestamp: 0, timesSold: 0, category: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
 
     this.newPrice = '';
 
@@ -162,7 +166,8 @@ export class GigsCardComponent implements OnInit {
       imagesURL: [],
       rate: null,
       timesSold: null,
-      timestamp: null
+      timestamp: null,
+      artistID: null
     });
   }
 

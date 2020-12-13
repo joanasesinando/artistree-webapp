@@ -6,16 +6,14 @@
     <app-description-card [isCurrent]="isCurrent" [user]="user"></app-description-card>
     <app-interests-card [isCurrent]="isCurrent" [user]="user"></app-interests-card>
     <app-reviews-card *ngIf="isCurrent"
-      [isCurrent]="isCurrent"
       [user]="user"
       [type]="'given'"
       [marginTop]="true"
     ></app-reviews-card>
     <app-reviews-card *ngIf="!isCurrent"
-                      [isCurrent]="isCurrent"
-                      [user]="user"
-                      [type]="'received'"
-                      [marginTop]="true"
+      [user]="user"
+      [type]="'received'"
+      [marginTop]="true"
     ></app-reviews-card>
   </div>
 
@@ -24,7 +22,6 @@
     <app-gigs-card [isCurrent]="isCurrent" [user]="user"></app-gigs-card>
     <app-courses-card [isCurrent]="isCurrent" [user]="user"></app-courses-card>
     <app-reviews-card *ngIf="isCurrent"
-      [isCurrent]="isCurrent"
       [user]="user"
       [type]="'received'"
       [marginTop]="true"

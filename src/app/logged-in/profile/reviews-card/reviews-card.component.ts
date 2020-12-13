@@ -1,10 +1,12 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit} from '@angular/core';
 
 import {FirebaseService} from '../../../_services/firebase.service';
 
 import * as eva from 'eva-icons';
 import _ from 'lodash';
 import {User} from '../../../_domain/User';
+import {Gig} from '../../../_domain/Gig';
+import {Course} from '../../../_domain/Course';
 
 @Component({
   selector: 'app-reviews-card',
@@ -13,8 +15,9 @@ import {User} from '../../../_domain/User';
 })
 export class ReviewsCardComponent implements OnInit, AfterViewInit {
 
-  @Input() isCurrent: boolean;
-  @Input() user: User;
+  @Input() user?: User;
+  @Input() gig?: Gig;
+  @Input() course?: Course;
   @Input() type: string;
   @Input() marginTop: boolean;
   @Input() marginTopOnMobile: boolean;
@@ -39,33 +42,63 @@ export class ReviewsCardComponent implements OnInit, AfterViewInit {
   }
 
   async loadReviews(): Promise<void> {
-    if (this.type === 'given') {
-
-      for (const review of this.user.reviewsGiven) {
-        await this.firebaseService.getUserInfo(review.artistID).then(artist => {
-          this.reviewsToShow.push({
-            avatar: artist.avatar,
-            name: artist.name,
-            rate: review.rate,
-            description: review.description,
-            timestamp: review.timestamp
+    switch (this.type) {
+      case 'given':
+        for (const review of this.user.reviewsGiven) {
+          await this.firebaseService.getUserInfo(review.artistID).then(artist => {
+            this.reviewsToShow.push({
+              avatar: artist.avatar,
+              name: artist.name,
+              rate: review.rate,
+              description: review.description,
+              timestamp: review.timestamp
+            });
           });
-        });
-      }
+        }
+        break;
 
-    } else if (this.type === 'received') {
-
-      for (const review of this.user.reviewsReceived) {
-        await this.firebaseService.getUserInfo(review.userID).then(reviewer => {
-          this.reviewsToShow.push({
-            avatar: reviewer.avatar,
-            name: reviewer.name,
-            rate: review.rate,
-            description: review.description,
-            timestamp: review.timestamp
+      case 'received':
+        for (const review of this.user.reviewsReceived) {
+          await this.firebaseService.getUserInfo(review.userID).then(reviewer => {
+            this.reviewsToShow.push({
+              avatar: reviewer.avatar,
+              name: reviewer.name,
+              rate: review.rate,
+              description: review.description,
+              timestamp: review.timestamp
+            });
           });
-        });
-      }
+        }
+        break;
+
+      case 'gig':
+        console.log(this.gig)
+        for (const review of this.gig.reviews) {
+          await this.firebaseService.getUserInfo(review.userID).then(reviewer => {
+            this.reviewsToShow.push({
+              avatar: reviewer.avatar,
+              name: reviewer.name,
+              rate: review.rate,
+              description: review.description,
+              timestamp: review.timestamp
+            });
+          });
+        }
+        break;
+
+      case 'course':
+        for (const review of this.course.reviews) {
+          await this.firebaseService.getUserInfo(review.userID).then(reviewer => {
+            this.reviewsToShow.push({
+              avatar: reviewer.avatar,
+              name: reviewer.name,
+              rate: review.rate,
+              description: review.description,
+              timestamp: review.timestamp
+            });
+          });
+        }
+        break;
     }
   }
 

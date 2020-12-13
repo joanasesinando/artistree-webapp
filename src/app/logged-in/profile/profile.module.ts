@@ -37,7 +37,8 @@ import {AcademyModule} from '../academy/academy.module';
       CoursesCardComponent
     ],
     exports: [
-        PillComponent
+        PillComponent,
+        ReviewsCardComponent
     ],
   imports: [
     CommonModule,

@@ -1,0 +1,62 @@
+$avatar-height: 2rem;
+$main-img-height: 30rem;
+$secondary-imgs-height: 5rem;
+
+#gig-section {
+
+  .rate {
+    svg {
+      fill: #F2C94C;
+      height: 1rem;
+    }
+  }
+
+  .avatar {
+    width: $avatar-height;
+    height: $avatar-height;
+
+    img {
+      width: 100%;
+      height: $avatar-height;
+      object-fit: cover;
+    }
+  }
+
+  .name {
+    letter-spacing: 0.505197px;
+  }
+
+  .title {
+    letter-spacing: 0.763177px;
+  }
+
+  .main-img {
+    height: $main-img-height;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: $main-img-height;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+
+  .secondary-img {
+    width: calc((100% - (4 * .5rem)) / 5);
+    height: $secondary-imgs-height;
+
+    img {
+      width: 100%;
+      height: $secondary-imgs-height;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+
+  .description {
+    letter-spacing: 1px;
+    word-break: break-word;
+  }
+
+}

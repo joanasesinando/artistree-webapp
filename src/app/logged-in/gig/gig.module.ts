@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { GigRoutingModule } from './gig-routing.module';
 import { GigComponent } from './gig/gig.component';
+import { OverviewCardComponent } from './overview-card/overview-card.component';
+import {ProfileModule} from '../profile/profile.module';
 
 
 @NgModule({
-  declarations: [GigComponent],
-  imports: [
-    CommonModule,
-    GigRoutingModule
-  ]
+  declarations: [GigComponent, OverviewCardComponent],
+    imports: [
+        CommonModule,
+        GigRoutingModule,
+        ProfileModule
+    ]
 })
 export class GigModule { }

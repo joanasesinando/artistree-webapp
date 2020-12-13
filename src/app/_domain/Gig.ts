@@ -1,3 +1,5 @@
+import {ReviewReceived} from './Review';
+
 export interface Gig {
   id: string;
   name: string;
@@ -10,4 +12,6 @@ export interface Gig {
   rate?: number;
   timesSold: number;
   timestamp: number;
+  artistID: string;
+  reviews?: ReviewReceived[];
 }

@@ -1,3 +1,5 @@
+import {ReviewReceived} from './Review';
+
 export interface Course {
   id: string;
   name: string;
@@ -11,4 +13,6 @@ export interface Course {
   rate?: number;
   timesSold: number;
   timestamp: number;
+  artistID: string;
+  reviews?: ReviewReceived[];
 }

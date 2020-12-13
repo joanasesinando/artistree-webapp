@@ -16,6 +16,7 @@ export class CoursesCardComponent implements OnInit {
   @Input() user: User;
 
   newCourse: Course = {
+    artistID: '',
     timestamp: null,
     timesSold: 0,
     category: '',
@@ -114,6 +115,7 @@ export class CoursesCardComponent implements OnInit {
 
     const courseID = this.getNewID();
     this.newCourse.id = courseID;
+    this.newCourse.artistID = this.user.uid
     this.user.courses.push({
       id: courseID,
       name: this.newCourse.name,
@@ -125,7 +127,8 @@ export class CoursesCardComponent implements OnInit {
       price: this.newCourse.price,
       imagesURL: this.newCourse.imagesURL,
       timesSold: 0,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      artistID: this.newCourse.artistID
     });
 
     this.firebaseService.setDatabaseData('users/artists/' + this.user.uid, {
@@ -135,6 +138,7 @@ export class CoursesCardComponent implements OnInit {
     this.firebaseService.setDatabaseData('courses/' + courseID, this.newCourse);
 
     this.newCourse = {
+      artistID: '',
       timestamp: 0,
       timesSold: 0,
       category: '', duration: '', id: '', list: [], pitch: '', name: '', description: '', price: null, imagesURL: [] };
@@ -180,7 +184,8 @@ export class CoursesCardComponent implements OnInit {
       imagesURL: [],
       rate: null,
       timesSold: null,
-      timestamp: null
+      timestamp: null,
+      artistID: null
     });
   }
 

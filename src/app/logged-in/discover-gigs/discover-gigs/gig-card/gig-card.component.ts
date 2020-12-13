@@ -22,7 +22,7 @@ export class GigCardComponent implements OnInit {
   }
 
   goToGig(): void {
-    this.router.navigate(['/gigs', this.gig.id]);
+    this.router.navigate(['/gig', this.gig.id]);
   }
 
 }

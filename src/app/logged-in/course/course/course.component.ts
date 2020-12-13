@@ -11,6 +11,7 @@ import {Course} from '../../../_domain/Course';
 export class CourseComponent implements OnInit {
 
   course: Course = {
+    artistID: '',
     category: '',
     description: '',
     duration: '',
