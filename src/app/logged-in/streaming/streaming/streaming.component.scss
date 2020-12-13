@@ -1,4 +1,7 @@
-$avatar-height: 2rem;
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$avatar-height: 1.8rem;
 
 .avatar {
   width: $avatar-height;
@@ -16,8 +19,8 @@ $avatar-height: 2rem;
 }
 
 #liveVideoBar {
-  background: #202b36;
-  height: 2rem;
+  background: get-color(typography, 1);
+  height: 2.5rem;
 }
 
 .overlay {
@@ -29,10 +32,37 @@ $avatar-height: 2rem;
 .barIcon {
   border-radius: 50%;
   cursor: pointer;
-  height: 1.5rem;
-  width: 1.5rem;
-  margin: 0.25rem;
+  height: 1.8rem;
+  width: 1.8rem;
   position: relative;
+
+  &.tip {
+    background-color: get-color(primary, 3);
+    color: white;
+
+    &:hover {
+      background-color: darken(get-color(primary, 3), 10);
+    }
+  }
+
+  &.cheer {
+    background-color: get-color(danger, 1);
+    svg { fill: white; }
+
+    &:hover {
+      background-color: get-color(danger, 3);
+    }
+  }
+
+  &.expand {
+    background-color: white;
+    svg { fill: get-color(typography, 2); }
+
+    &:hover {
+      background-color:  get-color(typography, 2);
+      svg { fill: white; }
+    }
+  }
 }
 
 .postsWrapper {

@@ -8,34 +8,51 @@
       <img class="rounded-circle" src="{{artist.avatar}}" alt="avatar">
     </div>
 
-    <span class="text-muted">{{artist.name}}</span>
+    <span class="text-grey">{{artist.name}}</span>
 
   </div>
 
-  <div class="row mt-3">
+  <div class="row mx-0 mt-4">
 
-    <div id="liveVideoDiv" class="col-7 p-0" (window:resize)="resizeIframe()">
+    <!-- Live -->
+    <div id="liveVideoDiv" class="col-12 col-md-8 pl-0" (window:resize)="resizeIframe()">
+
+      <!-- Video -->
       <div id="liveVideoO" [ngClass]="{'overlay': !allowClicksInVideo}">
-        <iframe  [ngClass]="{'d-none': loadingIframe}" id="liveVideo" (load)='resizeIframe()' width="840" height="472,5" [src]="url" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div id="liveVideoBar" class="d-flex flex-row-reverse">
-        <div class="barIcon" style="background: white" (click)="fullscreen()" >
-          <i class="icon center-xy" style="fill: #5B6F82" data-eva="expand"></i>
-        </div>
-        <div class="barIcon" style="background-color: #FF6D8B" (click)="cheer()">
-          <i class="icon center-xy" style="fill: white" data-eva="heart"></i>
-        </div>
-        <div class="barIcon" style="background-color: #3ADACA" (click)="bid(5)">
-          <p class="icon center-xy" style="color: white">€</p>
-        </div>
+        <iframe id="liveVideo" [ngClass]="{'d-none': loadingIframe}"
+                width="840" height="472,5" [src]="url"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                (load)='resizeIframe()'>
+        </iframe>
       </div>
 
-      <div class="tags d-flex align-items-center mt-3">
-        <app-pill *ngFor="let tag of live.tags" [label]="tag" [marginRight]="true"></app-pill>
-      </div>
-    </div>
+      <!-- Bar -->
+      <div id="liveVideoBar" class="d-flex align-items-center justify-content-end pr-3">
 
-    <div class="col-4 ml-5">
+        <div class="barIcon tip mr-3" (click)="bid(5)">
+          <p class="icon semibold center-xy">€</p>
+        </div>
+
+        <div class="barIcon cheer mr-3" (click)="cheer()">
+          <i class="icon center-xy" data-eva="heart"></i>
+        </div>
+
+        <div class="barIcon expand" (click)="fullscreen()" >
+          <i class="icon center-xy" data-eva="expand"></i>
+        </div>
+
+      </div>
+
+      <!-- Tags -->
+      <div class="tags d-flex align-items-center mt-2">
+        <app-pill *ngFor="let tag of live.tags; let last = last" [label]="tag" [marginRight]="!last"></app-pill>
+      </div>
+
+    </div> <!-- ./live -->
+
+    <div class="col-12 col-md-4 bg-warning">
       <div class="chat" *ngIf="!loadingIframe">
 
         <div class="d-flex mb-2">
@@ -81,7 +98,5 @@
     </div>
 
   </div>
-
-
 
 </section>
