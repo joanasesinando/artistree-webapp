@@ -24,10 +24,12 @@ import { FilterPillComponent } from './filters/filter-pill/filter-pill.component
 import { InputTextareaComponent } from './inputs/input-textarea/input-textarea.component';
 import { InputNumberComponent } from './inputs/input-number/input-number.component';
 import { FilterBudgetComponent } from './filters/filter-budget/filter-budget.component';
+import { NgInitDirective } from '../_directives/ng-init.directive';
 
 
 @NgModule({
   declarations: [
+    NgInitDirective,
     NavbarHomepageComponent,
     FooterComponent,
     GoTopComponent,
@@ -51,6 +53,7 @@ import { FilterBudgetComponent } from './filters/filter-budget/filter-budget.com
     FilterBudgetComponent
   ],
   exports: [
+    NgInitDirective,
     FooterComponent,
     NavbarHomepageComponent,
     GoTopComponent,

@@ -26,5 +26,18 @@ $avatar-height: 2rem;
   background:none !important;
 }
 
+.barIcon {
+  border-radius: 50%;
+  cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin: 0.25rem;
+  position: relative;
+}
 
+.postsWrapper {
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 30rem;
+}
 

@@ -6,6 +6,7 @@ import {User} from '../../../_domain/User';
 import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 import * as eva from 'eva-icons';
 import {LivePost} from '../../../_domain/LivePost';
+declare let $;
 
 @Component({
   selector: 'app-streaming',
@@ -38,8 +39,10 @@ export class StreamingComponent implements OnInit {
     this.router.params.subscribe(params => {
       this.getLiveInfo(params.id);
     });
-
-    this.firebaseService.getUserInfo(this.firebaseService.currentUser.uid).then(user => this.user = user as User)
+    this.firebaseService.auth.onIdTokenChanged(id => {
+      console.log(id["uid"])
+      this.firebaseService.getUserInfo(id["uid"]).then(user => this.user = user as User)
+    });
   }
 
   getSanitizedLink() {
@@ -121,7 +124,16 @@ export class StreamingComponent implements OnInit {
   }
 
   cheer() {
-    // A imagem ta no firebase storage, tirada do figma
     this.makePost("https://firebasestorage.googleapis.com/v0/b/artistree-78c6a.appspot.com/o/heart.png?alt=media&token=7d6547d7-43d3-4797-ae44-a2d214c5ceab", this.user.name + " sent a cheer!", "")
+  }
+
+
+  bid(amount: number) {
+    this.makePost("https://firebasestorage.googleapis.com/v0/b/artistree-78c6a.appspot.com/o/bid.png?alt=media&token=9fac52a3-23e4-4b01-bb90-c4f36420d0e2", this.user.name + " tipped " + amount + "€!", "")
+  }
+
+  scrolldown() {
+    let element = document.getElementsByClassName("postsWrapper")[0];
+    element.scrollTop = element.scrollHeight;
   }
 }
