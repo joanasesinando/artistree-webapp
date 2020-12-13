@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Live} from '../../../_domain/Live';
-import {User} from '../../../_domain/User';
 import {FirebaseService} from '../../../_services/firebase.service';
 import {Router} from '@angular/router';
 
@@ -13,19 +12,10 @@ export class LiveCardComponent implements OnInit {
 
   @Input() live: Live;
 
-  artist: User = {handler: '', interests: [], joiningTimestamp: 0, name: '', type: '', uid: ''};
-
   constructor(private firebaseService: FirebaseService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.getArtist();
-  }
-
-  getArtist(): void {
-    this.firebaseService.getDatabaseData('users/artists/' + this.live.artistID).then(artist => {
-      this.artist = artist as User;
-    });
   }
 
   formatText(max: number, text: string): string {
@@ -33,7 +23,7 @@ export class LiveCardComponent implements OnInit {
     return text;
   }
 
-  goToLive() {
+  goToLive(): void {
     this.router.navigate(['/streaming/' + this.live.id]);
   }
 }

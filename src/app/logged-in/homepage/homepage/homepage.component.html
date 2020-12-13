@@ -10,13 +10,13 @@
 
   <div class="w-100 live-now position-relative">
 
-    <ngx-slick-carousel *ngIf="lives" class="carousel"
+    <ngx-slick-carousel *ngIf="lives.length !== 0" class="carousel"
                         id="liveCarousel"
                         [config]="slideConfig"
                         #slickModal='slick-carousel'>
 
       <div ngxSlickItem *ngFor="let live of lives" class="slide mr-3 position-relative">
-        <app-live-card [live]="live"></app-live-card>
+        <app-live-card (ngInit)="loadIcons()" [live]="live"></app-live-card>
       </div>
 
     </ngx-slick-carousel>

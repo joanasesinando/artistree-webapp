@@ -67,6 +67,8 @@ export class GigComponent implements OnInit, AfterViewInit {
       resizeDuration: 200,
       wrapAround: true
     });
+
+    this.goTop();
   }
 
   getRateArray(rate: number): any[] {
@@ -82,6 +84,11 @@ export class GigComponent implements OnInit, AfterViewInit {
     const copy = _.cloneDeep(this.gig.imagesURL);
     copy.splice(0, 1);
     return copy;
+  }
+
+  goTop(): void {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
 }

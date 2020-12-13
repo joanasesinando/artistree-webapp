@@ -44,7 +44,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     slidesToScroll: 1,
     swipeToSlide: true,
     centerMode: true,
-    autoplay: true,
+    autoplay: false,
     infinite: true,
     autoplaySpeed: 3000,
     focusOnSelect: false,
@@ -113,8 +113,13 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     eva.replace();
   }
 
-  getLives(): void {
-    this.firebase.getAllLives().then(lives => {
+  async getLives(): Promise<void> {
+    await this.firebase.getAllLives().then(async lives => {
+      for (const live of lives) {
+        await this.firebase.getUserInfo(live.artistID).then(artist => {
+          live.artist = artist;
+        });
+      }
       this.lives = lives;
     });
   }
@@ -131,6 +136,10 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     this.firebase.getDatabaseData('users/artists/' + 'DBz9f0xfUEMxYCa0a0ijcpYGwOt1').then(user => {
       this.artists.push(user as User);
     });
+  }
+
+  loadIcons(): void {
+    eva.replace();
   }
 
 }
