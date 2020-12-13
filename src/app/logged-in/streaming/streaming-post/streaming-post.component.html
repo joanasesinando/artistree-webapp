@@ -1,0 +1,19 @@
+<div class="w-100 mb-4">
+
+  <div class="feed position-relative" (ngInit)="scrolldown()">
+
+    <div class="top d-flex align-items-center">
+
+      <div class="avatar mr-2">
+        <img class="rounded-circle" src="{{post.avatar}}" alt="avatar">
+      </div>
+
+      <span class="text-dark semibold" [ngClass]="{'mb-2': post.text !== ''}">{{post.name}}</span>
+      <span class="time light text-light-grey ml-2" [ngClass]="{'mb-2': post.text !== ''}">{{post.time}}</span>
+    </div>
+
+    <p class="description text-grey font-size-3">{{post.text}}</p>
+
+  </div>
+
+</div>

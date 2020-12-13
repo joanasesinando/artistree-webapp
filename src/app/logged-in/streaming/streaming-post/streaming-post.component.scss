@@ -1,0 +1,25 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$avatar-height: 1.8rem;
+
+.avatar {
+  width: $avatar-height;
+  height: $avatar-height;
+
+  img {
+    width: 100%;
+    height: $avatar-height;
+    object-fit: cover;
+  }
+}
+
+.time {
+  font-size: .6rem;
+}
+
+.description {
+  position: absolute;
+  top: 1.3rem;
+  padding-left: calc(#{$avatar-height} + .5rem);
+}

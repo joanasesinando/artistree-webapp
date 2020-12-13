@@ -31,7 +31,7 @@
       <!-- Bar -->
       <div id="liveVideoBar" class="d-flex align-items-center justify-content-end pr-3">
 
-        <div class="barIcon tip mr-3" (click)="bid(5)">
+        <div class="barIcon tip mr-3" data-toggle="modal" data-target="#tipModal">
           <p class="icon semibold center-xy">€</p>
         </div>
 
@@ -52,46 +52,28 @@
 
     </div> <!-- ./live -->
 
-    <div class="col-12 col-md-4 bg-warning">
-      <div class="chat" *ngIf="!loadingIframe">
+    <!-- Chat -->
+    <div class="col-12 col-md-4 pl-3">
 
-        <div class="d-flex mb-2">
-          <div style="height: 2rem; width: 2rem; position: relative">
-            <i class="icon center-xy" style="fill: #3ADACA" data-eva="message-circle"></i>
-          </div>
-          <h4 class="ml-2 mt-0">Live Chat</h4>
-        </div>
-        <!-- posts -->
-        <div class="postsWrapper">
-          <div *ngFor="let post of live.posts" class="w-100 mb-3 card-att">
+      <div *ngIf="!loadingIframe" class="card-att">
+        <h4 class="subtitle d-flex align-items-center"><i class="chat-icon mr-2" data-eva="message-circle"></i>Live chat</h4>
 
-            <div class="feed" (ngInit)="scrolldown()">
-
-              <div class="top d-flex align-items-center">
-
-                <div class="avatar mr-2">
-                  <img class="rounded-circle" src="{{post.avatar}}" alt="avatar">
-                </div>
-
-                <span class="text-dark bold">{{post.name}}</span>
-                <span class="text-muted ml-2">{{post.time}}</span>
-              </div>
-
-              <div class="text">
-                <p class="description text-dark font-size-3 mb-2 mt-1">{{post.text}}</p>
-              </div>
-
-            </div>
-
-          </div>
-
+        <!-- Posts -->
+        <div class="postsWrapper mt-3">
+          <app-streaming-post *ngFor="let post of live.posts"
+              [post]="post">
+          </app-streaming-post>
         </div>
 
-        <app-input-text   [id] = "'post'"
-                          [placeholder] = "'Write something...'"
-                          [icon] = "'edit-2'"
-                          [(value)] = "postText"
-                          [marginTop] = "'mt-1'" (keydown.enter)="sendPost()"></app-input-text>
+        <!-- Input -->
+        <app-input-text
+          [id] = "'post'"
+          [placeholder] = "'Leave a comment'"
+          [icon] = "'edit-2'"
+          [(value)] = "postText"
+          [marginTop] = "'mt-1'"
+          (keydown.enter)="sendPost()">
+        </app-input-text>
 
       </div>
 
@@ -100,3 +82,40 @@
   </div>
 
 </section>
+
+<div class="modal fade" id="tipModal" tabindex="-1">
+
+  <div class="modal-dialog modal-sm-att">
+
+    <div class="modal-content">
+
+      <!-- Header -->
+      <app-modal-header [header]="'Tipping'"></app-modal-header>
+
+      <!-- Body -->
+      <div class="modal-body text-center">
+
+        <span class="text-grey semibold">Send a tip and show appreciation</span>
+
+        <div class="d-flex align-items-center justify-content-between mt-3">
+          <button class="btn btn-primary btn-block btn-lg mr-2"
+                  (click)="bid(5)" data-dismiss="modal">5 €</button>
+
+          <button class="btn btn-primary btn-block btn-lg mt-0 ml-2"
+                  (click)="bid(10)" data-dismiss="modal">10 €</button>
+        </div>
+
+        <div class="d-flex align-items-center justify-content-between mt-2 mb-2">
+          <button class="btn btn-primary btn-block btn-lg mr-2"
+                  (click)="bid(15)" data-dismiss="modal">15 €</button>
+
+          <button class="btn btn-seconday btn-block btn-lg mt-0 ml-2">Other</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

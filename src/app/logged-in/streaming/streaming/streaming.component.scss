@@ -14,10 +14,6 @@ $avatar-height: 1.8rem;
   }
 }
 
-.text {
-  padding-left: calc(#{$avatar-height} + .5rem);
-}
-
 #liveVideoBar {
   background: get-color(typography, 1);
   height: 2.5rem;
@@ -65,9 +61,13 @@ $avatar-height: 1.8rem;
   }
 }
 
+.chat-icon {
+  fill: get-color(typography, 2);
+}
+
 .postsWrapper {
   overflow: scroll;
   overflow-x: hidden;
-  height: 30rem;
+  height: 25rem;
 }
 
