@@ -42,7 +42,9 @@
 
   </div>
 
-  <button class="btn btn-primary-rounded btn-block">BOOK</button>
-  <button class="btn btn-outline-primary-rounded btn-block">CONTACT ARTIST</button>
+  <button *ngIf="!isCourse && !isPaying" class="btn btn-primary-rounded btn-block" (click)="goToBooking()">BOOK</button>
+  <button *ngIf="isCourse && !isPaying" class="btn btn-primary-rounded btn-block" (click)="goToEnrol()">ENROL</button>
+  <button *ngIf="isPaying" class="btn btn-primary-rounded btn-block" (click)="pay()">PAY</button>
+  <button *ngIf="!isPaying" class="btn btn-outline-primary-rounded btn-block">CONTACT ARTIST</button>
 
 </div>

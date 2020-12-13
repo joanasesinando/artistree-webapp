@@ -25,4 +25,8 @@ export class GigCardComponent implements OnInit {
     this.router.navigate(['/gig', this.gig.id]);
   }
 
+  goToBooking(): void {
+    this.router.navigate(['/gig/' + this.gig.id + '/book']);
+  }
+
 }

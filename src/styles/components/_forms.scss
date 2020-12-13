@@ -67,6 +67,12 @@ textarea.form-control {
   padding: .55rem 2.5rem;
 }
 
+.form-label-group.no-icon>input,
+.form-label-group.no-icon>label {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 .filter-budget .form-label-group>input,
 .filter-budget.form-label-group>label {
   padding-right: 1rem;

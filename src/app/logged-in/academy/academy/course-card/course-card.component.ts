@@ -25,4 +25,8 @@ export class CourseCardComponent implements OnInit {
     this.router.navigate(['/course', this.course.id]);
   }
 
+  goToEnrol(): void {
+    this.router.navigate(['/course/' + this.course.id + '/enrol']);
+  }
+
 }
