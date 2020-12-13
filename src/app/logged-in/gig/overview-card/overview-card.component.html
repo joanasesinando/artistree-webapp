@@ -32,12 +32,27 @@
 
   </div>
 
-  <div class="list mb-5" [ngClass]="{'mt-4': !isCourse}">
+  <div class="list mb-4" [ngClass]="{'mt-4': !isCourse}">
 
     <div *ngFor="let checkItem of item.list; let last = last"
          class="item d-flex align-items-center" [ngClass]="{'mb-2': !last}">
       <i data-eva="checkmark-circle-outline"></i>
       <span class="text-dark ml-2">{{checkItem}}</span>
+    </div>
+
+  </div>
+
+  <div *ngIf="isPaying" class="total mb-3">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <span class="text-dark bold" style="font-size: .9rem">TOTAL</span>
+      <span class="text-dark bold" style="font-size: .9rem">{{item.price}}€</span>
+    </div>
+
+
+    <div class="d-flex align-items-center justify-content-between">
+      <span class="text-light-grey medium" style="font-size: .7rem">Delivery time</span>
+      <span class="text-light-grey regular" style="font-size: .7rem">N/A</span>
     </div>
 
   </div>

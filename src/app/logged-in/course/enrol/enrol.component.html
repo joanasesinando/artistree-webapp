@@ -1,1 +1,115 @@
-<p>enrol works!</p>
+<section class="container-fluid row py-4" id="enrol-section">
+
+  <div class="col-12 col-md-8">
+
+    <div class="card-att">
+      <h6 class="subtitle">Payment options</h6>
+
+      <div class="options d-flex align-items-center mb-4">
+
+        <div class="custom-control custom-checkbox mr-3">
+          <input
+            type="checkbox"
+            id="visa"
+            class="custom-control-input"
+            name="visa"
+            [(ngModel)]="options.visa">
+          <label class="custom-control-label" for="visa"><img src="assets/imgs/payment/visa.svg" alt="visa" style="height: 1rem"></label>
+        </div>
+
+        <div class="custom-control custom-checkbox mr-3">
+          <input
+            type="checkbox"
+            id="mastercard"
+            class="custom-control-input"
+            name="mastercard"
+            [(ngModel)]="options.mastercard">
+          <label class="custom-control-label" for="mastercard"><img src="assets/imgs/payment/mastercard.svg" alt="mastercard" style="height: 1rem"></label>
+        </div>
+
+        <div class="custom-control custom-checkbox">
+          <input
+            type="checkbox"
+            id="paypal"
+            class="custom-control-input"
+            name="paypal"
+            [(ngModel)]="options.paypal">
+          <label class="custom-control-label" for="paypal"><img src="assets/imgs/payment/paypal.svg" alt="paypal" style="height: 1rem"></label>
+        </div>
+
+      </div>
+
+      <div class="row mx-0">
+
+        <div class="col-6 pl-0">
+          <app-input-number
+            [id]="'bookGigCardNumber'"
+            [placeholder]="'Card number'"
+            [iconType]="'none'"
+            [required]="true"
+            [(value)]="paymentInfo.cardNumber">
+          </app-input-number>
+        </div>
+
+        <div class="col-3">
+          <app-input-text
+            [id]="'bookGigExpirationDate'"
+            [placeholder]="'Expiration date'"
+            [iconType]="'none'"
+            [required]="true"
+            [(value)]="paymentInfo.expirationDate">
+          </app-input-text>
+        </div>
+
+        <div class="col-3 pr-0">
+          <app-input-number
+            [id]="'bookGigSecurityCode'"
+            [placeholder]="'Security code'"
+            [iconType]="'none'"
+            [required]="true"
+            [(value)]="paymentInfo.securityCode">
+          </app-input-number>
+        </div>
+
+      </div>
+
+      <div class="row mx-0 mt-3">
+
+        <div class="col-6 pl-0">
+          <app-input-text
+            [id]="'bookGigFirstName'"
+            [placeholder]="'First name'"
+            [iconType]="'none'"
+            [required]="true"
+            [(value)]="paymentInfo.firstName">
+          </app-input-text>
+        </div>
+
+        <div class="col-6 pr-0">
+          <app-input-text
+            [id]="'bookGigLastName'"
+            [placeholder]="'Last name'"
+            [iconType]="'none'"
+            [required]="true"
+            [(value)]="paymentInfo.lastName">
+          </app-input-text>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-12 col-md-4">
+
+    <app-overview-card *ngIf="course"
+                       [item]="course"
+                       [isCourse]="true"
+                       [isPaying]="true"
+                       [marginTopOnMobile]="true">
+    </app-overview-card>
+
+  </div>
+
+</section>
