@@ -87,13 +87,7 @@ export class CoursesCardComponent implements OnInit {
   }
 
   getNewID(): string {
-    let max = -1;
-    if (this.user.courses.length === 0) return '0';
-
-    for (const course of this.user.courses) {
-      if (max < parseInt(course.id, 10)) max = parseInt(course.id, 10);
-    }
-    return (max + 1).toString();
+    return (new Date()).getTime().toString();
   }
 
   createCourse(): void {
@@ -115,7 +109,7 @@ export class CoursesCardComponent implements OnInit {
 
     const courseID = this.getNewID();
     this.newCourse.id = courseID;
-    this.newCourse.artistID = this.user.uid
+    this.newCourse.artistID = this.user.uid;
     this.user.courses.push({
       id: courseID,
       name: this.newCourse.name,

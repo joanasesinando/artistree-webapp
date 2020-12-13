@@ -72,13 +72,7 @@ export class GigsCardComponent implements OnInit {
   }
 
   getNewID(): string {
-    let max = -1;
-    if (this.user.gigs.length === 0) return '0';
-
-    for (const gig of this.user.gigs) {
-      if (max < parseInt(gig.id, 10)) max = parseInt(gig.id, 10);
-    }
-    return (max + 1).toString();
+    return (new Date()).getTime().toString();
   }
 
   createGig(): void {
