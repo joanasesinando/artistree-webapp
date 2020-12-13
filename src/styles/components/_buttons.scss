@@ -264,3 +264,27 @@
   color: white;
   background-color: get-color(typography, 3);
 }
+
+/*--------------------------------------------------------------
+# Outline: Primary
+--------------------------------------------------------------*/
+.btn-outline-primary-rounded {
+  padding: .4rem 1rem;
+  color: get-color(primary, 3);
+  background-color: white;
+  border-radius: 30.3333px;
+  border: 2px solid get-color(primary, 3);
+
+  &:hover, &:focus, &:active {
+    color: white;
+    background-color: get-color(primary, 3);
+    box-shadow: none;
+  }
+}
+
+.btn-outline-primary-rounded:not(:disabled):not(.disabled).active,
+.btn-outline-primary-rounded:not(:disabled):not(.disabled):active,
+.show>.btn-outline-primary-rounded.dropdown-toggle {
+  color: get-color(primary, 3);
+  background-color: white;
+}

@@ -72,7 +72,6 @@ export class ReviewsCardComponent implements OnInit, AfterViewInit {
         break;
 
       case 'gig':
-        console.log(this.gig)
         for (const review of this.gig.reviews) {
           await this.firebaseService.getUserInfo(review.userID).then(reviewer => {
             this.reviewsToShow.push({

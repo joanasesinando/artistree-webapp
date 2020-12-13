@@ -1,6 +1,11 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
 $avatar-height: 2rem;
 $main-img-height: 30rem;
+$main-img-height-mobile: 14rem;
 $secondary-imgs-height: 5rem;
+$secondary-imgs-height-mobile: 3rem;
 
 #gig-section {
 
@@ -34,11 +39,19 @@ $secondary-imgs-height: 5rem;
     height: $main-img-height;
     width: 100%;
 
+    @include media-breakpoint-down(sm) {
+      height: $main-img-height-mobile;
+    }
+
     img {
       width: 100%;
       height: $main-img-height;
       object-fit: cover;
       border-radius: 5px;
+
+      @include media-breakpoint-down(sm) {
+        height: $main-img-height-mobile;
+      }
     }
   }
 
@@ -46,11 +59,19 @@ $secondary-imgs-height: 5rem;
     width: calc((100% - (4 * .5rem)) / 5);
     height: $secondary-imgs-height;
 
+    @include media-breakpoint-down(sm) {
+      height: $secondary-imgs-height-mobile;
+    }
+
     img {
       width: 100%;
       height: $secondary-imgs-height;
       object-fit: cover;
       border-radius: 5px;
+
+      @include media-breakpoint-down(sm) {
+        height: $secondary-imgs-height-mobile;
+      }
     }
   }
 

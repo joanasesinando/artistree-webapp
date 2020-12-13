@@ -3,6 +3,7 @@
   <div class="d-flex align-items-center justify-content-between flex-wrap">
     <h6 *ngIf="type === 'given'" class="subtitle">Reviews given</h6>
     <h6 *ngIf="type === 'received'" class="subtitle">Reviews received</h6>
+    <h6 *ngIf="type === 'course' || type === 'gig'" class="subtitle">Reviews</h6>
 
     <!-- Sort by -->
     <app-sort-by *ngIf="reviewsToShow.length > 0"

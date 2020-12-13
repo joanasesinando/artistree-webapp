@@ -16,7 +16,7 @@ import _ from 'lodash';
 export class GigComponent implements OnInit, AfterViewInit {
 
   // tslint:disable-next-line:max-line-length
-  gig: Gig = {reviews: [], rate: 0, artistID: '', category: '', description: '', id: '', imagesURL: [], name: '', pitch: '', price: 0, timesSold: 0, timestamp: 0};
+  gig: Gig = {list: null, reviews: null, rate: 0, artistID: '', category: '', description: '', id: '', imagesURL: [], name: '', pitch: '', price: 0, timesSold: 0, timestamp: 0};
 
   artist: User = {title: '', avatar: '', handler: '', interests: [], joiningTimestamp: 0, name: '', type: '', uid: ''};
 
@@ -31,14 +31,13 @@ export class GigComponent implements OnInit, AfterViewInit {
         this.gig.category = gigInfo.category;
         this.gig.pitch = gigInfo.pitch;
         this.gig.description = gigInfo.description;
-        if (this.gig.list) this.gig.list = gigInfo.list;
+        if (gigInfo.list) this.gig.list = gigInfo.list;
         this.gig.price = gigInfo.price;
         this.gig.imagesURL = gigInfo.imagesURL;
-        if (this.gig.rate) this.gig.rate = gigInfo.rate;
+        if (gigInfo.rate) this.gig.rate = gigInfo.rate;
         this.gig.timesSold = gigInfo.timesSold;
         this.gig.timestamp = gigInfo.timestamp;
         this.gig.artistID = gigInfo.artistID;
-        this.gig.rate = gigInfo.rate;
         this.gig.reviews = gigInfo.reviews;
 
         this.firebaseService.getUserInfo(this.gig.artistID).then(artistInfo => {
