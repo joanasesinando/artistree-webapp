@@ -1,15 +1,16 @@
 @import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
 @import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
 
-.overview-gig {
+.overview {
 
-  .header {
+  .header-gig {
     height: 2.5rem;
     width: 100%;
     letter-spacing: 1px;
 
     span {
       position: relative;
+      cursor: pointer;
 
       &::after {
         content: "";
@@ -34,6 +35,50 @@
     }
   }
 
+  .header-course {
+    height: 2.5rem;
+    width: 100%;
+    letter-spacing: 1px;
+
+    span {
+      cursor: pointer;
+    }
+
+    span.text-primary {
+      position: relative;
+
+      &::after {
+        content: "";
+        height: 3px;
+        width: calc(100% + 4rem);
+        background-color: #39d8c8;
+        display: block;
+        position: absolute;
+        left: -2.4rem;
+        bottom: -1.3rem;
+        z-index: 10;
+      }
+    }
+
+    .header-border-bottom {
+      height: 1.5px;
+      width: calc(100% + 3rem);
+      background-color: get-color(border, 1);
+      position: relative;
+      left: -1.5rem;
+      bottom: -1rem
+    }
+
+    .header-border-right {
+      height: 3.6rem;
+      width: 1.5px;
+      background-color: get-color(border, 1);
+      position: absolute;
+      top: 0;
+      left: 11.3rem;
+    }
+  }
+
   .price {
     font-size: 1.1rem;
   }
@@ -46,6 +91,12 @@
   .item {
     svg {
       fill: get-color(primary, 3);
+    }
+  }
+
+  .duration {
+    svg {
+      fill: get-color(typography, 2);
     }
   }
 

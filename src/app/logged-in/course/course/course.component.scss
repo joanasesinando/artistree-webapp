@@ -1,0 +1,83 @@
+@import "src/styles/abstracts/variables", "src/styles/abstracts/functions", "src/styles/abstracts/mixins";
+@import "node_modules/bootstrap/scss/functions", "node_modules/bootstrap/scss/variables", "node_modules/bootstrap/scss/mixins";
+
+$avatar-height: 2rem;
+$main-img-height: 30rem;
+$main-img-height-mobile: 14rem;
+$secondary-imgs-height: 5rem;
+$secondary-imgs-height-mobile: 3rem;
+
+#course-section {
+
+  .rate {
+    svg {
+      fill: #F2C94C;
+      height: 1rem;
+    }
+  }
+
+  .avatar {
+    width: $avatar-height;
+    height: $avatar-height;
+
+    img {
+      width: 100%;
+      height: $avatar-height;
+      object-fit: cover;
+    }
+  }
+
+  .name {
+    letter-spacing: 0.505197px;
+  }
+
+  .title {
+    letter-spacing: 0.763177px;
+  }
+
+  .main-img {
+    height: $main-img-height;
+    width: 100%;
+
+    @include media-breakpoint-down(sm) {
+      height: $main-img-height-mobile;
+    }
+
+    img {
+      width: 100%;
+      height: $main-img-height;
+      object-fit: cover;
+      border-radius: 5px;
+
+      @include media-breakpoint-down(sm) {
+        height: $main-img-height-mobile;
+      }
+    }
+  }
+
+  .secondary-img {
+    width: calc((100% - (4 * .5rem)) / 5);
+    height: $secondary-imgs-height;
+
+    @include media-breakpoint-down(sm) {
+      height: $secondary-imgs-height-mobile;
+    }
+
+    img {
+      width: 100%;
+      height: $secondary-imgs-height;
+      object-fit: cover;
+      border-radius: 5px;
+
+      @include media-breakpoint-down(sm) {
+        height: $secondary-imgs-height-mobile;
+      }
+    }
+  }
+
+  .description {
+    letter-spacing: 1px;
+    word-break: break-word;
+  }
+
+}

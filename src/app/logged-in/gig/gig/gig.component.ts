@@ -15,8 +15,21 @@ import _ from 'lodash';
 })
 export class GigComponent implements OnInit, AfterViewInit {
 
-  // tslint:disable-next-line:max-line-length
-  gig: Gig = {list: null, reviews: null, rate: 0, artistID: '', category: '', description: '', id: '', imagesURL: [], name: '', pitch: '', price: 0, timesSold: 0, timestamp: 0};
+  gig: Gig = {
+    artistID: '',
+    category: '',
+    description: '',
+    id: '',
+    imagesURL: [],
+    name: '',
+    pitch: '',
+    price: 0,
+    timesSold: 0,
+    timestamp: 0,
+    list: null,
+    reviews: null,
+    rate: 0
+  };
 
   artist: User = {title: '', avatar: '', handler: '', interests: [], joiningTimestamp: 0, name: '', type: '', uid: ''};
 
@@ -65,7 +78,7 @@ export class GigComponent implements OnInit, AfterViewInit {
     return rateArray;
   }
 
-  getImagesWithoutMain(): void {
+  getImagesWithoutMain(): string[] {
     const copy = _.cloneDeep(this.gig.imagesURL);
     copy.splice(0, 1);
     return copy;

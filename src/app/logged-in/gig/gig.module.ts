@@ -9,10 +9,13 @@ import {ProfileModule} from '../profile/profile.module';
 
 @NgModule({
   declarations: [GigComponent, OverviewCardComponent],
-    imports: [
-        CommonModule,
-        GigRoutingModule,
-        ProfileModule
-    ]
+  exports: [
+    OverviewCardComponent
+  ],
+  imports: [
+    CommonModule,
+    GigRoutingModule,
+    ProfileModule
+  ]
 })
 export class GigModule { }

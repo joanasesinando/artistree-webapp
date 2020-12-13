@@ -238,22 +238,11 @@ export class FirebaseService {
     return this.setDatabaseData('lives/' + live.id, live);
   }
 
-  // postToLive(liveId: string, post: LivePost): Promise<void> {
-  //   return this.getLiveInfo(liveId).then(live => {
-  //     if (live.posts) {
-  //       live.posts.push(post);
-  //     } else {
-  //       live.posts = [post]
-  //     }
-  //
-  //     return this.setLiveInfo(live);
-  //   });
-  // }
-
   /*** --------------------------------------------- ***/
   /*** ------------------ Reviews ------------------ ***/
   /*** --------------------------------------------- ***/
 
+  // FiXME: update with new stuff
   createReview(fromID: string, toID: string, rate: number, description: string): void {
     this.getDatabaseData('users/artists/' + toID).then(artist => {
       let reviewsArtist: { userID: string, rate: number, description: string, timestamp: number }[];

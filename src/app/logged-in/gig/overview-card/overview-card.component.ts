@@ -10,7 +10,8 @@ import * as eva from 'eva-icons';
 })
 export class OverviewCardComponent implements OnInit, AfterViewInit {
 
-  @Input() gig: Gig;
+  @Input() item: any;
+  @Input() isCourse?: boolean;
   @Input() marginTop: boolean;
   @Input() marginTopOnMobile: boolean;
 

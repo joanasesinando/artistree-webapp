@@ -1,18 +1,40 @@
-<div class="overview-gig card-att"
+<div class="overview card-att"
      [ngClass]="{'mt-4-att': marginTop, 'mt-4 mt-md-0': marginTopOnMobile}">
 
-  <div class="header">
+  <div *ngIf="!isCourse" class="header-gig">
     <span class="text-primary semibold">Overview</span>
     <div class="header-border-bottom"></div>
   </div>
 
-  <h4 class="subtitle mt-3">{{gig.name}}</h4>
-  <p class="description font-size-3 text-dark regular mb-2">{{gig.pitch}}</p>
-  <span class="price text-dark medium float-right">{{gig.price}}€</span>
+  <div *ngIf="isCourse" class="header-course w-100">
+    <div class="d-flex align-items-center">
+      <div class="w-50 text-center">
+        <span class="text-primary semibold">Course Summary</span>
+        <div class="header-border-right"></div>
+      </div>
+      <div class="w-50 text-center">
+        <span class="text-grey regular">Chapters</span>
+      </div>
+    </div>
+    <div class="header-border-bottom"></div>
+  </div>
 
-  <div class="list mt-4 mb-5">
+  <h4 class="subtitle mt-3">{{item.name}}</h4>
+  <p class="description font-size-3 text-dark regular mb-2">{{item.pitch}}</p>
+  <span class="price text-dark medium float-right">{{item.price}}€</span>
 
-    <div *ngFor="let checkItem of gig.list; let last = last"
+  <div *ngIf="isCourse" class="duration mt-4 mb-3">
+
+    <div class="d-flex align-items-center">
+      <i data-eva="clock-outline"></i>
+      <span class="text-grey ml-2">{{item.duration}}</span>
+    </div>
+
+  </div>
+
+  <div class="list mb-5" [ngClass]="{'mt-4': !isCourse}">
+
+    <div *ngFor="let checkItem of item.list; let last = last"
          class="item d-flex align-items-center" [ngClass]="{'mb-2': !last}">
       <i data-eva="checkmark-circle-outline"></i>
       <span class="text-dark ml-2">{{checkItem}}</span>

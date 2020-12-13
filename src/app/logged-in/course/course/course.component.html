@@ -1,1 +1,75 @@
-<p>{{course.id}}</p>
+<section class="container-fluid row py-4" id="course-section">
+
+  <div class="col-12 col-md-8">
+
+    <div class="card-att card-filled">
+
+      <!-- Name & Rate -->
+      <div class="d-flex align-items-center">
+        <h4 class="mt-0">{{course.name}}</h4>
+
+        <div class="rate d-flex align-items-center ml-2">
+          <i *ngFor="let rate of getRateArray(course.rate)" class="star" data-eva="star"></i>
+        </div>
+      </div>
+
+      <!-- Avatar -->
+      <div class="d-flex align-items-center mt-1">
+        <div class="avatar mr-2">
+          <img class="rounded-circle" src="{{artist.avatar}}" alt="avatar">
+        </div>
+
+        <div>
+          <p class="name text-dark bold font-size-3 mb-0">{{artist.name}}</p>
+          <p class="title text-grey regular font-size-4 mb-0">{{artist.title}}</p>
+        </div>
+      </div>
+
+      <!-- Images -->
+      <div class="images position-relative w-100 mt-4 mt-md-5">
+
+        <a class="main-img" href="{{course.imagesURL[0]}}" data-lightbox="gig">
+          <img src="{{course.imagesURL[0]}}" alt="gig image">
+        </a>
+
+        <div class="d-flex align-items-center flex-wrap mt-2">
+
+          <a *ngFor="let img of getImagesWithoutMain(); let last = last"
+             class="secondary-img d-block" href="{{img}}" data-lightbox="gig"
+             [ngClass]="{'mr-2': !last}">
+            <img src="{{img}}" alt="gig image">
+          </a>
+
+        </div>
+
+      </div>
+
+      <!-- About -->
+      <div class="about mt-4 mt-md-5">
+
+        <h5 class="subtitle">About this gig</h5>
+        <p class="description font-size-3 text-dark regular">{{course.description}}</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="col-12 col-md-4">
+
+    <app-overview-card *ngIf="course"
+         [item]="course"
+         [isCourse]="true"
+         [marginTopOnMobile]="true">
+    </app-overview-card>
+
+    <app-reviews-card *ngIf="course.reviews"
+        [course]="course"
+        [type]="'course'"
+        [marginTop]="true"
+    ></app-reviews-card>
+
+  </div>
+
+</section>
