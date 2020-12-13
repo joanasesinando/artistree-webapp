@@ -1,0 +1,30 @@
+$avatar-height: 2rem;
+
+.avatar {
+  width: $avatar-height;
+  height: $avatar-height;
+
+  img {
+    width: 100%;
+    height: $avatar-height;
+    object-fit: cover;
+  }
+}
+
+.text {
+  padding-left: calc(#{$avatar-height} + .5rem);
+}
+
+#liveVideoBar {
+  background: #202b36;
+  height: 2rem;
+}
+
+.overlay {
+  overflow: visible;
+  pointer-events: none;
+  background:none !important;
+}
+
+
+

@@ -68,79 +68,78 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   };
 
   artists: User[] = [];
-
-  lives: Live[] = [
-    {
-      free: false,
-      artistID: '32xBShZg1oMMj7bANbz8NgyfZYy2',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: '4ZQfkGnFvZdSZDKx9pYSGtla9Sw2',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: '8CCfmxvGbhZz6Rl2T3bejmimGf53',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: '8M21g7mFsOPfXzHVqOIi9UhKKuu2',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: 'Aciq4JOLk6hqSLekTlgHlroxZ9m1',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: 'DBz9f0xfUEMxYCa0a0ijcpYGwOt1',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: 'Dq7iLW3x2NSE0NlG52HoA7raxr63',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: 'IlDV2dDEfTa49ncrQHycGwmamdt2',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: 'IlDV2dDEfTa49ncrQHycGwmamdt2',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    },
-    {
-      free: true,
-      artistID: 'RdJFySIWaZWNshH3Ca9FOP5AQZI2',
-      name: 'Lorem ipsum dolor sit amet',
-      tags: ['lorem', 'ipsum'],
-      thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
-    }
-  ];
+  lives: Live[] = [];
+  // lives: Live[] = [{
+  //     free: false,
+  //     artistID: '32xBShZg1oMMj7bANbz8NgyfZYy2',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: '4ZQfkGnFvZdSZDKx9pYSGtla9Sw2',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: '8CCfmxvGbhZz6Rl2T3bejmimGf53',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: '8M21g7mFsOPfXzHVqOIi9UhKKuu2',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: 'Aciq4JOLk6hqSLekTlgHlroxZ9m1',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: 'DBz9f0xfUEMxYCa0a0ijcpYGwOt1',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: 'Dq7iLW3x2NSE0NlG52HoA7raxr63',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: 'IlDV2dDEfTa49ncrQHycGwmamdt2',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: 'IlDV2dDEfTa49ncrQHycGwmamdt2',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   },
+  //   {
+  //     free: true,
+  //     artistID: 'RdJFySIWaZWNshH3Ca9FOP5AQZI2',
+  //     name: 'Lorem ipsum dolor sit amet',
+  //     tags: ['lorem', 'ipsum'],
+  //     thumbnail: 'https://images.unsplash.com/photo-1607469425855-f9b073ab812c?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMXx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+  //   }
+  // ];
 
   feeds = [
     {
@@ -185,10 +184,17 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getArtists();
+    this.getLives();
   }
 
   ngAfterViewInit(): void {
     eva.replace();
+  }
+
+  getLives(): void {
+    this.firebase.getAllLives().then(lives => {
+      this.lives = lives;
+    });
   }
 
   getArtists(): void {
