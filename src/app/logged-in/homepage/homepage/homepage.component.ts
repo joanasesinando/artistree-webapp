@@ -172,6 +172,14 @@ export class HomepageComponent implements OnInit, AfterViewInit {
     this.firebase.getDatabaseData('users/artists/' + 'Dq7iLW3x2NSE0NlG52HoA7raxr63').then(user => {
       this.artists.push(user as User);
     });
+
+    this.firebase.getDatabaseData('users/artists/' + 'TU3GaIEvSccAtByGkEC0KUZ0IRs1').then(user => {
+      this.artists.push(user as User);
+    });
+
+    this.firebase.getDatabaseData('users/artists/' + 'tpg6rPti7jULsSZVyWMxxqy0X022').then(user => {
+      this.artists.push(user as User);
+    });
   }
 
   loadIcons(): void {
