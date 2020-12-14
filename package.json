@@ -1,6 +1,12 @@
 {
   "name": "artistree-webapp",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Artistree is a web app that let's artists connect with their audience in an easy and interactive way",
+  "authors": "Afonso Luís, Guilherme Monteiro, Joana Sesinando, Lourenço Cortesão, Tiago Delgado",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joanasesinando/artistree-webapp"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

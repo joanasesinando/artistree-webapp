@@ -386,7 +386,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
       ( type === 'gig' && ((item.rate && !!this.parseForSearching(this.getRate(item.rate)).find(a => a.includes(this.selectedRate.toLowerCase()))) || (!item.rate && !!this.parseForSearching('Unrated').find(a => a.includes(this.selectedRate.toLowerCase())))) ) ||
       // tslint:disable-next-line:max-line-length
       ( type === 'course' && ((item.rate && !!this.parseForSearching(this.getRate(item.rate)).find(a => a.includes(this.selectedRate.toLowerCase()))) ||
-        (!item.rate && !!this.parseForSearching('Unrated').find(a => a.includes(this.selectedRate.toLowerCase())))) ); // TODO
+        (!item.rate && !!this.parseForSearching('Unrated').find(a => a.includes(this.selectedRate.toLowerCase())))) );
   }
 
   isQueryTrueDuration(course: Course): boolean {

@@ -78,12 +78,10 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   }
 
   hasMessages(): boolean {
-    // TODO
     return false;
   }
 
   hasNotifications(): boolean {
-    // TODO
     return true;
   }
 
