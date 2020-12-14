@@ -72,15 +72,15 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   feeds = [
     {
-      avatar: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Zaynah Gilmore',
-      title: 'Phootgrapher',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
+      avatar: 'https://images.unsplash.com/photo-1506863530036-1efeddceb993?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OXx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      name: 'Jules Ireland',
+      title: 'Photographer',
+      description: 'Guys! Look at my new toys. Don\'t you love them? Comment down below',
       timestamp: 1607681253843,
       imgsURL: [
-        'https://images.unsplash.com/photo-1607825143721-88249c959196?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-        'https://images.unsplash.com/photo-1607825143721-88249c959196?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-        'https://images.unsplash.com/photo-1607825143721-88249c959196?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+        'https://images.unsplash.com/photo-1545997281-2cfe4d4b740f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fHRveXN8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+        'https://images.unsplash.com/photo-1590880483437-1f12ab91a4b9?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60',
+        'https://images.unsplash.com/photo-1599988288505-b99835a1e342?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fA%3D%3D&auto=format&fit=crop&w=600&q=60'
       ],
       likes: {
         liked: true,
@@ -89,16 +89,48 @@ export class HomepageComponent implements OnInit, AfterViewInit {
       commentsTotal: 5
     },
     {
-      avatar: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjF8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
-      name: 'Zaynah Gilmore',
-      title: 'Phootgrapher',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id vitae tortor elit viverra ante sem. Imperdiet lectus duis in tortor, sit gravida. Rutrum diam in nisi justo. Ultrices eget donec diam amet sed tincidunt arcu.',
+      avatar: 'https://images.unsplash.com/photo-1551843073-4a9a5b6fcd5f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzB8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      name: 'Elyse Mccormack',
+      title: 'Circus Performer',
+      description: 'New show open for tickets in Rome! Go see us perform',
       timestamp: 1607681253843,
       likes: {
-        liked: true,
-        total: 27
+        liked: false,
+        total: 198
       },
-      commentsTotal: 5
+      commentsTotal: 56
+    },
+    {
+      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8cG9ydHJhaXR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      name: 'Arabella Muller',
+      title: 'Magician',
+      description: 'I just bought a new card set. Isn\' it cool?',
+      timestamp: 1607681253887,
+      imgsURL: [
+        'https://images.unsplash.com/photo-1594998164298-bcbef14f3877?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'
+      ],
+      likes: {
+        liked: false,
+        total: 34
+      },
+      commentsTotal: 4
+    },
+    {
+      avatar: 'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHBvcnRyYWl0fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+      name: 'Vicky Pearce',
+      title: 'Actress',
+      description: 'Here is my latest performance. Were you guys there?',
+      timestamp: 1607681253887,
+      imgsURL: [
+        'https://images.unsplash.com/photo-1503095396549-807759245b35?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8dGhlYXRyZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+        'https://images.unsplash.com/photo-1495131796982-281014f71fbd?ixid=MXwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDF8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60',
+        'https://images.unsplash.com/photo-1513106580091-1d82408b8cd6?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8dGhlYXRyZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'
+      ],
+      likes: {
+        liked: true,
+        total: 73
+      },
+      commentsTotal: 18
     }
   ];
 
@@ -125,15 +157,19 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   }
 
   getArtists(): void {
-    this.firebase.getDatabaseData('users/artists/' + 'RdJFySIWaZWNshH3Ca9FOP5AQZI2').then(user => {
+    this.firebase.getDatabaseData('users/artists/' + 'dUnRkuvAr1hAdTTzTYYYcGlQJ2c2').then(user => {
       this.artists.push(user as User);
     });
 
-    this.firebase.getDatabaseData('users/artists/' + 'IlDV2dDEfTa49ncrQHycGwmamdt2').then(user => {
+    this.firebase.getDatabaseData('users/artists/' + '8CCfmxvGbhZz6Rl2T3bejmimGf53').then(user => {
       this.artists.push(user as User);
     });
 
-    this.firebase.getDatabaseData('users/artists/' + 'DBz9f0xfUEMxYCa0a0ijcpYGwOt1').then(user => {
+    this.firebase.getDatabaseData('users/artists/' + 'SpflxeY1zHMLdjpQSkMV7gcFvFE3').then(user => {
+      this.artists.push(user as User);
+    });
+
+    this.firebase.getDatabaseData('users/artists/' + 'Dq7iLW3x2NSE0NlG52HoA7raxr63').then(user => {
       this.artists.push(user as User);
     });
   }

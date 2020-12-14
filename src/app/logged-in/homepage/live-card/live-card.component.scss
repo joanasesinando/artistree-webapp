@@ -37,6 +37,7 @@
   }
 
   .avatar {
+    position: absolute;
     height: 1.5rem;
     width: 1.5rem;
 
@@ -49,6 +50,8 @@
 
   .title {
     font-size: .8rem;
+    word-break: break-word;
+    margin-left: 2rem;
   }
 
   .job {
