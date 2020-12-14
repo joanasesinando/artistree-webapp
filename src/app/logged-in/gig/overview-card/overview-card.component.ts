@@ -40,7 +40,7 @@ export class OverviewCardComponent implements OnInit, AfterViewInit {
       this.router.navigate(['/course/' + this.item.id]);
 
     } else {
-      this.alertService.showAlert('Enrollment Successful', 'Thank you for your purchase! You can now start learning through this course.', 'success');
+      this.alertService.showAlert('Booking Successful', 'Thank you for your purchase! You will be contacted soon for more details.', 'success');
       this.router.navigate(['/gig/' + this.item.id]);
     }
   }
