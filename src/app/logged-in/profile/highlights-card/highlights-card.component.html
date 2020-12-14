@@ -12,7 +12,7 @@
         <span class="title d-block bold font-size-3 mb-1">{{highlight.title}}</span>
         <span class="description d-block font-size-3">{{highlight.description}}</span>
 
-        <div class="delete {{highlight.color}}" (click)="deleteHighlight(highlight)">
+        <div *ngIf="isCurrent" class="delete {{highlight.color}}" (click)="deleteHighlight(highlight)">
           <i data-eva="close"></i>
         </div>
       </div>
