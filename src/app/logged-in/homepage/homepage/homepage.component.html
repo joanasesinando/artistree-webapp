@@ -8,7 +8,7 @@
 
   <h4 class="mt-5">See who's live now</h4>
 
-  <div class="w-100 live-now position-relative">
+  <div class="w-100 live-now position-relative mt-3">
 
     <ngx-slick-carousel *ngIf="lives.length !== 0" class="carousel"
                         id="liveCarousel"
@@ -25,7 +25,7 @@
 
   <div class="row mt-4">
 
-    <div class="col-9 mr-3">
+    <div class="col-12 col-md-9 mr-3">
 
       <!-- Feed -->
       <app-feed-post *ngFor="let feed of feeds; let last = last"
@@ -40,7 +40,7 @@
 
 
 
-    <div class="col card-att card-filled" style="border-radius: 0">
+    <div class="col card-att card-filled mt-4 mt-md-0">
       <h4 class="mt-0 mb-2" style="font-size: 1rem">Discover new artists</h4>
 
       <app-artist-card *ngFor="let artist of artists" [artist]="artist"></app-artist-card>

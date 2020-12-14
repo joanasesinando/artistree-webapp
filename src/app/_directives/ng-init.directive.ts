@@ -5,10 +5,9 @@ import {Directive, OnInit, Output, EventEmitter} from '@angular/core';
 })
 export class NgInitDirective implements OnInit {
 
-  @Output()
-  ngInit: EventEmitter<any> = new EventEmitter();
+  @Output() ngInit: EventEmitter<any> = new EventEmitter();
 
-  ngOnInit() {
+  ngOnInit(): void {
     setTimeout(() => this.ngInit.emit(), 100);
   }
 }

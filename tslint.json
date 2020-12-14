@@ -140,7 +140,6 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
       "camelCase"
     ],
     "component-selector": [

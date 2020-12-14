@@ -7,7 +7,6 @@ import {AngularFireDatabase} from '@angular/fire/database';
 
 import {AlertService} from '../_util/alert.service';
 import {Live} from '../_domain/Live';
-import {LivePost} from '../_domain/LivePost';
 
 
 @Injectable({

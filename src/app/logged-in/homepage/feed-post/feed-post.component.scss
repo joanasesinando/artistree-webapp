@@ -3,6 +3,7 @@
 
 $avatar-height: 2rem;
 $img-height: 13rem;
+$img-height-mobile: 5rem;
 
 .feed {
   letter-spacing: 0.505197px;
@@ -26,10 +27,19 @@ $img-height: 13rem;
     height: $img-height;
     width: calc((100% - (2 * 1rem)) / 3);
 
+    @include media-breakpoint-down(sm) {
+      height: $img-height-mobile;
+      width: calc((100% - (2 * .5rem)) / 3);
+    }
+
     img {
       width: 100%;
       height: $img-height;
       object-fit: cover;
+
+      @include media-breakpoint-down(sm) {
+        height: $img-height-mobile;
+      }
     }
   }
 

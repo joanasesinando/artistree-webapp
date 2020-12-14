@@ -12,3 +12,15 @@
   border: 2.5px solid get-color(primary, 3);
   color: get-color(primary, 3);
 }
+
+/*--------------------------------------------------------------
+# Badge primary
+--------------------------------------------------------------*/
+.badge-primary {
+  padding: .25rem .5rem;
+  font-size: .55rem;
+  @include font-weight-att(semibold);
+  background-color: get-color(primary, 3);
+  border: none;
+  color: white;
+}
