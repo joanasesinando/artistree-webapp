@@ -27,7 +27,7 @@
     <div *ngIf="user.courses && user.courses.length > 0 && user.courses.length <= 2" class="mb-3">
 
       <div class="d-flex align-items-center flex-wrap">
-        <div *ngFor="let course of this.user.courses" class="position-relative mr-3"[style]="'width: 15rem'">
+        <div *ngFor="let course of this.user.courses" class="position-relative mr-0 mr-md-3 card-few">
           <app-course-card [course]="course"></app-course-card>
 
           <div class="delete" (click)="deleteCourse(course)">

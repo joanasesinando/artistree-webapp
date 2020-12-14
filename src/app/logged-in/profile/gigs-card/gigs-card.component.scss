@@ -17,3 +17,11 @@
     }
   }
 }
+
+.card-few {
+  width: 15rem;
+
+  @include media-breakpoint-down(md) {
+    width: 100%;
+  }
+}

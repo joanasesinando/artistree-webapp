@@ -12,7 +12,7 @@
                           [config]="slideConfig"
                           #slickModal='slick-carousel'>
 
-        <div ngxSlickItem *ngFor="let gig of this.user.gigs" class="slide mr-3 position-relative">
+        <div ngxSlickItem *ngFor="let gig of this.user.gigs" class="slide mr-0 mr-md-3 position-relative">
           <app-gig-card [gig]="gig"></app-gig-card>
 
           <div class="delete" (click)="deleteGig(gig)">
@@ -27,7 +27,7 @@
     <div *ngIf="user.gigs && user.gigs.length > 0 && user.gigs.length <= 2" class="mb-3">
 
       <div class="d-flex align-items-center flex-wrap">
-        <div *ngFor="let gig of this.user.gigs" class="position-relative mr-3"[style]="'width: 15rem'">
+        <div *ngFor="let gig of this.user.gigs" class="position-relative mr-0 mr-md-3 card-few">
           <app-gig-card [gig]="gig"></app-gig-card>
 
           <div class="delete" (click)="deleteGig(gig)">
