@@ -137,6 +137,7 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   constructor(private firebase: FirebaseService) { }
 
   ngOnInit(): void {
+    this.goTop();
     this.getArtists();
     this.getLives();
   }
@@ -184,6 +185,11 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   loadIcons(): void {
     eva.replace();
+  }
+
+  goTop(): void {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
 }
